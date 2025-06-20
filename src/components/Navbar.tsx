@@ -92,12 +92,25 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Hamburger */}
-        <button
-          className="md:hidden text-2xl text-[var(--primary-color)] dark:text-white"
-          onClick={() => setMenuOpen(true)}
-        >
-          &#9776;
-        </button>
+        {/* Mobile Dark/Light Toggle + Hamburger */}
+        <div className="md:hidden flex items-center gap-3">
+          <button
+            onClick={() => setDarkMode(!darkMode)}
+            className="p-2 rounded-full"
+          >
+            {darkMode ? (
+              <FaSun className="text-white text-xl" />
+            ) : (
+              <FaMoon className="text-[var(--secondary-color)] text-xl" />
+            )}
+          </button>
+          <button
+            className="text-2xl text-[var(--secondary-color)] dark:text-white"
+            onClick={() => setMenuOpen(true)}
+          >
+            &#9776;
+          </button>
+        </div>
       </div>
 
       {/* Overlay Background Blur */}
@@ -118,7 +131,11 @@ export default function Navbar() {
           {/* Close + Logo in Mobile */}
           {isMobile && (
             <div className="flex justify-between items-center">
-              <img src={logo} alt="Logo" className="w-36" />
+              <img
+                src={logo}
+                alt="Logo"
+                className="w-36 invert dark:invert-0"
+              />
               <IoClose
                 className="text-3xl text-[var(--secondary-color)] dark:text-white"
                 onClick={() => setMenuOpen(false)}
@@ -151,7 +168,9 @@ export default function Navbar() {
               </>
             ) : (
               <>
-                <h1 className="text-3xl my-10 leading-relaxed">About:</h1>
+                <h1 className="text-3xl mb-4 text-black dark:text-white">
+                  About:
+                </h1>
                 <p className="text-md leading-relaxed mb-6">
                   The Integrated Logistics Network (ILN) connects global
                   logistics professionals, offering a vetted directory, secure
@@ -166,32 +185,32 @@ export default function Navbar() {
                   </button>
                 </div>
 
-                <hr className="border-black/30 dark:white/30 my-6" />
+                <hr className="border-black/30 dark:border-white/30 my-6" />
 
                 <div>
-                  <h3 className="text-lg mb-4 text-[var(--primary-color)] dark:text-white">
-                    We Are Social
+                  <h3 className="text-3xl mb-4 text-black dark:text-white">
+                    We Are Social:
                   </h3>
                   <div className="flex gap-4 mb-8">
                     {[FaFacebook, FaTwitter, FaLinkedin, FaInstagram].map(
                       (Icon, idx) => (
                         <Icon
                           key={idx}
-                          className="dark:text-white text-[var(--primary-color)] text-3xl"
+                          className="dark:text-white text-[var(--primary-color)] text-3xl cursor-pointer dark:hover:text-[var(--primary-color)]"
                         />
                       )
                     )}
                   </div>
                 </div>
 
-                <hr className="border-black/30 dark:white/30 my-6" />
+                <hr className="border-black/30 dark:border-white/30 my-6" />
 
                 <div className="relative max-w-md">
                   <div className="absolute top-2 left-2 w-full h-full opacity-10 rounded-lg shadow-xl z-0" />
-                  <div className="relative z-10 rounded-lg shadow-lg space-y-4 p-4 bg-white text-[var(--secondary-color)] dark:bg-[var(--secondary-color)] dark:text-white">
-                    <h2 className="text-2xl font-bold flex items-center gap-2 mb-4">
+                  <div className="relative z-10 rounded-lg  space-y-4 p-2 bg-white text-[var(--secondary-color)] dark:bg-[var(--secondary-color)] dark:text-white">
+                    <p className="text-3xl mb-4 text-black dark:text-white">
                       Contact Us
-                    </h2>
+                    </p>
                     <div className="space-y-2 text-sm leading-relaxed">
                       <p className="flex items-center gap-2">
                         <FaMapMarkerAlt className="text-[var(--primary-color)]" />
@@ -215,7 +234,7 @@ export default function Navbar() {
           {/* Close Button for Desktop */}
           {!isMobile && (
             <button
-              className="absolute top-4 right-4 text-3xl text-white"
+              className="absolute top-4 right-4 text-3xl text-[var(--secondary-color)] dark:text-white "
               onClick={() => setMenuOpen(false)}
             >
               <IoClose />
