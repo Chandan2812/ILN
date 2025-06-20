@@ -1,29 +1,47 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   FaMapMarkerAlt,
-  FaCalendarAlt,
   FaPhoneAlt,
   FaFacebook,
   FaTwitter,
   FaLinkedin,
   FaInstagram,
+  FaEnvelope,
+  FaSun,
+  FaMoon,
 } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
+import logo from "../assets/Untitled design (12).png";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const isMobile = window.innerWidth < 768;
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem("theme") === "dark";
+  });
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  }, [darkMode]);
+
+  const isMobile =
+    typeof window !== "undefined" ? window.innerWidth < 768 : false;
 
   return (
-    <header className="w-full bg-[#1B8DC1] text-white font-[PT Serif]">
-      {/* Top Info Bar */}
-      <div className="hidden md:flex justify-between items-center px-4 py-2 text-sm border-b border-gray-700">
+    <header className="sticky top-0 z-50 w-full font-['PT_Serif'] transition-colors bg-white text-[var(--secondary-color)] dark:bg-[var(--secondary-color)] dark:text-white">
+      {/* Top Info Bar (Desktop Only) */}
+      <div className="w-11/12 mx-auto hidden md:flex justify-between items-center px-5 py-2 text-sm border-b border-black/40  dark:border-white/10">
         <span className="flex items-center gap-1">
-          <FaMapMarkerAlt /> No: 58 A, Baltimore, MD, USA 4508
+          <FaMapMarkerAlt /> Lorem ipsum dolor sit, elit. Consequatur, ad?
         </span>
-        <div className="flex gap-5">
+        <div className="flex gap-10">
           <span className="flex items-center">
-            <FaCalendarAlt /> Mon - Sat : 8 am - 5 pm
+            <FaEnvelope /> info@integratedlognet.com
           </span>
           <span className="flex items-center">
             <FaPhoneAlt /> 0-123-456-789
@@ -32,30 +50,15 @@ export default function Navbar() {
       </div>
 
       {/* Main Navbar */}
-      <div className="flex justify-between items-center px-4 py-3 w-full">
+      <div className="w-11/12 mx-auto flex justify-between items-center px-5 py-2">
         {/* Logo */}
         <div className="flex items-center gap-2">
-          <div className="bg-[#FF7235] p-2 rounded">
-            <svg
-              className="h-5 w-5 text-white"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M5 12h14M12 5l7 7-7 7"
-              />
-            </svg>
-          </div>
-          <span className="text-xl font-bold">Logi</span>
+          <img src={logo} alt="Logo" className="w-32 invert dark:invert-0" />
         </div>
 
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex gap-6 text-sm">
-          <a href="#" className="text-[#FF7235]">
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex gap-6 text-md">
+          <a href="#" className="text-[var(--primary-color)]">
             Home
           </a>
           <a href="#">Pages</a>
@@ -65,99 +68,158 @@ export default function Navbar() {
           <a href="#">Contact</a>
         </nav>
 
-        {/* Desktop Sign In & Menu Button */}
+        {/* Desktop Buttons */}
         <div className="hidden md:flex items-center gap-3">
-          <button className="bg-[#FF7235] text-white px-6 py-2 rounded-tl-2xl rounded-br-2xl">
+          <button
+            onClick={() => setDarkMode(!darkMode)}
+            className="px-3 py-2 rounded-full "
+          >
+            {darkMode ? (
+              <FaSun className="text-white" />
+            ) : (
+              <FaMoon className="text-[var(--secondary-color)]" />
+            )}
+          </button>
+          <button className="bg-[var(--primary-color)] text-white px-6 py-2 rounded-tl-2xl rounded-br-2xl">
             Sign In
           </button>
           <button
-            className="text-white text-2xl"
+            className="text-2xl text-[var(--primary-color)] dark:text-white"
             onClick={() => setMenuOpen(true)}
           >
             &#9776;
           </button>
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Hamburger */}
         <button
-          className="md:hidden text-white text-2xl"
+          className="md:hidden text-2xl text-[var(--primary-color)] dark:text-white"
           onClick={() => setMenuOpen(true)}
         >
           &#9776;
         </button>
       </div>
 
+      {/* Overlay Background Blur */}
+      {menuOpen && (
+        <div
+          className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-30 backdrop-blur-sm z-40"
+          onClick={() => setMenuOpen(false)}
+        />
+      )}
+
       {/* Sidebar Menu */}
       {menuOpen && (
         <div
           className={`fixed top-0 right-0 ${
-            isMobile ? "w-full" : "w-1/2"
-          } h-full bg-[#1B8DC1] z-50 overflow-y-auto p-6`}
+            isMobile ? "w-full" : "w-1/3"
+          } h-full z-50 overflow-y-auto p-6 bg-white dark:bg-[var(--secondary-color)]`}
         >
-          {/* Close Button */}
-          <button
-            className="absolute top-4 right-4 text-white text-3xl"
-            onClick={() => setMenuOpen(false)}
-          >
-            <IoClose />
-          </button>
+          {/* Close + Logo in Mobile */}
+          {isMobile && (
+            <div className="flex justify-between items-center">
+              <img src={logo} alt="Logo" className="w-36" />
+              <IoClose
+                className="text-3xl text-[var(--secondary-color)] dark:text-white"
+                onClick={() => setMenuOpen(false)}
+              />
+            </div>
+          )}
 
-          {/* Mobile Menu Content */}
-          {isMobile ? (
-            <div className="mt-10">
-              <a href="#" className="block py-2 text-[#FF7235]">
-                Home
-              </a>
-              <a href="#" className="block py-2">
-                Pages
-              </a>
-              <a href="#" className="block py-2">
-                Services
-              </a>
-              <a href="#" className="block py-2">
-                Projects
-              </a>
-              <a href="#" className="block py-2">
-                Blogs
-              </a>
-              <a href="#" className="block py-2">
-                Contact
-              </a>
-              <button className="mt-6 bg-[#FF7235] text-white px-6 py-2 rounded-tl-2xl rounded-br-2xl">
-                Sign In
-              </button>
-            </div>
-          ) : (
-            <div className="mt-10 space-y-6">
-              <p className="text-lg leading-relaxed">
-                We are a leading logistics provider delivering exceptional
-                transport solutions across the globe.
-              </p>
-              <button className="bg-white text-[#1B8DC1] px-6 py-2 rounded-full font-semibold">
-                Contact Us
-              </button>
-              <hr className="border-white/30" />
-              <div>
-                <h3 className="text-white text-lg mb-2">We Are Social</h3>
-                <div className="flex gap-4 text-2xl">
-                  <FaFacebook className="hover:text-[#FF7235]" />
-                  <FaTwitter className="hover:text-[#FF7235]" />
-                  <FaLinkedin className="hover:text-[#FF7235]" />
-                  <FaInstagram className="hover:text-[#FF7235]" />
-                </div>
-              </div>
-              <hr className="border-white/30" />
-              <div className="text-sm leading-loose mt-4">
-                <p>
-                  <strong>Contact Us :</strong>
+          <div className={`mt-10 ${isMobile ? "" : "space-y-6"}`}>
+            {isMobile ? (
+              <>
+                {[
+                  "Home",
+                  "Pages",
+                  "Services",
+                  "Projects",
+                  "Blogs",
+                  "Contact",
+                ].map((item) => (
+                  <a
+                    key={item}
+                    href="#"
+                    className="block py-2 text-[var(--primary-color)] dark:text-white"
+                  >
+                    {item}
+                  </a>
+                ))}
+                <button className="mt-6 bg-[var(--primary-color)] text-white px-6 py-2 rounded-tl-2xl rounded-br-2xl">
+                  Sign In
+                </button>
+              </>
+            ) : (
+              <>
+                <h1 className="text-3xl my-10 leading-relaxed">About:</h1>
+                <p className="text-md leading-relaxed mb-6">
+                  The Integrated Logistics Network (ILN) connects global
+                  logistics professionals, offering a vetted directory, secure
+                  messaging, events, and exclusive resources. It enables
+                  networking, partnership building, and access to insights that
+                  drive growth, efficiency, and global business expansion.
                 </p>
-                <p>No: 58 A, East Madison Street, Baltimore, MD, USA 4508</p>
-                <p>info@example.com</p>
-                <p>logi@example.com</p>
-                <p>000 - 123 - 456789</p>
-                <p>000 - 235 - 789456</p>
-              </div>
-            </div>
+                <div className="relative inline-block">
+                  <div className="absolute top-1 left-1 w-full h-full bg-[var(--primary-color)] opacity-30 rounded z-0" />
+                  <button className="relative z-10 text-white bg-[var(--primary-color)] px-6 py-2 font-semibold rounded">
+                    Contact Us
+                  </button>
+                </div>
+
+                <hr className="border-black/30 dark:white/30 my-6" />
+
+                <div>
+                  <h3 className="text-lg mb-4 text-[var(--primary-color)] dark:text-white">
+                    We Are Social
+                  </h3>
+                  <div className="flex gap-4 mb-8">
+                    {[FaFacebook, FaTwitter, FaLinkedin, FaInstagram].map(
+                      (Icon, idx) => (
+                        <Icon
+                          key={idx}
+                          className="dark:text-white text-[var(--primary-color)] text-3xl"
+                        />
+                      )
+                    )}
+                  </div>
+                </div>
+
+                <hr className="border-black/30 dark:white/30 my-6" />
+
+                <div className="relative max-w-md">
+                  <div className="absolute top-2 left-2 w-full h-full opacity-10 rounded-lg shadow-xl z-0" />
+                  <div className="relative z-10 rounded-lg shadow-lg space-y-4 p-4 bg-white text-[var(--secondary-color)] dark:bg-[var(--secondary-color)] dark:text-white">
+                    <h2 className="text-2xl font-bold flex items-center gap-2 mb-4">
+                      Contact Us
+                    </h2>
+                    <div className="space-y-2 text-sm leading-relaxed">
+                      <p className="flex items-center gap-2">
+                        <FaMapMarkerAlt className="text-[var(--primary-color)]" />
+                        Lorem ipsum dolor sit, elit. Consequatur, ad?
+                      </p>
+                      <p className="flex items-center gap-2">
+                        <FaPhoneAlt className="text-[var(--primary-color)]" />{" "}
+                        0-123-456-789
+                      </p>
+                      <p className="flex items-center gap-2">
+                        <FaEnvelope className="text-[var(--primary-color)]" />{" "}
+                        info@integratedlognet.com
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+
+          {/* Close Button for Desktop */}
+          {!isMobile && (
+            <button
+              className="absolute top-4 right-4 text-3xl text-white"
+              onClick={() => setMenuOpen(false)}
+            >
+              <IoClose />
+            </button>
           )}
         </div>
       )}
