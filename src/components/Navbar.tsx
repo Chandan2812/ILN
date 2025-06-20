@@ -215,7 +215,8 @@ export default function Navbar() {
                     <div className="space-y-2 text-sm leading-relaxed">
                       <p className="flex items-center gap-2">
                         <FaMapMarkerAlt className="text-[var(--primary-color)]" />
-                        Lorem ipsum dolor sit, elit. Consequatur, ad?
+                        Unit 1112, 11/F, Wing On Plaza 62, Mody Road, Tsim Sha
+                        Tsui East Kowloon, Hong Kong
                       </p>
                       <p className="flex items-center gap-2">
                         <FaPhoneAlt className="text-[var(--primary-color)]" />{" "}
