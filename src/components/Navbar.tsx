@@ -11,7 +11,7 @@ import {
   FaMoon,
 } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
-import logo from "../assets/Untitled design (12).png";
+import logo from "../assets/ILN-logo_c089e4b10fad01a7ab60f4da7afc45c2.png";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);

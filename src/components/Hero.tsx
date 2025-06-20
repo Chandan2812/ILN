@@ -36,9 +36,12 @@ const HeroSection: React.FC = () => {
           elementum sed sit amet dui. Nulla quis lorem ut libero malesuada
           feugiat.
         </p>
-        <button className="mt-8 px-6 py-3 bg-orange-500 hover:bg-orange-600 transition rounded text-sm font-semibold">
-          Explore More
-        </button>
+        <div className="relative inline-block mt-5">
+          <div className="absolute top-1 left-1 w-full h-full bg-[var(--primary-color)] opacity-30 rounded z-0" />
+          <button className="relative z-10 text-white bg-[var(--primary-color)] px-6 py-2 font-semibold rounded">
+            Explore More
+          </button>
+        </div>
       </div>
     </section>
   );
