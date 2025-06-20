@@ -9,6 +9,8 @@ import {
   FaEnvelope,
 } from "react-icons/fa6";
 
+import { HiPaperAirplane } from "react-icons/hi";
+
 const Footer: React.FC = () => {
   return (
     <footer className="relative text-white overflow-hidden">
@@ -26,20 +28,18 @@ const Footer: React.FC = () => {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
           <div>
             <h2 className="text-2xl font-bold mb-2">Subscribe Newsletter</h2>
-            <hr className="w-20 border-orange-500 border-b-2" />
+            <hr className="w-20 border-[var(--primary-color)] border-b-2" />
           </div>
-          <div className="flex items-center gap-2 border-b border-white/30 pb-2 w-full max-w-md">
+          <div className="flex items-center gap-2 border-b border-white/30 p-2 w-full max-w-md">
             <input
               type="email"
               placeholder="Enter your mail id"
               className="bg-transparent text-white placeholder-white w-full outline-none"
             />
-            <div className="relative inline-block mt-5">
-              <div className="absolute top-1 left-1 w-full h-full bg-[var(--primary-color)] opacity-30 rounded z-0" />
-              <button className="relative z-10 text-white bg-[var(--primary-color)] px-6 py-2 font-semibold rounded">
-                Subscribe
-              </button>
-            </div>
+
+            <button className="relative z-10 text-[var(--primary-color)]  p-2 rounded">
+              <HiPaperAirplane className="text-3xl rotate-90" />
+            </button>
           </div>
         </div>
 
@@ -58,7 +58,7 @@ const Footer: React.FC = () => {
 
           {/* Contact Us */}
           <div>
-            <h3 className="font-bold mb-3">Contact Us</h3>
+            <h3 className="font-bold text-xl mb-3">Contact Us</h3>
             <ul className="space-y-2 text-gray-200">
               <li>Find Us Here</li>
               <li>Get In Touch</li>
@@ -70,7 +70,7 @@ const Footer: React.FC = () => {
 
           {/* Services */}
           <div>
-            <h3 className="font-bold mb-3">Services</h3>
+            <h3 className="font-bold text-xl mb-3">Services</h3>
             <ul className="space-y-2 text-gray-200">
               <li>Our Services</li>
               <li>What We Do</li>
@@ -82,13 +82,11 @@ const Footer: React.FC = () => {
 
           {/* Latest News */}
           <div>
-            <h3 className="font-bold mb-3">Latest News</h3>
+            <h3 className="font-bold text-xl mb-3">Quick Links</h3>
             <ul className="space-y-2 text-gray-200">
-              <li>Air Freight</li>
-              <li>Ocean Freight</li>
-              <li>Land Freight</li>
-              <li>Warehouse</li>
-              <li>Cold Storage</li>
+              <li>Register Now</li>
+              <li>Privacy Policy</li>
+              <li>Terms & Conditions</li>
             </ul>
           </div>
         </div>

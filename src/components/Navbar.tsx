@@ -22,10 +22,10 @@ export default function Navbar() {
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
+      sessionStorage.setItem("theme", "dark");
     } else {
       document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
+      sessionStorage.setItem("theme", "light");
     }
   }, [darkMode]);
 
@@ -35,9 +35,10 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 w-full font-['PT_Serif'] transition-colors bg-white text-[var(--secondary-color)] dark:bg-[var(--secondary-color)] dark:text-white">
       {/* Top Info Bar (Desktop Only) */}
-      <div className="w-11/12 mx-auto hidden md:flex justify-between items-center px-5 py-2 text-sm border-b border-black/40  dark:border-white/10">
+      <div className="w-11/12 mx-auto hidden md:flex justify-between items-center md:px-5 py-2 text-sm border-b border-black/40  dark:border-white/10">
         <span className="flex items-center gap-1">
-          <FaMapMarkerAlt /> Lorem ipsum dolor sit, elit. Consequatur, ad?
+          <FaMapMarkerAlt /> Unit 1112, 11/F, Wing On Plaza 62, Mody Road, Tsim
+          Sha Tsui East Kowloon, Hong Kong
         </span>
         <div className="flex gap-10">
           <span className="flex items-center">
@@ -50,7 +51,7 @@ export default function Navbar() {
       </div>
 
       {/* Main Navbar */}
-      <div className="w-11/12 mx-auto flex justify-between items-center px-5 py-2">
+      <div className="w-11/12 mx-auto flex justify-between items-center md:px-5 py-2">
         {/* Logo */}
         <div className="flex items-center gap-2">
           <img src={logo} alt="Logo" className="w-32 invert dark:invert-0" />
@@ -61,9 +62,9 @@ export default function Navbar() {
           <a href="#" className="text-[var(--primary-color)]">
             Home
           </a>
-          <a href="#">Pages</a>
-          <a href="#">Services</a>
-          <a href="#">Projects</a>
+          <a href="#">About</a>
+          <a href="#">Menbership Verticals</a>
+          <a href="#">Newsfeed</a>
           <a href="#">Blogs</a>
           <a href="#">Contact</a>
         </nav>
@@ -148,9 +149,9 @@ export default function Navbar() {
               <>
                 {[
                   "Home",
-                  "Pages",
-                  "Services",
-                  "Projects",
+                  "About",
+                  "Membership Verticals",
+                  "Newsfeed",
                   "Blogs",
                   "Contact",
                 ].map((item) => (

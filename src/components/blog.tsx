@@ -24,7 +24,7 @@ const Insights = () => {
       <h2 className="text-center text-3xl font-thin">INSIGHTS</h2>
 
       {/* Slider Section */}
-      <div className="w-full md:w-11/12 mx-auto mt-8">
+      <div className="w-full md:w-5/6 mx-auto mt-8">
         <Slider {...settings}>
           {blogsData.slice(0, 4).map((item, i) => (
             <div key={i}>
@@ -42,7 +42,7 @@ const Insights = () => {
                   </p>
                   <a
                     href="/viewblogs"
-                    className="mt-6 rounded-full bg-[var(--primary-color)] text-black text-lg font-light hover:opacity-70 px-6 py-2 uppercase tracking-wide transition w-fit inline-block"
+                    className="mt-6 rounded-tl-2xl rounded-br-2xl bg-[var(--primary-color)] text-white text-md font-light hover:opacity-70 px-6 py-2 uppercase tracking-wide transition w-fit inline-block"
                   >
                     All Blogs
                   </a>

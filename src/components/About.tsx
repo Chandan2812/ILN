@@ -1,12 +1,19 @@
-import aboutImage from "../assets/ILN-logo_c089e4b10fad01a7ab60f4da7afc45c2.png";
+import { useEffect } from "react";
+import aboutImage from "../assets/303e5955fa99dd84c83c37496a3de2a9.jpg";
 import { FaShieldAlt, FaUsers, FaHandshake, FaGlobe } from "react-icons/fa";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 export default function About() {
+  useEffect(() => {
+    AOS.init({ duration: 1000, once: true });
+  }, []);
+
   return (
     <div className="bg-[var(--bg-color2)] dark:bg-[var(--bg-color1)] transition-colors py-12">
       <section className="w-5/6 mx-auto flex flex-col md:flex-row items-center gap-10">
         {/* Left Side Image */}
-        <div className="w-full md:w-1/2">
+        <div className="w-full md:w-1/2" data-aos="fade-right">
           <img
             src={aboutImage}
             alt="About ILN"
@@ -15,7 +22,10 @@ export default function About() {
         </div>
 
         {/* Right Side Text Content */}
-        <div className="w-full md:w-1/2 text-center md:text-left">
+        <div
+          className="w-full md:w-1/2 text-center md:text-left"
+          data-aos="fade-up"
+        >
           <h2 className="text-4xl font-bold text-[var(--secondary-color)] dark:text-white mb-4">
             Welcome to ILN Global Community
           </h2>
@@ -29,26 +39,42 @@ export default function About() {
 
           {/* Bullet Points / Features */}
           <ul className="space-y-4 text-left">
-            <li className="flex items-start gap-3">
+            <li
+              className="flex items-start gap-3"
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
               <FaShieldAlt className="text-[var(--primary-color)] text-xl mt-1" />
               <span className="text-gray-700 dark:text-gray-300">
                 <strong>Financial Protection</strong> & Cargo Insurance for
                 peace of mind
               </span>
             </li>
-            <li className="flex items-start gap-3">
+            <li
+              className="flex items-start gap-3"
+              data-aos="fade-up"
+              data-aos-delay="400"
+            >
               <FaUsers className="text-[var(--primary-color)] text-xl mt-1" />
               <span className="text-gray-700 dark:text-gray-300">
                 Access to an elite network of vetted logistics professionals
               </span>
             </li>
-            <li className="flex items-start gap-3">
+            <li
+              className="flex items-start gap-3"
+              data-aos="fade-up"
+              data-aos-delay="600"
+            >
               <FaHandshake className="text-[var(--primary-color)] text-xl mt-1" />
               <span className="text-gray-700 dark:text-gray-300">
                 Annual AGMs & conferences for building strong partnerships
               </span>
             </li>
-            <li className="flex items-start gap-3">
+            <li
+              className="flex items-start gap-3"
+              data-aos="fade-up"
+              data-aos-delay="800"
+            >
               <FaGlobe className="text-[var(--primary-color)] text-xl mt-1" />
               <span className="text-gray-700 dark:text-gray-300">
                 Global reach with strategic partners at every key location
@@ -56,9 +82,11 @@ export default function About() {
             </li>
           </ul>
 
-          <button className="mt-8 bg-[var(--primary-color)] text-white px-8 py-3 rounded-tl-2xl rounded-br-2xl font-semibold transition hover:opacity-90">
-            Join the Network
-          </button>
+          <div data-aos="zoom-in" data-aos-delay="1000">
+            <button className="mt-8 bg-[var(--primary-color)] text-white px-8 py-3 rounded-tl-2xl rounded-br-2xl font-semibold transition hover:opacity-90">
+              Join the Network
+            </button>
+          </div>
         </div>
       </section>
     </div>

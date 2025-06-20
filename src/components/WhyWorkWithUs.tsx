@@ -76,7 +76,7 @@ const WhyWorkWithUs: React.FC = () => {
       />
 
       <div className="relative z-10 max-w-7xl mx-auto text-center">
-        <p className="text-4xl font-bold mb-4">Why You Work With Logi</p>
+        <p className="text-4xl font-bold mb-4">Why You Work With ILN</p>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 mt-12 text-center">
           {stats.map((stat, i) => (

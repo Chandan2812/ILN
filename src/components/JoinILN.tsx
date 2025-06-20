@@ -5,8 +5,14 @@ import {
   FaHandshake,
   FaProjectDiagram,
 } from "react-icons/fa";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import { useEffect } from "react";
 
 export default function WhyJoinILN() {
+  useEffect(() => {
+    AOS.init({ duration: 1000, once: true });
+  }, []);
   const benefits = [
     {
       icon: <FaShieldAlt />,
@@ -50,7 +56,7 @@ export default function WhyJoinILN() {
   return (
     <section className="py-12 bg-[var(--bg-color2)] dark:bg-[var(--bg-color1)] transition-colors font-['PT_Serif'] text-[var(--secondary-color)] dark:text-white">
       <div className="w-5/6 mx-auto">
-        <div className="text-center mb-12">
+        <div className="text-center mb-12" data-aos="fade-up">
           <h2 className="text-4xl font-bold mb-2">
             What Happens When You Join ILN?
           </h2>
@@ -66,6 +72,8 @@ export default function WhyJoinILN() {
             {benefits.map((item, index) => (
               <div
                 key={index}
+                data-aos="fade-up"
+                data-aos-delay={index * 100}
                 className="bg-white dark:bg-[var(--secondary2-color)] shadow-sm p-5 rounded-xl flex gap-4 items-start hover:shadow-lg transition"
               >
                 <div className="text-[var(--primary-color)] text-xl mt-1">
@@ -83,8 +91,11 @@ export default function WhyJoinILN() {
             ))}
           </div>
 
-          {/* Right: Special Summary Box */}
-          <div className="flex-1 bg-[var(--primary-color)] text-white rounded-2xl shadow-lg p-8 flex flex-col justify-between">
+          {/* Right: Summary Box */}
+          <div
+            className="flex-1 bg-[var(--primary-color)] text-white rounded-2xl shadow-lg p-8 flex flex-col justify-between"
+            data-aos="zoom-in-left"
+          >
             <div>
               <h3 className="text-3xl font-bold mb-4">
                 ILN Gives You the Edge
