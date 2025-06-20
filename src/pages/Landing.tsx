@@ -1,3 +1,4 @@
+import About from "../components/About";
 import Footer from "../components/Footer";
 import HeroSection from "../components/Hero";
 import Navbar from "../components/Navbar";
@@ -9,6 +10,7 @@ function Landing() {
       <Navbar />
       <HeroSection />
       <WhyWorkWithUs />
+      <About />
       <Footer />
     </div>
   );
