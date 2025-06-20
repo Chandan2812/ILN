@@ -5,7 +5,7 @@ const stats = [
   { value: 5000, label: "New Partners Every Year" },
   { value: 30, label: "Years Of Field Experience" },
   { value: 14000, label: "Talented Staffs Worldwide" },
-  { value: 68000, label: "Successful Project Completion" },
+  // { value: 68000, label: "Successful Project Completion" },
   { value: 2000000, label: "Tonnes Supplied Annually" },
 ];
 
