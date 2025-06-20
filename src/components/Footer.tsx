@@ -6,6 +6,7 @@ import {
   FaFacebook,
   FaTwitter,
   FaLinkedin,
+  FaEnvelope,
 } from "react-icons/fa6";
 
 const Footer: React.FC = () => {
@@ -49,11 +50,9 @@ const Footer: React.FC = () => {
             <div className="flex items-center gap-2 mb-4">
               <img src={logo} alt="Logo" className="w-36" />
             </div>
-            <p className="text-lg font-semibold mb-2">
-              We Ship Worldwide Without Borders
-            </p>
-            <p className="mt-2 text-orange-500 font-semibold cursor-pointer">
-              Discover →
+            <p className="flex items-center gap-2 text-base font-thin text-gray-300">
+              <FaEnvelope />
+              info@integratedlognet.com
             </p>
           </div>
 
@@ -97,7 +96,7 @@ const Footer: React.FC = () => {
         {/* Footer Bottom */}
         <div className="mt-12 flex flex-col sm:flex-row justify-between items-center text-sm border-t border-white/20 pt-6">
           <p className="text-gray-300 mb-4 sm:mb-0">
-            All Right Reserved © 2024 WedesignTech
+            © 2025 Integrated Logistics Network All rights reserved
           </p>
 
           <div className="flex gap-4 mb-8">

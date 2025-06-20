@@ -27,8 +27,8 @@ const HeroSection: React.FC = () => {
           Redefined Cargo Services
         </p>
         <h1 className="text-3xl sm:text-4xl md:text-7xl font-bold leading- ">
-          Innovative Logistic <br className="hidden sm:block" />
-          <span className="text-white">Solutions</span>
+          Integrated Logistic <br className="hidden sm:block" />
+          <span className="text-white">Network</span>
         </h1>
         <p className="max-w-2xl mt-6 text-sm md:text-lg text-[#EFEFEF]">
           Curabitur aliquet quam id dui posuere blandit. Cras ultricies ligula
