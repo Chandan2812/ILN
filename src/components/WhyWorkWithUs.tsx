@@ -15,7 +15,7 @@ const WhyWorkWithUs: React.FC = () => {
       <div className="relative z-10 max-w-7xl mx-auto text-center">
         <p className="text-sm text-gray-300 mb-4">Why You Work With Logi</p>
 
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold leading-snug sm:leading-tight mb-10">
+        <h2 className="text-2xl md:text-5xl font-semibold leading-snug mb-10">
           We Are A Leading One–Stop Logistic{" "}
           <span className="text-orange-500 underline">Service</span> Provider{" "}
           <br />
