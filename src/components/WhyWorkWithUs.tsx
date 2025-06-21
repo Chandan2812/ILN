@@ -5,7 +5,6 @@ const stats = [
   { value: 5000, label: "New Partners Every Year" },
   { value: 30, label: "Years Of Field Experience" },
   { value: 14000, label: "Talented Staffs Worldwide" },
-  // { value: 68000, label: "Successful Project Completion" },
   { value: 2000000, label: "Tonnes Supplied Annually" },
 ];
 
@@ -30,14 +29,14 @@ const animateValue = (
 };
 
 const WhyWorkWithUs: React.FC = () => {
-  const [hasAnimated, setHasAnimated] = useState(false);
+  const hasAnimated = useRef<boolean>(false);
   const [counts, setCounts] = useState(stats.map(() => 0));
   const sectionRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting && !hasAnimated) {
+        if (entry.isIntersecting && !hasAnimated.current) {
           stats.forEach((stat, i) => {
             animateValue(0, stat.value, 1500, (val) => {
               setCounts((prev) => {
@@ -47,22 +46,19 @@ const WhyWorkWithUs: React.FC = () => {
               });
             });
           });
-          setHasAnimated(true);
+          hasAnimated.current = true;
         }
       },
-      {
-        threshold: 0.3,
-      }
+      { threshold: 0.3 }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
+    const currentRef = sectionRef.current;
+    if (currentRef) observer.observe(currentRef);
 
     return () => {
-      if (sectionRef.current) observer.unobserve(sectionRef.current);
+      if (currentRef) observer.unobserve(currentRef);
     };
-  }, [hasAnimated]);
+  }, []);
 
   return (
     <section
@@ -78,7 +74,7 @@ const WhyWorkWithUs: React.FC = () => {
       <div className="relative z-10 max-w-7xl mx-auto text-center">
         <p className="text-4xl font-bold mb-4">Why You Work With ILN</p>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 mt-12 text-center">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 mt-12 text-center">
           {stats.map((stat, i) => (
             <div key={i}>
               <p className="text-3xl font-bold">

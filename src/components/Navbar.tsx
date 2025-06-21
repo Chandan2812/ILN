@@ -12,12 +12,14 @@ import {
 } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import logo from "../assets/ILN-logo_c089e4b10fad01a7ab60f4da7afc45c2.png";
+import { useLocation } from "react-router-dom";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(() => {
     return localStorage.getItem("theme") === "dark";
   });
+  const location = useLocation();
 
   useEffect(() => {
     if (darkMode) {
@@ -59,14 +61,26 @@ export default function Navbar() {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex gap-6 text-md">
-          <a href="#" className="text-[var(--primary-color)]">
-            Home
-          </a>
-          <a href="#">About</a>
-          <a href="#">Menbership Verticals</a>
-          <a href="#">Newsfeed</a>
-          <a href="#">Blogs</a>
-          <a href="#">Contact</a>
+          {[
+            { label: "Home", path: "/" },
+            { label: "About", path: "/#" },
+            { label: "Membership Verticals", path: "/membership-verticals" },
+            { label: "Newsfeed", path: "/#" },
+            { label: "Blogs", path: "/#" },
+            { label: "Contact", path: "/contact" },
+          ].map((link) => (
+            <a
+              key={link.label}
+              href={link.path}
+              className={`${
+                location.pathname === link.path
+                  ? "text-[var(--primary-color)]"
+                  : "text-inherit"
+              }`}
+            >
+              {link.label}
+            </a>
+          ))}
         </nav>
 
         {/* Desktop Buttons */}
@@ -157,7 +171,7 @@ export default function Navbar() {
                 ].map((item) => (
                   <a
                     key={item}
-                    href="#"
+                    href={`/${item.toLowerCase().replace(/\s+/g, "-")}`}
                     className="block py-2 text-[var(--primary-color)] dark:text-white"
                   >
                     {item}
