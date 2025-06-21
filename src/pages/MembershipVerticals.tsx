@@ -144,7 +144,7 @@ const MembershipVerticals = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   return (
-    <div>
+    <div className="bg-white dark:bg-[var(--secondary-color)] text-[var(--secondary-color)] dark:text-white transition-colors duration-300">
       <Navbar />
 
       {/* Banner Image */}
@@ -161,16 +161,18 @@ const MembershipVerticals = () => {
         <div className="grid md:grid-cols-4 gap-12">
           {/* Left - Navigation */}
           <div>
-            <h2 className="text-2xl md:text-3xl font-bold text-[var(--primary-color)] mb-6">
+            <h2 className="text-2xl md:text-3xl font-bold text-[var(--primary-color)] mb-6 dark:text-white">
               Membership Verticals
             </h2>
-            <ul className="space-y-3 text-[var(--primary-color)] font-medium">
+            <ul className="space-y-3 text-black dark:text-white font-medium">
               {verticals.map((item, index) => (
                 <li
                   key={index}
                   onClick={() => setSelectedIndex(index)}
-                  className={`cursor-pointer hover:underline ${
-                    selectedIndex === index ? "font-bold " : ""
+                  className={`cursor-pointer hover:underline transition ${
+                    selectedIndex === index
+                      ? "font-bold text-[var(--primary-color)] "
+                      : ""
                   }`}
                 >
                   {index + 1}. {item.title}
@@ -180,9 +182,8 @@ const MembershipVerticals = () => {
           </div>
 
           {/* Right - Content */}
-
           <div className="md:col-span-3 space-y-6">
-            <h3 className="text-xl md:text-2xl font-semibold text-gray-800">
+            <h3 className="text-xl md:text-2xl font-semibold text-gray-800 dark:text-white">
               {verticals[selectedIndex].title}
             </h3>
 
@@ -197,7 +198,7 @@ const MembershipVerticals = () => {
                   return (
                     <ul
                       key={i}
-                      className="list-disc list-inside text-gray-700 pl-4"
+                      className="list-disc list-inside text-gray-700 dark:text-gray-300 pl-4"
                     >
                       <li className="mb-2">{trimmed.replace(/^-\s*/, "")}</li>
                     </ul>
@@ -205,14 +206,20 @@ const MembershipVerticals = () => {
                 } else if (trimmed.endsWith(":")) {
                   // Header-like or first line
                   return (
-                    <p key={i} className="text-gray-800 font-semibold text-lg">
+                    <p
+                      key={i}
+                      className="font-semibold text-lg text-gray-800 dark:text-white"
+                    >
                       {trimmed}
                     </p>
                   );
                 } else {
                   // Normal paragraph
                   return (
-                    <p key={i} className="text-gray-700 leading-relaxed">
+                    <p
+                      key={i}
+                      className="text-gray-700 dark:text-gray-300 leading-relaxed"
+                    >
                       {trimmed}
                     </p>
                   );
