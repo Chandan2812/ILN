@@ -63,7 +63,7 @@ export default function Navbar() {
         <nav className="hidden md:flex gap-6 text-md">
           {[
             { label: "Home", path: "/" },
-            { label: "About", path: "/#" },
+            { label: "About", path: "/About" },
             { label: "Membership Verticals", path: "/membership-verticals" },
             { label: "Newsfeed", path: "/#" },
             { label: "Blogs", path: "/#" },
