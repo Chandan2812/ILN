@@ -14,6 +14,13 @@ import { IoClose } from "react-icons/io5";
 import logo from "../assets/ILN-logo_c089e4b10fad01a7ab60f4da7afc45c2.png";
 import { useLocation } from "react-router-dom";
 
+declare global {
+  interface Window {
+    googleTranslateElementInit: () => void;
+    google: any;
+  }
+}
+
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(() => {
@@ -33,6 +40,31 @@ export default function Navbar() {
 
   const isMobile =
     typeof window !== "undefined" ? window.innerWidth < 768 : false;
+
+  useEffect(() => {
+    const googleTranslateElementInit = () => {
+      new window.google.translate.TranslateElement(
+        {
+          pageLanguage: "en",
+          autoDisplay: false,
+        },
+        "google_translate_element"
+      );
+    };
+
+    const loadGoogleTranslateScript = () => {
+      if (!window.googleTranslateElementInit) {
+        const script = document.createElement("script");
+        script.src =
+          "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+        script.async = true;
+        document.body.appendChild(script);
+        window.googleTranslateElementInit = googleTranslateElementInit;
+      }
+    };
+
+    loadGoogleTranslateScript();
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 w-full font-['PT_Serif'] transition-colors bg-white text-[var(--secondary-color)] dark:bg-[var(--secondary-color)] dark:text-white">
@@ -258,6 +290,11 @@ export default function Navbar() {
           )}
         </div>
       )}
+
+      <div
+        id="google_translate_element"
+        className="fixed  right-[95px] top-7 translate-x-0 md:right-[380px] md:top-[1px] md:-translate-x-1/2"
+      />
     </header>
   );
 }
