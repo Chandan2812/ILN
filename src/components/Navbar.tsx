@@ -24,7 +24,7 @@ declare global {
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(() => {
-    return localStorage.getItem("theme") === "dark";
+    return sessionStorage.getItem("theme") === "dark";
   });
   const location = useLocation();
 
@@ -88,7 +88,9 @@ export default function Navbar() {
       <div className="w-11/12 mx-auto flex justify-between items-center md:px-5 py-2">
         {/* Logo */}
         <div className="flex items-center gap-2">
-          <img src={logo} alt="Logo" className="w-32 invert dark:invert-0" />
+          <a href="/">
+            <img src={logo} alt="Logo" className="w-32 invert dark:invert-0" />
+          </a>
         </div>
 
         {/* Desktop Navigation */}

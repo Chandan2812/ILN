@@ -70,6 +70,11 @@ export default function Services() {
             ILN members operate across key logistics sectors. Tap into a network
             of specialists delivering tailored solutions across industries.
           </p>
+          <a href="/membership-verticals">
+            <button className=" mt-6 bg-[var(--primary-color)] text-white px-6 py-2 rounded-tl-2xl rounded-br-2xl">
+              View All
+            </button>
+          </a>
         </div>
 
         {/* Center: Vertical List */}

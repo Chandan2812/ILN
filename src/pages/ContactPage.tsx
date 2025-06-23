@@ -89,11 +89,11 @@ export default function ContactPage() {
       </section>
 
       {/* Map Section */}
-      <div className="w-full">
+      <div className="w-[100%]">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3691.509160875037!2d114.1739669750692!3d22.296575679689273!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x340400f1d54416d3%3A0xa530e44e267b1a05!2sWing%20On%20Plaza!5e0!3m2!1sen!2sin!4v1750507518567!5m2!1sen!2sin"
           loading="lazy"
-          className="w-screen h-[500px] border-0"
+          className="w-full h-[500px] border-0"
           allowFullScreen
           referrerPolicy="no-referrer-when-downgrade"
         ></iframe>
