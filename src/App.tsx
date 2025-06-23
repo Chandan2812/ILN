@@ -4,6 +4,8 @@ import Landing from "./pages/Landing";
 import MembershipVerticals from "./pages/MembershipVerticals";
 import ContactPage from "./pages/ContactPage";
 import AboutPage from "./pages/About";
+import Signup from "./pages/Signup";
+import Login from "./pages/Login";
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
         <Route path="/membership-verticals" element={<MembershipVerticals />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/About" element={<AboutPage />} />
+        <Route path="/Signup" element={<Signup />} />
+        <Route path="/Login" element={<Login />} />
       </Routes>
     </Router>
   );

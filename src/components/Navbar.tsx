@@ -128,7 +128,7 @@ export default function Navbar() {
             )}
           </button>
           <button className="bg-[var(--primary-color)] text-white px-6 py-2 rounded-tl-2xl rounded-br-2xl">
-            Sign In
+            <a href="/Login">Sign up</a>
           </button>
           <button
             className="text-2xl text-[var(--primary-color)] dark:text-white"
