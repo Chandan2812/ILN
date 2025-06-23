@@ -130,7 +130,7 @@ export default function Navbar() {
             )}
           </button>
           <button className="bg-[var(--primary-color)] text-white px-6 py-2 rounded-tl-2xl rounded-br-2xl">
-            <a href="/Login">Sign up</a>
+            <a href="/Login">Sign in</a>
           </button>
           <button
             className="text-2xl text-[var(--primary-color)] dark:text-white"
@@ -180,11 +180,13 @@ export default function Navbar() {
           {/* Close + Logo in Mobile */}
           {isMobile && (
             <div className="flex justify-between items-center">
-              <img
-                src={logo}
-                alt="Logo"
-                className="w-36 invert dark:invert-0"
-              />
+              <a href="/">
+                <img
+                  src={logo}
+                  alt="Logo"
+                  className="w-36 invert dark:invert-0"
+                />
+              </a>
               <IoClose
                 className="text-3xl text-[var(--secondary-color)] dark:text-white"
                 onClick={() => setMenuOpen(false)}
@@ -211,9 +213,18 @@ export default function Navbar() {
                     {item}
                   </a>
                 ))}
-                <button className="mt-6 bg-[var(--primary-color)] text-white px-6 py-2 rounded-tl-2xl rounded-br-2xl">
-                  Sign In
-                </button>
+                <div className="flex gap-5">
+                  <a href="/login">
+                    <button className="mt-6 bg-white text-[var(--primary-color)] border border-[var(--primary-color)] px-6 py-2 rounded-tl-2xl rounded-br-2xl">
+                      Sign In
+                    </button>
+                  </a>
+                  <a href="/signup">
+                    <button className="mt-6 bg-[var(--primary-color)] text-white px-6 py-2 rounded-tl-2xl rounded-br-2xl">
+                      Sign up
+                    </button>
+                  </a>
+                </div>
               </>
             ) : (
               <>
@@ -229,9 +240,11 @@ export default function Navbar() {
                 </p>
                 <div className="relative inline-block">
                   <div className="absolute top-1 left-1 w-full h-full bg-[var(--primary-color)] opacity-30 rounded z-0" />
-                  <button className="relative z-10 text-white bg-[var(--primary-color)] px-6 py-2 font-semibold rounded">
-                    Contact Us
-                  </button>
+                  <a href="/contact">
+                    <button className="relative z-10 text-white bg-[var(--primary-color)] px-6 py-2 font-semibold rounded">
+                      Contact Us
+                    </button>
+                  </a>
                 </div>
 
                 <hr className="border-black/30 dark:border-white/30 my-6" />
