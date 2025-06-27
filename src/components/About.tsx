@@ -46,8 +46,7 @@ export default function About() {
             >
               <FaShieldAlt className="text-[var(--primary-color)] text-xl mt-1" />
               <span className="text-gray-700 dark:text-gray-300">
-                <strong>Financial Protection</strong> & Cargo Insurance for
-                peace of mind
+                Financial Protection & Cargo Insurance for peace of mind
               </span>
             </li>
             <li
