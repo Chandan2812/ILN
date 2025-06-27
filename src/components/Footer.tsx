@@ -50,10 +50,11 @@ const Footer: React.FC = () => {
             <div className="flex items-center gap-2 mb-4">
               <img src={logo} alt="Logo" className="w-36" />
             </div>
-            <p className="flex items-center gap-2 text-base font-thin text-gray-300">
-              <FaEnvelope />
-              info@integratedlognet.com
-            </p>
+            <a href="mailto:info@integratedlognet.com">
+              <span className="flex items-center">
+                <FaEnvelope className="mr-2" /> info@integratedlognet.com
+              </span>
+            </a>
           </div>
 
           {/* Contact Us */}

@@ -138,19 +138,19 @@ const Login = () => {
               </div>
             </div>
 
-            <div className="text-right text-sm">
+            {/* <div className="text-right text-sm">
               <a
                 href="/forgot-password"
                 className="text-blue-300 hover:underline"
               >
                 Forgot password?
               </a>
-            </div>
+            </div> */}
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-xl font-medium transition duration-300"
+              className="w-full bg-[var(--primary-color)] hover:bg-blue-600 text-white py-3 rounded-xl font-medium transition duration-300"
             >
               {loading ? "Logging in..." : "Sign In"}
             </button>

@@ -280,7 +280,7 @@ const Signup = () => {
             <button
               type="submit"
               disabled={loading}
-              className={`w-full bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-600 hover:to-emerald-700 text-white py-3.5 rounded-xl font-medium transition-all duration-300 shadow-md hover:shadow-lg ${
+              className={`w-full bg-[var(--primary-color)] hover:bg-blue-600 text-white py-3.5 rounded-xl font-medium transition-all duration-300 shadow-md hover:shadow-lg ${
                 loading ? "opacity-80" : ""
               }`}
             >
@@ -308,7 +308,7 @@ const Signup = () => {
 
           <p className="text-xs text-gray-300 text-center mt-6">
             Already have an account?{" "}
-            <a href="/login" className="text-teal-400 hover:underline">
+            <a href="/login" className="text-blue-300 hover:underline">
               Sign in
             </a>
           </p>
