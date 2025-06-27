@@ -27,7 +27,7 @@ export default function About() {
           data-aos="fade-up"
         >
           <h2 className="text-4xl font-bold text-[var(--secondary-color)] dark:text-white mb-4">
-            Welcome to ILN Global Community
+            Introducing the Integrated Logistics Network (ILN){" "}
           </h2>
           <p className="text-md text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
             Integrated Logistics Network (ILN) is a thriving global community

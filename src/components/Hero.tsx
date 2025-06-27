@@ -1,63 +1,113 @@
-import React, { useEffect } from "react";
-import hero from "../assets/Hero video.mp4";
+import React, { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import hero1 from "../assets/h (1).jpg";
+import hero2 from "../assets/h (2).jpg";
+import hero3 from "../assets/h (3).jpg";
+import hero4 from "../assets/h (4).jpg";
+
+const images = [
+  {
+    url: hero1,
+    title: "Innovating Global Logistics",
+  },
+  {
+    url: hero2,
+    title: "Accelerating Global Trade",
+  },
+  {
+    url: hero3,
+    title: "Maximizing Supply Chain Impact",
+  },
+  {
+    url: hero4,
+    title: "Shaping Tomorrow’s Logistics",
+  },
+];
 
 const HeroSection: React.FC = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
   useEffect(() => {
-    AOS.init({
-      duration: 2000,
-      once: true,
-    });
+    AOS.init({ duration: 2000, once: true });
+
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 5000); // Auto-slide every 5 seconds
+
+    return () => clearInterval(interval);
   }, []);
 
+  const handleThumbnailClick = (index: number) => {
+    setCurrentIndex(index);
+  };
+
   return (
-    <section className="relative w-full  h-[80vh] overflow-hidden">
-      {/* Video container */}
-      <div className="absolute inset-0 z-0">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="w-full md:h-full h-[80vh] object-cover"
-        >
-          <source src={hero} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+    <section className="relative w-full md:h-[100vh] h-[85vh] overflow-hidden">
+      {/* Background Image */}
+      <div className="absolute inset-0 z-0 transition-all duration-1000 ease-in-out">
+        <img
+          src={images[currentIndex].url}
+          alt="hero"
+          className="w-full h-full object-cover"
+        />
       </div>
 
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black/20 dark:bg-black/70 z-10" />
+      {/* Dark Overlay */}
+      <div className="absolute inset-0 bg-black/40 z-10" />
 
-      {/* Content */}
-      <div className="relative z-20 flex flex-col justify-center items-center h-[80vh] text-center text-[#EFEFEF]">
-        <h1
-          className="text-3xl sm:text-4xl md:text-7xl font-bold"
-          data-aos="fade-up"
-        >
-          Integrated Logistic <br className="hidden sm:block" />
-          <span className="text-white">Network</span>
+      {/* Text Content */}
+      <div className="relative z-20 flex flex-col justify-center items-start h-full text-left px-6 md:px-16 text-white">
+        <h1 className="text-4xl sm:text-6xl font-bold" data-aos="fade-up">
+          {images[currentIndex].title}
         </h1>
         <p
-          className="max-w-2xl mt-6 text-sm md:text-lg text-[#EFEFEF]"
+          className="mt-4 text-sm md:text-lg max-w-xl"
           data-aos="fade-up"
-          data-aos-delay="500"
+          data-aos-delay="300"
         >
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Necessitatibus alias sit dignissimos qui et sequi veniam porro
-          doloremque pariatur delectus?
+          The world’s first logistics loyalty program for freight forwarders and
+          traders
         </p>
-        <div
-          className="relative inline-block mt-5"
-          data-aos="zoom-in"
-          data-aos-delay="1000"
+        <button
+          className="mt-6 px-6 py-2 rounded border text-white border-white font-semibold hover:bg-white hover:text-black transition"
+          data-aos="fade-up"
+          data-aos-delay="600"
         >
-          <div className="absolute top-1 left-1 w-full h-full bg-[var(--primary-color)] opacity-30 rounded z-0" />
-          <button className="relative z-10 text-white bg-[var(--primary-color)] px-6 py-2 font-semibold rounded">
-            Explore More
-          </button>
-        </div>
+          READ MORE
+        </button>
+      </div>
+
+      <div className="absolute z-30 right-4 sm:right-10 top-[65%] transform -translate-y-1/2  gap-3 md:flex hidden">
+        {images.map((img, idx) => (
+          <div
+            key={idx}
+            className="group cursor-pointer rounded overflow-hidden transition-all duration-300"
+            onClick={() => handleThumbnailClick(idx)}
+          >
+            <div
+              className={`
+          w-32 h-32 overflow-hidden rounded-md
+          transition-transform duration-300 
+          transform group-hover:scale-105
+        `}
+            >
+              <img
+                src={img.url}
+                alt={`thumb-${idx}`}
+                className={`
+            w-full h-full object-cover 
+            transition-all duration-300 
+            ${currentIndex === idx ? "grayscale-0" : "grayscale"} 
+            group-hover:grayscale-0
+          `}
+              />
+            </div>
+            <p className="text-xs text-white text-center mt-1 font-semibold leading-tight">
+              {img.title.split(" ")[0]} <br /> {img.title.split(" ")[1] || ""}
+            </p>
+          </div>
+        ))}
       </div>
     </section>
   );

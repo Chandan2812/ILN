@@ -1,11 +1,13 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import {
   FaTruck,
   FaSnowflake,
   FaBoxOpen,
   FaPlaneDeparture,
   FaGasPump,
+  FaPalette,
+  FaPeopleCarry,
+  FaGlobe,
+  FaIndustry,
 } from "react-icons/fa";
 
 import img1 from "../assets/1664820885.webp";
@@ -18,120 +20,98 @@ const verticalData = [
   {
     title: "Freight Forwarding & Customs Brokers",
     description:
-      "ILN invites Freight Forwarders and Customs Brokers on the global platform and work with Member Partners globally to compete with integrators and multinationals.",
+      "Join a global logistics network to compete with integrators and multinationals through freight forwarding and customs expertise.",
     icon: <FaTruck />,
     image: img1,
   },
   {
+    title: "Supply Chain",
+    description:
+      "Connect with supply chain professionals across multiple industries delivering scalable, resilient, and agile logistics solutions.",
+    icon: <FaIndustry />,
+    image: img2,
+  },
+  {
     title: "Cold Chain – Pharma & Perishables",
     description:
-      "ILN invites on their global platform the 3PL companies meeting above standards in the Cold Chain transportation network, to work with Member Partners globally.",
+      "Specialized 3PL cold chain handlers for temperature-sensitive pharma and perishable goods logistics, globally certified.",
     icon: <FaSnowflake />,
-    image: img2,
+    image: img3,
   },
   {
     title: "E-commerce & Express Handlers",
     description:
-      "ILN invites such express companies on the global platform using last-mile delivery solutions to cope with the e-commerce demands globally.",
+      "Empowering last-mile and express delivery experts to meet growing e-commerce and global trade demands efficiently.",
     icon: <FaBoxOpen />,
-    image: img3,
-  },
-  {
-    title: "Aerospace & AOG",
-    description:
-      "ILN invites on their global platform, Aerospace and AOG Handlers with 24/7 operations.",
-    icon: <FaPlaneDeparture />,
     image: img4,
   },
   {
-    title: "Oil, Gas & Renewable Energy",
+    title: "Aerospace and AOG",
     description:
-      "ILN invites on their global platform, experienced and professionally managed energy sector handlers.",
+      "Supporting aircraft-on-ground logistics and aerospace supply chain with 24/7 specialized operations.",
+    icon: <FaPlaneDeparture />,
+    image: img5,
+  },
+  {
+    title: "Fine Art & Antiques Logistics",
+    description:
+      "Trusted art logistics partners handling precious artwork, antiques, and heritage items with care and confidentiality.",
+    icon: <FaPalette />,
+    image: img5,
+  },
+  {
+    title: "Professional Packers & Movers – Relocations",
+    description:
+      "Connecting global movers with experience in corporate and personal relocations for seamless international shifting.",
+    icon: <FaPeopleCarry />,
+    image: img5,
+  },
+  {
+    title: "Events & Exhibition Handlers",
+    description:
+      "End-to-end solutions for event logistics, exhibition freight, and handling complex, time-sensitive show deliveries.",
+    icon: <FaGlobe />,
+    image: img5,
+  },
+  {
+    title: "Oil & Gas and Renewable Energy",
+    description:
+      "Reliable logistics for energy projects — from heavy equipment for oil rigs to renewable infrastructure supply.",
     icon: <FaGasPump />,
     image: img5,
   },
 ];
 
 export default function Services() {
-  const [selected, setSelected] = useState(0);
-
   return (
     <section className="bg-white dark:bg-[var(--secondary-color)] text-[var(--secondary-color)] dark:text-white py-16">
-      <div className="w-5/6 md:w-11/12 mx-auto grid md:grid-cols-3 gap-10 items-start">
-        {/* Left Text */}
-        <div className="md:col-span-1 space-y-6 md:sticky md:top-36">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="md:col-span-2">
           <p className="text-sm uppercase text-[var(--primary-color)]">
             Membership Verticals
           </p>
-          <h2 className="text-4xl font-bold leading-tight">
+          <h2 className="text-4xl font-bold leading-tight mt-2 mb-6">
             Industries We Empower
           </h2>
-          <p className="text-sm text-gray-700 dark:text-gray-300">
-            ILN members operate across key logistics sectors. Tap into a network
-            of specialists delivering tailored solutions across industries.
-          </p>
-          <a href="/membership-verticals">
-            <button className=" mt-6 bg-[var(--primary-color)] text-white px-6 py-2 rounded-tl-2xl rounded-br-2xl">
-              View All
-            </button>
-          </a>
-        </div>
-
-        {/* Center: Vertical List */}
-        <div className="md:col-span-1 space-y-2">
-          {verticalData.map((item, index) => (
-            <motion.div
-              key={index}
-              onClick={() => setSelected(index)}
-              whileHover={{ scale: 1.02 }}
-              className={`rounded-md cursor-pointer transition-all duration-300 border-l-4 ${
-                selected === index
-                  ? "bg-[var(--bg-color2)] dark:bg-[var(--bg-color1)] border-[var(--primary-color)]"
-                  : "bg-transparent border-transparent"
-              }`}
-            >
-              <div className="flex items-start gap-4 p-4">
-                <div className="text-xl text-[var(--primary-color)] dark:text-white mt-1">
-                  {item.icon}
+          {/* Grid layout */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {verticalData.map((item, index) => (
+              <div
+                key={index}
+                className="cursor-pointer p-4 rounded-lg shadow-md transition-all duration-300 hover:shadow-xl bg-white dark:bg-neutral-800"
+              >
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="text-2xl text-[var(--primary-color)]">
+                    {item.icon}
+                  </div>
+                  <h3 className="text-base font-semibold">{item.title}</h3>
                 </div>
-                <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-[var(--secondary-color)] dark:text-white">
-                    {item.title}
-                  </h3>
-
-                  <AnimatePresence>
-                    {selected === index && (
-                      <motion.p
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 10 }}
-                        transition={{ duration: 0.3 }}
-                        className="text-sm mt-2 text-black/70 dark:text-white/70"
-                      >
-                        {item.description}
-                      </motion.p>
-                    )}
-                  </AnimatePresence>
-                </div>
+                <p className="text-sm text-gray-600 dark:text-white/70">
+                  {item.description}
+                </p>
               </div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Right Image */}
-        <div className="md:col-span-1 hidden md:block">
-          <AnimatePresence mode="wait">
-            <motion.img
-              key={verticalData[selected].image}
-              src={verticalData[selected].image}
-              alt={verticalData[selected].title}
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              transition={{ duration: 0.4 }}
-              className="w-full rounded-lg"
-            />
-          </AnimatePresence>
+            ))}
+          </div>
         </div>
       </div>
     </section>
