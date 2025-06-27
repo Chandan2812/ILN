@@ -88,7 +88,7 @@ export default function Services() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="md:col-span-2">
           <p className="text-sm uppercase text-[var(--primary-color)]">
-            Membership Verticals
+            Membership
           </p>
           <h2 className="text-4xl font-bold leading-tight mt-2 mb-6">
             Industries We Empower
