@@ -86,23 +86,6 @@ const verticals: Vertical[] = [
   {
     title: "Scheduled Networking Opportunities & AGMs",
     content: `
-      The ILN Annual General Meeting is a cornerstone of our community, offering unparalleled opportunities for networking, business development, and social interaction.
-
-      - Formal Business Meetings: Engage in formal business discussions, explore potential partnerships, and identify new opportunities.
-      - Informal Networking: Enjoy relaxed social settings to connect with fellow members, build relationships, and foster a strong sense of community.
-      - Social Events: Participate in ice-breaker activities, evening receptions, and dinners to enhance social connections and build lasting relationships.
-      - Sponsorship Opportunities: Sponsor the ILN AGM and gain valuable exposure to a network of influential industry leaders, showcase your company’s expertise, and build lasting relationships while supporting a thriving community.
-
-      The ILN Scheduler
-
-      - Personalized Scheduling: The Scheduler analyzes member preferences and creates a customized schedule, optimizing meeting times and maximizing networking efficiency.
-      - Streamlined Meetings: Easily schedule one-on-one meetings and appointments, ensuring you make the most of your time at the AGM.
-      - Enhanced Productivity: Identify potential partners, finalize business deals, and explore new opportunities through efficient and targeted networking.
-    `,
-  },
-  {
-    title: "Scheduled Networking Opportunities & AGMs",
-    content: `
     The ILN Annual General Meeting is a cornerstone of our community, offering unparalleled opportunities for networking, business development, and social interaction.
 
     - Formal Business Meetings: Engage in formal business discussions, explore potential partnerships, and identify new opportunities.

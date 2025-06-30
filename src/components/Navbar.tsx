@@ -99,8 +99,8 @@ export default function Navbar() {
             { label: "Home", path: "/" },
             { label: "About", path: "/About" },
             { label: "Membership Verticals", path: "/membership-verticals" },
-            { label: "Newsfeed", path: "/#" },
-            { label: "Blogs", path: "/#" },
+            { label: "Newsfeed", path: "/newsfeed" },
+            { label: "Blogs", path: "/blogs" },
             { label: "Contact", path: "/contact" },
           ].map((link) => (
             <a
