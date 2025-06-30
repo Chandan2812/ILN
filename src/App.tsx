@@ -8,6 +8,7 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Newsfeed from "./pages/Newsfeed";
 import Blog from "./pages/Blogs";
+import ContactSidebar from "./components/ContactSideBar";
 
 function App() {
   return (
@@ -22,6 +23,9 @@ function App() {
         <Route path="/newsfeed" element={<Newsfeed />} />
         <Route path="/blogs" element={<Blog />} />
       </Routes>
+      <div className="md:flex hidden">
+        <ContactSidebar />
+      </div>
     </Router>
   );
 }

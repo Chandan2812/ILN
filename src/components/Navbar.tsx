@@ -13,6 +13,7 @@ import {
 import { IoClose } from "react-icons/io5";
 import logo from "../assets/ILN-logo_c089e4b10fad01a7ab60f4da7afc45c2.png";
 import { useLocation } from "react-router-dom";
+import JoinFormPopup from "./JoinForm";
 
 declare global {
   interface Window {
@@ -23,6 +24,7 @@ declare global {
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showForm, setShowForm] = useState(false);
   const [darkMode, setDarkMode] = useState(() => {
     return sessionStorage.getItem("theme") === "dark";
   });
@@ -238,13 +240,25 @@ export default function Navbar() {
                   networking, partnership building, and access to insights that
                   drive growth, efficiency, and global business expansion.
                 </p>
-                <div className="relative inline-block">
-                  <div className="absolute top-1 left-1 w-full h-full bg-[var(--primary-color)] opacity-30 rounded z-0" />
-                  <a href="/contact">
-                    <button className="relative z-10 text-white bg-[var(--primary-color)] px-6 py-2 font-semibold rounded">
-                      Contact Us
+                <div className="flex gap-5">
+                  <div className="relative inline-block">
+                    <div className="absolute top-1 left-1 w-full h-full bg-[var(--primary-color)] opacity-30 rounded z-0" />
+                    <a href="/contact">
+                      <button className="relative z-10 text-white bg-[var(--primary-color)] px-6 py-2 font-semibold rounded">
+                        Contact Us
+                      </button>
+                    </a>
+                  </div>
+                  <div className="relative inline-block">
+                    <div className="absolute top-1 left-1 w-full h-full bg-[var(--primary-color)] opacity-30 rounded z-0" />
+
+                    <button
+                      onClick={() => setShowForm(true)}
+                      className="relative z-10 text-white bg-[var(--primary-color)] px-6 py-2 font-semibold rounded"
+                    >
+                      Become a Member
                     </button>
-                  </a>
+                  </div>
                 </div>
 
                 <hr className="border-black/30 dark:border-white/30 my-6" />
@@ -310,6 +324,7 @@ export default function Navbar() {
         id="google_translate_element"
         className="fixed  right-[95px] top-7 translate-x-0 md:right-[380px] md:top-[1px] md:-translate-x-1/2"
       />
+      <JoinFormPopup isOpen={showForm} onClose={() => setShowForm(false)} />
     </header>
   );
 }

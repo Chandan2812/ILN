@@ -1,10 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import aboutImage from "../assets/303e5955fa99dd84c83c37496a3de2a9.jpg";
 import { FaShieldAlt, FaUsers, FaHandshake, FaGlobe } from "react-icons/fa";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import JoinFormPopup from "./JoinForm";
 
 export default function About() {
+  const [showForm, setShowForm] = useState(false);
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
   }, []);
@@ -82,12 +84,16 @@ export default function About() {
           </ul>
 
           <div data-aos="zoom-in" data-aos-delay="1000">
-            <button className="mt-8 bg-[var(--primary-color)] text-white px-8 py-3 rounded-tl-2xl rounded-br-2xl font-semibold transition hover:opacity-90">
+            <button
+              onClick={() => setShowForm(true)}
+              className="mt-8 bg-[var(--primary-color)] text-white px-8 py-3 rounded-tl-2xl rounded-br-2xl font-semibold transition hover:opacity-90"
+            >
               Join the Network
             </button>
           </div>
         </div>
       </section>
+      <JoinFormPopup isOpen={showForm} onClose={() => setShowForm(false)} />
     </div>
   );
 }

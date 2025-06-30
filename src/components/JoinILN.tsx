@@ -7,9 +7,11 @@ import {
 } from "react-icons/fa";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import JoinFormPopup from "./JoinForm";
 
 export default function WhyJoinILN() {
+  const [showForm, setShowForm] = useState(false);
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
   }, []);
@@ -107,12 +109,16 @@ export default function WhyJoinILN() {
                 <li>✔ Build a network of trust & efficiency</li>
               </ul>
             </div>
-            <button className="mt-8 bg-white text-[var(--primary-color)] font-semibold px-6 py-2 rounded-tl-xl rounded-br-xl hover:bg-gray-100 transition w-fit">
+            <button
+              onClick={() => setShowForm(true)}
+              className="mt-8 bg-white text-[var(--primary-color)] font-semibold px-6 py-2 rounded-tl-xl rounded-br-xl hover:bg-gray-100 transition w-fit"
+            >
               Join the ILN Community
             </button>
           </div>
         </div>
       </div>
+      <JoinFormPopup isOpen={showForm} onClose={() => setShowForm(false)} />
     </section>
   );
 }
