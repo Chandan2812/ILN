@@ -6,6 +6,7 @@ import {
   FaFacebook,
   FaLinkedin,
   FaEnvelope,
+  FaLocationDot,
 } from "react-icons/fa6";
 
 import { HiPaperAirplane } from "react-icons/hi";
@@ -46,26 +47,38 @@ const Footer: React.FC = () => {
         {/* Main Grid */}
         <div className="grid md:grid-cols-4 grid-cols-2 gap-10 text-sm">
           {/* Logo & Description */}
-          <div>
-            <div className="flex items-center gap-2 mb-4">
+          <div className="col-span-2 md:col-span-1">
+            <div className="mb-4">
               <img src={logo} alt="Logo" className="w-36" />
             </div>
-            <a href="mailto:info@integratedlognet.com">
-              <span className="flex items-center">
-                <FaEnvelope className="mr-2" /> info@integratedlognet.com
-              </span>
-            </a>
+
+            <div className="space-y-2 text-white ">
+              <a
+                href="mailto:info@integratedlognet.com"
+                className="flex items-center hover:text-[var(--primary-color)] transition-colors"
+              >
+                <FaEnvelope className="mr-2 text-lg text-[var(--primary-color)]" />
+                info@integratedlognet.com
+              </a>
+
+              <div className="flex items-start">
+                <FaLocationDot className="mr-2 text-lg text-[var(--primary-color)]" />
+                <p>
+                  Unit 1112, 11/F, Wing On Plaza 62, Mody Road,
+                  <br />
+                  Tsim Sha Tsui East, Kowloon, Hong Kong
+                </p>
+              </div>
+            </div>
           </div>
 
           {/* Contact Us */}
           <div>
             <h3 className="font-bold text-xl mb-3">Contact Us</h3>
             <ul className="space-y-2 text-gray-200">
-              <li>Find Us Here</li>
               <li>Get In Touch</li>
               <li>FAQ Page</li>
               <li>Global Network</li>
-              <li>Chat Support</li>
             </ul>
           </div>
 
@@ -75,7 +88,6 @@ const Footer: React.FC = () => {
             <ul className="space-y-2 text-gray-200">
               <li>Our Services</li>
               <li>What We Do</li>
-              <li>Request a Freight</li>
               <li>Track & Trace</li>
               <li>Brokerage Terms</li>
             </ul>
@@ -85,7 +97,6 @@ const Footer: React.FC = () => {
           <div>
             <h3 className="font-bold text-xl mb-3">Quick Links</h3>
             <ul className="space-y-2 text-gray-200">
-              <li>Register Now</li>
               <li>Privacy Policy</li>
               <li>Terms & Conditions</li>
             </ul>
