@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import Newsfeed from "./pages/Newsfeed";
 import Blog from "./pages/Blogs";
 import ContactSidebar from "./components/ContactSideBar";
+import AdminPage from "./Admin/AdminPage";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/Login" element={<Login />} />
         <Route path="/newsfeed" element={<Newsfeed />} />
         <Route path="/blogs" element={<Blog />} />
+        <Route path="/AdminPage" element={<AdminPage />} />
       </Routes>
       <div className="md:flex hidden">
         <ContactSidebar />
