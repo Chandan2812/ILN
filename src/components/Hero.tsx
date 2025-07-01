@@ -109,9 +109,9 @@ const HeroSection: React.FC = () => {
           `}
               />
             </div>
-            <p className="text-xs text-white text-center mt-1 font-semibold leading-tight">
+            {/* <p className="text-xs text-white text-center mt-1 font-semibold leading-tight">
               {img.title.split(" ")[0]} <br /> {img.title.split(" ")[1] || ""}
-            </p>
+            </p> */}
           </div>
         ))}
       </div>

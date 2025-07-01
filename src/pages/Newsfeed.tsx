@@ -1,6 +1,7 @@
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import newsfeed from "../assets/newsfeed.jpeg";
+import { useState } from "react";
 
 function Newsfeed() {
   const articles = [
@@ -40,6 +41,38 @@ function Newsfeed() {
     },
   ];
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const articlesPerPage = 15;
+  const totalPages = Math.ceil(articles.length / articlesPerPage);
+
+  const currentArticles = articles.slice(
+    (currentPage - 1) * articlesPerPage,
+    currentPage * articlesPerPage
+  );
+
+  const getPageNumbers = () => {
+    const pages = [];
+    const visiblePages = 2;
+
+    if (totalPages <= 5) {
+      for (let i = 1; i <= totalPages; i++) pages.push(i);
+    } else {
+      if (currentPage <= visiblePages + 1) {
+        for (let i = 1; i <= visiblePages + 2; i++) pages.push(i);
+        pages.push("...", totalPages);
+      } else if (currentPage >= totalPages - visiblePages) {
+        pages.push(1, "...");
+        for (let i = totalPages - (visiblePages + 1); i <= totalPages; i++)
+          pages.push(i);
+      } else {
+        pages.push(1, "...");
+        for (let i = currentPage - 1; i <= currentPage + 1; i++) pages.push(i);
+        pages.push("...", totalPages);
+      }
+    }
+    return pages;
+  };
+
   return (
     <div className="dark:bg-[var(--secondary-color)]">
       <Navbar />
@@ -48,7 +81,7 @@ function Newsfeed() {
       <div className="relative w-full h-[300px] md:h-[400px] overflow-hidden">
         <img
           src={newsfeed}
-          alt="Contact Us"
+          alt="Newsfeed"
           className="w-full h-full object-cover brightness-75"
         />
         <div className="absolute inset-0 flex items-center justify-center">
@@ -59,15 +92,15 @@ function Newsfeed() {
       </div>
 
       {/* News List */}
-      <div className="max-w-5xl  mx-auto py-10 px-4">
+      <div className="max-w-5xl mx-auto py-10 px-4">
         <ul className="space-y-6">
-          {articles.map((article, index) => (
+          {currentArticles.map((article, index) => (
             <li key={index} className="border-b pb-4">
               <a
                 href={article.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-md  text-[var(--primary-color)] hover:underline block"
+                className="text-md text-[var(--primary-color)] hover:underline block"
               >
                 {article.title}
               </a>
@@ -75,6 +108,28 @@ function Newsfeed() {
             </li>
           ))}
         </ul>
+
+        {/* Pagination */}
+        <div className="mt-10 flex justify-center gap-2 flex-wrap">
+          {getPageNumbers().map((page, index) => (
+            <button
+              key={index}
+              onClick={() => typeof page === "number" && setCurrentPage(page)}
+              className={`px-3 py-1 rounded-md text-sm font-medium transition ${
+                page === currentPage
+                  ? "bg-[var(--primary-color)] text-white"
+                  : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200"
+              } ${
+                page === "..."
+                  ? "cursor-default"
+                  : "hover:bg-[var(--primary-color-light)] dark:hover:bg-gray-600"
+              }`}
+              disabled={page === "..."}
+            >
+              {page}
+            </button>
+          ))}
+        </div>
       </div>
 
       <Footer />
