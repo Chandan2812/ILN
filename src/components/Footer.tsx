@@ -4,12 +4,12 @@ import logo from "../assets/ILN-logo_c089e4b10fad01a7ab60f4da7afc45c2.png";
 import {
   FaInstagram,
   FaFacebook,
-  FaTwitter,
   FaLinkedin,
   FaEnvelope,
 } from "react-icons/fa6";
 
 import { HiPaperAirplane } from "react-icons/hi";
+import { SiX } from "react-icons/si";
 
 const Footer: React.FC = () => {
   return (
@@ -99,14 +99,12 @@ const Footer: React.FC = () => {
           </p>
 
           <div className="flex gap-4 mb-8">
-            {[FaFacebook, FaTwitter, FaLinkedin, FaInstagram].map(
-              (Icon, idx) => (
-                <Icon
-                  key={idx}
-                  className="dark:text-white text-[var(--primary-color)] text-3xl cursor-pointer dark:hover:text-[var(--primary-color)]"
-                />
-              )
-            )}
+            {[FaFacebook, SiX, FaLinkedin, FaInstagram].map((Icon, idx) => (
+              <Icon
+                key={idx}
+                className="dark:text-white text-[var(--primary-color)] text-3xl cursor-pointer dark:hover:text-[var(--primary-color)]"
+              />
+            ))}
           </div>
         </div>
       </div>

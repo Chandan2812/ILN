@@ -1,224 +1,292 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import bannerImg from "../assets/verticals/membership verticals.jpg";
-
-/* ────────────  data types ──────────── */
-interface SponsorPackage {
-  tier: string;
-  features: string[];
-}
+import { useState } from "react";
 
 interface Vertical {
   title: string;
-  intro?: string;
-  content?: string;
-  sponsors?: SponsorPackage[];
-  addons?: string[];
-  scheduler?: string[];
-  outings?: string[];
+  content: string;
 }
 
-/* ────────────  verticals array ──────────── */
 const verticals: Vertical[] = [
   {
-    title: "Conference Sponsorship Opportunities",
-    intro: `
-      Put your brand centre-stage at the ILN AGM. Choose a tier below,
-      enjoy a free delegate pass, a fully dressed booth / pod, power,
-      lighting and prime visibility among global logistics leaders.
+    title: "Freight Forwarding & Customs Brokers",
+    content: `
+      In today’s interconnected world, businesses are increasingly reliant on efficient and reliable global logistics. Freight Forwarders and Customs Brokers play a vital role in navigating the complexities of international trade, ensuring seamless movement of goods across borders.
+
+      Leveraging a global network of partners, ILN empowers Freight Forwarders and Customs Brokers to:
+      - Expand their global reach: Access new markets and customers worldwide.
+      - Enhance service offerings: Collaborate with other members to provide comprehensive and integrated logistics solutions.
+      - Gain a competitive edge: Compete effectively with global integrators and multinational corporations.
+
+      ILN invites experienced Freight Forwarders and Customs Brokers to join our dynamic community and unlock a world of opportunities.
     `,
-    sponsors: [
-      {
-        tier: "PLATINUM SPONSOR",
-        features: [
-          "ILN Member / External Sponsor Suite or Meeting Pod package",
-          "1 Free ILN AGM Conference Pass",
-          "Full graphics design & printing for booth panels",
-          "Suite / Pod 3 m × 2 m × 1.5 m structure",
-          "Complimentary booth setup & removal",
-          "Dedicated suite / pod space",
-          "Table counter with 1 chair",
-          "Meeting table with 3 chairs",
-          "Fascia with company name & booth number",
-          "Booth carpeting & lighting",
-          "1 power socket",
-          "1 waste bin",
-        ],
-      },
-      {
-        tier: "GOLD SPONSOR",
-        features: [
-          "ILN Member / External Sponsor Suite or Meeting Pod package",
-          "1 Free ILN AGM Conference Pass",
-          "Full graphics design & printing for booth panels",
-          "Pod 2 m × 1 m × 1.5 m structure",
-          "Complimentary booth setup & removal",
-          "Dedicated pod space",
-          "Table counter with 1 chair",
-          "Fascia with company name & booth number",
-          "Booth carpeting & lighting",
-          "1 power socket",
-          "1 waste bin",
-        ],
-      },
-    ],
-    addons: [
-      "Gala Dinner Sponsor",
-      "Opening Cocktails evening",
-      "Lanyard Sponsor",
-      "T-shirt Sponsor",
-      "Golf T-shirt Sponsor (subject to event)",
-      "Pen Sponsor",
-      "Notebook Sponsor",
-    ],
-    scheduler: [
-      "AGM Meeting Scheduler is exclusive to event participants for arranging appointments with each other.",
-      "Average of 16 meetings per participant over two days.",
-      "Book structured, one-to-one meetings with attending delegates.",
-      "Opens 2–3 weeks before the AGM; login details emailed to registered delegates.",
-    ],
-    outings: [
-      "Delegates unwind the evening before the AGM starts.",
-      "Half-day tour to a special site.",
-      "Golf event for relaxed networking.",
-    ],
   },
   {
-    title: "Scheduled Networking Opportunities & AGMs",
+    title: "Contract Logistics & Supply Chain",
     content: `
-    The ILN Annual General Meeting is a cornerstone of our community, offering unparalleled opportunities for networking, business development, and social interaction.
+      Boosting Global Competitiveness: Contract Logistics & Supply Chain:
 
-    - Formal Business Meetings: Engage in formal business discussions, explore potential partnerships, and identify new opportunities.
-    - Informal Networking: Enjoy relaxed social settings to connect with fellow members, build relationships, and foster a strong sense of community.
-    - Social Events: Participate in ice-breaker activities, evening receptions, and dinners to enhance social connections and build lasting relationships.
-    - Sponsorship Opportunities: Sponsor the ILN AGM and gain valuable exposure to a network of influential industry leaders, showcase your company’s expertise, and build lasting relationships while supporting a thriving community.
+      Warehousing excellence is paramount in today’s dynamic supply chains. Businesses increasingly rely on 3PL providers equipped with cutting-edge technology to streamline operations and gain a competitive edge.
 
-    The ILN Scheduler
+      Key requirements for modern warehouses include:
+      - Advanced Material Handling: Robust fleets of lift trucks, integrated AGV systems, and efficient conveyor systems.
+      - Intelligent Inventory Management: Systematized racking solutions, sophisticated WMS automation, and real-time inventory tracking with RFID and AI.
+      - Enhanced Security: Comprehensive CCTV surveillance and robust security protocols.
 
-    - Personalized Scheduling: The Scheduler analyzes member preferences and creates a customized schedule, optimizing meeting times and maximizing networking efficiency.
-    - Streamlined Meetings: Easily schedule one-on-one meetings and appointments, ensuring you make the most of your time at the AGM.
-    - Enhanced Productivity: Identify potential partners, finalize business deals, and explore new opportunities through efficient and targeted networking.
+      ILN invites leading 3PL companies to collaborate with our global network of Member Partners. By leveraging the strengths of these partnerships, businesses can optimize their supply chains, reduce costs, and effectively compete with multinational giants in the global marketplace.
+    `,
+  },
+  {
+    title: "Cold Chain – Pharma & Perishables",
+    content: `
+      Cold Chain Logistics: Optimizing Pharma & Perishables Distribution:
+
+      Food & Beverage and Healthcare companies face the critical challenge of maintaining the integrity of temperature-sensitive products throughout their global supply chains. This necessitates a robust and efficient Cold Chain logistics solution. To effectively focus on core business activities like forecasting, planning, and supply chain visibility, these companies increasingly rely on 3PL Cold Chain Logistics    providers.
+
+      Leading 3PLs offer services like:
+      - Inventory Optimization: Leveraging advanced Warehouse Management Systems (WMS) to minimize waste and maximize efficiency.
+      - Transportation Management: Ensuring timely and secure delivery across various modes (air, sea, land).
+      - Supply Chain Security: Implementing robust measures to safeguard products from theft, contamination, and other risks.
+      - Corporate Social Responsibility: Adhering to environmental and ethical standards throughout the supply chain.
+
+      ILN invites 3PL companies specializing in Cold Chain transportation, meeting the highest industry standards, to join their global platform and collaborate with Member Partners worldwide.
+    `,
+  },
+  {
+    title: "E-commerce & Express Handlers",
+    content: `
+      E-commerce & Express Handlers: Fueling Growth in a Rapidly Evolving Market:
+
+      Express Handlers have become indispensable players in the thriving e-commerce landscape. The surge in online shopping has fueled a demand for faster, more efficient transportation and delivery of a diverse range of goods, including FMCG, perishables, and manufactured products. Modern technologies and innovative last-mile delivery services are revolutionizing the industry, enabling businesses to gain a competitive edge. These services are constantly evolving, driving companies to explore new strategies for enhancing efficiency and minimizing costs.
+
+      ILN invites prominent express companies worldwide to leverage our global platform and cutting-edge last-mile delivery solutions to effectively meet the dynamic demands of the global e-commerce market.
+    `,
+  },
+  {
+    title: "Aerospace & AOG",
+    content: `
+    Ensuring Uninterrupted Operations: Aerospace & AOG Logistics:
+
+    In the dynamic world of aerospace and aviation, timely and reliable logistics are paramount. The aerospace, defense, and their suppliers face the critical challenge of managing the flow of time-sensitive and often mission-critical components across global supply chains.
+
+    ILN invites Aerospace and AOG Handlers with 24/7 operations to join our global platform. By collaborating with ILN, these specialized logistics providers can:
+    - Enhance Operational Efficiency: Streamline supply chains, minimize downtime, and ensure 
+      the uninterrupted operation of aircraft and defense systems.
+    - Expand Global Reach: Connect with a wider network of aerospace and defense companies, 
+      creating new opportunities for business growth.
+    - Improve Customer Service: Deliver critical components with speed and reliability, 
+      enhancing customer satisfaction and building strong relationships.
+
+  `,
+  },
+  {
+    title: "Fine Arts & Antiques Logistics",
+    content: `
+    Safeguarding Cultural Treasures: Fine Arts & Antiques Logistics:
+
+    The transportation of fine art and antiques demands meticulous attention to detail and specialized expertise. These valuable and often irreplaceable items require:
+    - Expert Handling: Trained professionals with a deep understanding of art handling techniques.
+    - Custom Packaging: Bespoke packaging solutions designed to provide maximum protection during transit.
+    - Climate-Controlled Environments: Maintaining optimal temperature and humidity levels to preserve the integrity of artworks.
+    - Secure Transportation: Utilizing secure and reliable transportation methods to ensure the safe arrival of each piece.
+
+    ILN invites specialized logistics companies with expertise in fine art and antiques transportation to join our global platform. By collaborating with ILN, these companies can:
+    - Access a Global Network: Connect with art collectors, galleries, museums, and auction houses worldwide.
+    - Showcase Their Expertise: Highlight their specialized services and build trust with potential clients.
+    - Expand Their Business: Gain access to new opportunities and grow their presence in the global art market.
+  `,
+  },
+  {
+    title: "Professional Packers & Movers",
+    content: `
+    Seamless Global Relocations:
+
+    In today’s interconnected world, people are constantly on the move. Whether it’s an international job transfer, a new employment opportunity, or a personal migration, relocation can be a complex and stressful experience.
+
+    ILN invites professional relocation companies and skilled packing/packaging services to join our global platform. By collaborating with ILN, these companies can:
+    - Connect with a Global Client Base: Access a wider network of individuals and families seeking relocation services.
+    - Showcase Their Expertise: Highlight their specialized services, including packing of hazardous and dangerous goods, 
+      event and exhibition logistics, and project and oilfield supplies.
+    - Offer Integrated Solutions: Provide comprehensive relocation services, from initial consultation and packing/packaging 
+      to final delivery and settling-in assistance.
+    - Gain a Competitive Edge: Differentiate themselves in a competitive market by offering innovative and client-centric relocation solutions.
+  `,
+  },
+  {
+    title: "Events & Exhibition Logistics",
+    content: `
+    The global events industry is thriving, encompassing a diverse range of experiences from concerts and sporting events to trade shows and exhibitions. These dynamic events require meticulous planning and seamless execution to ensure success.
+
+    ILN invites professional event and exhibition management companies to join our global platform. By collaborating with ILN, these companies can:
+    - Connect with Global Clients: Access a wider network of event organizers, venues, and exhibitors worldwide.
+    - Showcase Their Expertise: Highlight their specialized services, including event planning, logistics, 
+      venue sourcing, and on-site management.
+    - Expand Their Business: Gain access to new opportunities and grow their presence in the global events market.
+    - Collaborate with Industry Professionals: Connect with other industry professionals, such as venue managers, 
+      caterers, and entertainment providers, to build strong partnerships.
+  `,
+  },
+  {
+    title: "Oil & Gas and Renewable Energy",
+    content: `
+    The Energy sector supply chains matter now more than ever: 
+    Energy companies have broadened their logistics supplier base, searching for lower prices, while others have taken the opposite approach, to be more sustainable: increasing the scope of the logistics services they outsource and partnering with service providers.
+
+    These forward-looking companies are seeking ways to consolidate their many separate supply chains, co-locating materials in central storage hubs.
+
+    ILN invites on their global platform, experienced and professionally managed energy sector handlers.
   `,
   },
 ];
 
 /* ────────────  component  ──────────── */
-const MembershipVerticals = () => (
-  <div className="bg-white dark:bg-[var(--secondary-color)] text-[var(--secondary-color)] dark:text-white transition-colors duration-300">
-    <Navbar />
+const MembershipVerticals = () => {
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  return (
+    <div className="bg-white dark:bg-[var(--secondary-color)] text-[var(--secondary-color)] dark:text-white transition-colors duration-300">
+      <Navbar />
 
-    {/* banner */}
-    <div className="w-full h-[300px] md:h-[400px] overflow-hidden">
-      <img
-        src={bannerImg}
-        alt="Membership Verticals"
-        className="w-full h-full object-cover"
-      />
-    </div>
+      {/* banner */}
+      <div className="w-full h-[300px] md:h-[400px] overflow-hidden">
+        <img
+          src={bannerImg}
+          alt="Membership Verticals"
+          className="w-full h-full object-cover"
+        />
+      </div>
 
-    {/* content */}
-    <section className="w-11/12 md:w-5/6 mx-auto py-16 space-y-24">
-      {verticals.map((item, index) => (
-        <div key={index} className="space-y-8">
-          {/* title */}
-          <h3 className="text-2xl md:text-3xl font-bold text-[var(--primary-color)] dark:text-white text-center">
-            {" "}
-            {item.title}
-          </h3>
-
-          {/* intro / content paragraphs */}
-          {(item.content ?? "")
-            .split("\n")
-            .filter((p) => p.trim())
-            .map((p, i) => (
-              <p
-                key={i}
-                className="text-gray-700 dark:text-gray-300 leading-relaxed"
-              >
-                {p.trim()}
-              </p>
-            ))}
-
-          {/* Sponsor Boxes – centred, equal size, left-aligned */}
-          {item.sponsors && (
-            <div className="grid sm:grid-cols-2 gap-8 max-w-4xl mx-auto items-stretch pt-4">
-              {item.sponsors.map((pkg, i) => (
+      <section className="w-11/12 md:w-5/6 mx-auto py-16">
+        <div className="grid md:grid-cols-[1fr_2fr] gap-10">
+          {/* Left - Cards for Verticals */}
+          <div className="space-y-4">
+            <h2 className="text-3xl font-bold text-[var(--primary-color)] mb-4 dark:text-white">
+              Membership Verticals
+            </h2>
+            <div className="grid sm:grid-cols-2 gap-4">
+              {verticals.map((item, index) => (
                 <div
-                  key={i}
-                  /* each card */
-                  className="flex flex-col w-full rounded-2xl p-6 bg-white text-black shadow-lg border-2 border-[var(--primary-color)]"
+                  key={index}
+                  onClick={() => setSelectedIndex(index)}
+                  className={`cursor-pointer rounded-xl border-2 px-4 py-1 text-center transition-all duration-300 shadow hover:shadow-lg ${
+                    selectedIndex === index
+                      ? "border-[var(--primary-color)] bg-[var(--primary-color)] text-white font-semibold"
+                      : "border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-black dark:text-white"
+                  }`}
                 >
-                  {/* heading */}
-                  <h4 className="text-xl font-bold mb-4 text-left">
-                    {pkg.tier}
-                  </h4>
-
-                  {/* features */}
-                  <ul className="space-y-3 text-sm mb-6">
-                    {pkg.features.map((f, j) => (
-                      <li key={j} className="flex items-start gap-2">
-                        <span className="text-[var(--primary-color)]">✔</span>
-                        <span>{f}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  {/* CTA */}
-                  <button className="mt-auto w-full py-2 rounded-md bg-[var(--primary-color)] text-black font-medium text-sm hover:opacity-90">
-                    Enquire now
-                  </button>
+                  {item.title}
                 </div>
               ))}
             </div>
-          )}
+          </div>
 
-          {/* additional sponsorship opportunities */}
-          {item.addons && (
-            <>
-              <h4 className="text-lg font-bold text-[var(--primary-color)] dark:text-white">
-                Additional Sponsorship Opportunities
-              </h4>
-              <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
-                {item.addons.map((a, i) => (
-                  <li key={i}>{a}</li>
-                ))}
-              </ul>
-            </>
-          )}
+          {/* Right - Content */}
+          <div className="space-y-6">
+            <h3 className="text-xl md:text-2xl font-semibold text-gray-800 dark:text-white">
+              {verticals[selectedIndex].title}
+            </h3>
 
-          {/* AGM scheduler */}
-          {item.scheduler && (
-            <>
-              <h4 className="text-lg font-bold text-[var(--primary-color)] dark:text-white pt-4">
-                AGM Scheduler
-              </h4>
-              <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
-                {item.scheduler.map((s, i) => (
-                  <li key={i}>{s}</li>
-                ))}
-              </ul>
-            </>
-          )}
+            {verticals[selectedIndex].content
+              .split("\n")
+              .filter((para) => para.trim() !== "")
+              .map((para, i) => {
+                const trimmed = para.trim();
 
-          {/* outings */}
-          {item.outings && (
-            <>
-              <h4 className="text-lg font-bold text-[var(--primary-color)] dark:text-white pt-4">
-                Unwinding & Outing Events
-              </h4>
-              <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
-                {item.outings.map((o, i) => (
-                  <li key={i}>{o}</li>
-                ))}
-              </ul>
-            </>
-          )}
+                if (trimmed.startsWith("-")) {
+                  return (
+                    <ul
+                      key={i}
+                      className="list-disc list-inside text-gray-700 dark:text-gray-300 pl-4"
+                    >
+                      <li className="mb-2">{trimmed.replace(/^-\s*/, "")}</li>
+                    </ul>
+                  );
+                } else if (trimmed.endsWith(":")) {
+                  return (
+                    <p
+                      key={i}
+                      className="font-semibold text-lg text-gray-800 dark:text-white"
+                    >
+                      {trimmed}
+                    </p>
+                  );
+                } else {
+                  return (
+                    <p
+                      key={i}
+                      className="text-gray-700 dark:text-gray-300 leading-relaxed"
+                    >
+                      {trimmed}
+                    </p>
+                  );
+                }
+              })}
+          </div>
         </div>
-      ))}
-    </section>
+      </section>
 
-    <Footer />
-  </div>
-);
+      <section className="w-11/12 md:w-5/6 mx-auto py-12">
+        <h2 className="text-3xl font-bold text-center text-[var(--primary-color)] mb-12">
+          Conference Sponsorships
+        </h2>
+
+        <div className="grid md:grid-cols-2 gap-10">
+          {/* Platinum Sponsor */}
+          <div className="bg-[#f5faff] border-l-4 border-blue-400 rounded-2xl shadow p-6">
+            <h3 className="text-2xl font-bold text-blue-600 mb-4">
+              PLATINUM SPONSOR
+            </h3>
+            <p className="text-sm text-gray-700 mb-4">
+              ILN Member / External Sponsor (Airlines, Shipping Lines,
+              Charterers, Industry Consultants)
+            </p>
+            <ul className="list-disc list-inside text-gray-800 space-y-2 text-sm">
+              <li>Suite or a Meeting Pod Package</li>
+              <li>1 Free ILN AGM Conference Pass</li>
+              <li>Full graphics design and printing for booth panels</li>
+              <li>One Suite/Pod structure measuring 3.0m x 2.0m x 1.5m</li>
+              <li>Complimentary booth setup and removal</li>
+              <li>Suite/Pod space</li>
+              <li>Table counter with 1 chair</li>
+              <li>Meeting table with 3 chairs</li>
+              <li>Fascia with company name and booth number (Text Only)</li>
+              <li>Booth carpeting</li>
+              <li>Booth lighting</li>
+              <li>1 power socket</li>
+              <li>1 waste bin</li>
+            </ul>
+          </div>
+
+          {/* Gold Sponsor */}
+          <div className="bg-[#fffaf3] border-l-4 border-yellow-400 rounded-2xl shadow p-6">
+            <h3 className="text-2xl font-bold text-yellow-600 mb-4">
+              GOLD SPONSOR
+            </h3>
+            <p className="text-sm text-gray-700 mb-4">
+              ILN Member / External Sponsor (Airlines, Shipping Lines,
+              Charterers, Industry Consultants)
+            </p>
+            <ul className="list-disc list-inside text-gray-800 space-y-2 text-sm">
+              <li>Suite or a Meeting Pod Package</li>
+              <li>1 Free ILN AGM Conference Pass</li>
+              <li>Full graphics design and printing for booth panels</li>
+              <li>One Suite/Pod structure measuring 2.0m x 1.0m x 1.5m</li>
+              <li>Complimentary booth setup and removal</li>
+              <li>Suite/Pod space</li>
+              <li>Table counter with 1 chair</li>
+              <li>Fascia with company name and booth number (Text Only)</li>
+              <li>Booth carpeting</li>
+              <li>Booth lighting</li>
+              <li>1 power socket</li>
+              <li>1 waste bin</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+    </div>
+  );
+};
 
 export default MembershipVerticals;

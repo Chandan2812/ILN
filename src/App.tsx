@@ -15,7 +15,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/membership-verticals" element={<MembershipVerticals />} />
+        <Route path="/membership" element={<MembershipVerticals />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/About" element={<AboutPage />} />
         <Route path="/Signup" element={<Signup />} />

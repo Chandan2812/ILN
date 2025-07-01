@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import img1 from "../assets/Untitled design (12).png";
+import img1 from "../assets/ILN_logo-01.png";
 import img2 from "../assets/Untitled design (13).png";
 
 const AboutPage: React.FC = () => {
@@ -53,7 +53,7 @@ const AboutPage: React.FC = () => {
                 country are based on the country’s GDP and trade volumes.
               </p>
             </div>
-            <div className="rounded-lg overflow-hidden shadow-lg">
+            <div className="rounded-lg overflow-hidden invert-0 dark:invert">
               <img
                 src={img1}
                 alt="ILN Network"

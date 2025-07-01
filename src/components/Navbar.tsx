@@ -3,7 +3,6 @@ import {
   FaMapMarkerAlt,
   FaPhoneAlt,
   FaFacebook,
-  FaTwitter,
   FaLinkedin,
   FaInstagram,
   FaEnvelope,
@@ -11,9 +10,10 @@ import {
   FaMoon,
 } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
-import logo from "../assets/ILN-logo_c089e4b10fad01a7ab60f4da7afc45c2.png";
+import logo from "../assets/ILN Logo v2.png";
 import { useLocation } from "react-router-dom";
 import JoinFormPopup from "./JoinForm";
+import { SiX } from "react-icons/si";
 
 declare global {
   interface Window {
@@ -91,7 +91,7 @@ export default function Navbar() {
         {/* Logo */}
         <div className="flex items-center gap-2">
           <a href="/">
-            <img src={logo} alt="Logo" className="w-32 invert dark:invert-0" />
+            <img src={logo} alt="Logo" className="w-48 dark:invert" />
           </a>
         </div>
 
@@ -100,7 +100,7 @@ export default function Navbar() {
           {[
             { label: "Home", path: "/" },
             { label: "About", path: "/About" },
-            { label: "Membership Verticals", path: "/membership-verticals" },
+            { label: "Membership", path: "/membership" },
             { label: "Newsfeed", path: "/newsfeed" },
             { label: "Blogs", path: "/blogs" },
             { label: "Contact", path: "/contact" },
@@ -202,7 +202,7 @@ export default function Navbar() {
                 {[
                   "Home",
                   "About",
-                  "Membership Verticals",
+                  "Membership",
                   "Newsfeed",
                   "Blogs",
                   "Contact",
@@ -215,6 +215,12 @@ export default function Navbar() {
                     {item}
                   </a>
                 ))}
+                <button
+                  onClick={() => setShowForm(true)}
+                  className="mt-6 border border-[var(--primary-color)] text-[var(--primary-color)] px-6 py-2"
+                >
+                  Become a Member
+                </button>
                 <div className="flex gap-5">
                   <a href="/login">
                     <button className="mt-6 bg-white text-[var(--primary-color)] border border-[var(--primary-color)] px-6 py-2 rounded-tl-2xl rounded-br-2xl">
@@ -268,7 +274,7 @@ export default function Navbar() {
                     We Are Social:
                   </h3>
                   <div className="flex gap-4 mb-8">
-                    {[FaFacebook, FaTwitter, FaLinkedin, FaInstagram].map(
+                    {[FaFacebook, SiX, FaLinkedin, FaInstagram].map(
                       (Icon, idx) => (
                         <Icon
                           key={idx}
