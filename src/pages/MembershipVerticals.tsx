@@ -474,22 +474,6 @@ const MembershipVerticals = () => {
         <div className="w-11/12 md:w-5/6 mx-auto space-y-16">
           {/* AGM Timeline-like List */}
 
-          {/* Hero Statement */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-[var(--primary-color)] dark:text-[var(--primary-color-dark)]">
-              Become a Member Now
-            </h2>
-            <p className="mt-2 text-lg text-gray-600 dark:text-gray-300">
-              And unlock the full potential of your logistics network.
-            </p>
-          </motion.div>
-
           {/* ILN Financial Protection with visual flare */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -589,6 +573,94 @@ const MembershipVerticals = () => {
                 </li>
               </ul>
             </motion.div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-10 bg-white dark:bg-[var(--secondary-color)] text-gray-800 dark:text-white">
+        <div className="w-11/12 md:w-5/6 mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Member Lounge */}
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold text-center md:text-left text-[var(--primary-color)] mb-4">
+                Member Lounge
+              </h2>
+              <p className="text-center md:text-left text-gray-600 dark:text-gray-300 mb-8">
+                The exclusive Members Lounge is a valuable marketing and
+                networking tool.
+              </p>
+
+              <ul className="space-y-4">
+                <li>
+                  <h3 className="font-semibold text-lg mb-1">
+                    Enhanced Visibility
+                  </h3>
+                  <p className="text-sm text-gray-700 dark:text-gray-300">
+                    Create a unique and engaging member profile page to showcase
+                    your company's strengths, services, and differentiators.
+                  </p>
+                </li>
+                <li>
+                  <h3 className="font-semibold text-lg mb-1">
+                    Increased Visibility
+                  </h3>
+                  <p className="text-sm text-gray-700 dark:text-gray-300">
+                    Gain greater visibility within the ILN network and attract
+                    potential partners.
+                  </p>
+                </li>
+                <li>
+                  <h3 className="font-semibold text-lg mb-1">
+                    Build Trust and Credibility
+                  </h3>
+                  <p className="text-sm text-gray-700 dark:text-gray-300">
+                    The ILN Rating displayed on your profile page enhances your
+                    credibility and builds trust among other members.
+                  </p>
+                </li>
+              </ul>
+            </div>
+
+            {/* Newsfeed */}
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold text-center md:text-left text-[var(--primary-color)] dark:text-[var(--primary-color-dark)] mb-4">
+                Newsfeed
+              </h2>
+              <p className="text-center md:text-left text-gray-600 dark:text-gray-300 mb-8">
+                Stay informed with the latest industry news, trends, and updates
+                through our dedicated newsfeed.
+              </p>
+
+              <ul className="space-y-4">
+                <li>
+                  <h3 className="font-semibold text-lg mb-1">
+                    Valuable Insights
+                  </h3>
+                  <p className="text-sm text-gray-700 dark:text-gray-300">
+                    Access timely and relevant information to make informed
+                    business decisions.
+                  </p>
+                </li>
+                <li>
+                  <h3 className="font-semibold text-lg mb-1">
+                    Competitive Advantage
+                  </h3>
+                  <p className="text-sm text-gray-700 dark:text-gray-300">
+                    Gain a competitive edge by staying ahead of the curve on
+                    industry developments.
+                  </p>
+                </li>
+                <li>
+                  <h3 className="font-semibold text-lg mb-1">
+                    Enhanced Knowledge
+                  </h3>
+                  <p className="text-sm text-gray-700 dark:text-gray-300">
+                    Expand your knowledge base and improve your understanding of
+                    the global logistics landscape.
+                  </p>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>

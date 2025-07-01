@@ -65,8 +65,8 @@ const AboutPage: React.FC = () => {
               <div>
                 <img
                   src={img2}
-                  alt="Founder"
-                  className="rounded-lg shadow-md w-full h-full object-cover"
+                  alt="Founder Image"
+                  className="rounded-lg  w-full h-full object-cover"
                 />
               </div>
               <div>
@@ -74,26 +74,35 @@ const AboutPage: React.FC = () => {
                   Rohinton Bilimoria : Founder
                 </h2>
                 <p className="text-gray-700 dark:text-gray-300 mb-4">
-                  Founder of ILN, Rohinton Bilimoria’s expertise in marketing,
-                  operations, and HR combined with his values and work ethic
-                  helped shape the ILN Community.
+                  Throughout my 40+ year career in the global supply chain, I've
+                  consistently driven growth and navigated complex operational
+                  challenges for major industry players. This journey, spanning
+                  Asia, Europe, the Americas, and the MENA region, across
+                  companies of all sizes, has given me a deep understanding of
+                  corporate best practices and the critical importance of
+                  strong, collaborative networks.
                 </p>
                 <p className="text-gray-700 dark:text-gray-300 mb-4">
-                  With over 40 years of leadership in logistics, Rohinton has
-                  managed large-scale operations and guided complex logistics
-                  for major clients, setting best practice benchmarks in the
-                  field.
+                  My passion lies in building high-performing teams and
+                  fostering mutually beneficial relationships. I believe that a
+                  strong ethical foundation, coupled with a tireless work ethic
+                  and a genuine commitment to excellence, are essential for
+                  success in today's dynamic business landscape.
                 </p>
                 <p className="text-gray-700 dark:text-gray-300">
-                  His knowledge and cross-sector experience have made him a
-                  respected figure across Asia, Europe, the Americas, and the
-                  MENA region.
+                  These principles have been the guiding force behind the
+                  creation of the ILN Community. My vision for ILN is to provide
+                  a platform for logistics professionals worldwide to connect,
+                  collaborate, and thrive. I am confident that by fostering a
+                  supportive and collaborative environment, we can unlock the
+                  full potential of the global logistics network.
                 </p>
               </div>
             </div>
           </div>
         </div>
       </section>
+
       <Footer />
     </div>
   );
