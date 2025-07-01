@@ -10,9 +10,10 @@ import Newsfeed from "./pages/Newsfeed";
 import Blog from "./pages/Blogs";
 import ContactSidebar from "./components/ContactSideBar";
 import AdminPage from "./Admin/AdminPage";
-import { MessageCircle, Phone } from "lucide-react";
+import { Phone } from "lucide-react";
 import JoinFormPopup from "./components/JoinForm";
 import { useState } from "react";
+import { FaUserPlus } from "react-icons/fa";
 
 function App() {
   const [showForm, setShowForm] = useState(false);
@@ -36,7 +37,7 @@ function App() {
       <div className="fixed bottom-0 left-0 w-full z-50 flex md:hidden">
         <a
           href="tel:+91123456789"
-          className="w-1/2 bg-[var(--primary-color)] text-white text-center py-4 font-semibold hover:bg-red-700 transition-all flex items-center justify-center gap-2"
+          className="w-1/2 bg-[var(--primary-color)] text-white text-center py-4 font-semibold  transition-all flex items-center justify-center gap-2"
         >
           <Phone size={20} />
           Call Me
@@ -45,8 +46,8 @@ function App() {
           onClick={() => setShowForm(true)}
           className="w-1/2 bg-[var(--secondary-color)] text-white text-center py-4 font-semibold hover:bg-blue-700 transition-all flex items-center justify-center gap-2"
         >
-          <MessageCircle size={20} />
-          I'm Interested
+          <FaUserPlus size={20} />
+          Become a Member
         </button>
       </div>
       <JoinFormPopup isOpen={showForm} onClose={() => setShowForm(false)} />

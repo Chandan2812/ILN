@@ -196,12 +196,7 @@ export default function Navbar() {
                     {item}
                   </a>
                 ))}
-                <button
-                  onClick={() => setShowForm(true)}
-                  className="mt-6 border border-[var(--primary-color)] text-[var(--primary-color)] px-6 py-2"
-                >
-                  Become a Member
-                </button>
+
                 <div className="flex gap-5">
                   <a href="/login">
                     <button className="mt-6 bg-white text-[var(--primary-color)] border border-[var(--primary-color)] px-6 py-2 rounded-tl-2xl rounded-br-2xl">
