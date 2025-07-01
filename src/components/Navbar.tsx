@@ -10,7 +10,8 @@ import {
   FaMoon,
 } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
-import logo from "../assets/ILN Logo v2.png";
+// import logo from "../assets/ILN Logo v2.png";
+import logo1 from "../assets/ILN_logo-01.png";
 import { useLocation } from "react-router-dom";
 import JoinFormPopup from "./JoinForm";
 import { SiX } from "react-icons/si";
@@ -70,28 +71,12 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 w-full font-['PT_Serif'] transition-colors bg-white text-[var(--secondary-color)] dark:bg-[var(--secondary-color)] dark:text-white">
-      {/* Top Info Bar (Desktop Only) */}
-      <div className="w-11/12 mx-auto hidden md:flex justify-between items-center md:px-5 py-2 text-sm border-b border-black/40  dark:border-white/10">
-        <span className="flex items-center gap-1">
-          <FaMapMarkerAlt /> Unit 1112, 11/F, Wing On Plaza 62, Mody Road, Tsim
-          Sha Tsui East Kowloon, Hong Kong
-        </span>
-        <div className="flex gap-10">
-          <span className="flex items-center">
-            <FaEnvelope /> info@integratedlognet.com
-          </span>
-          <span className="flex items-center">
-            <FaPhoneAlt /> 0-123-456-789
-          </span>
-        </div>
-      </div>
-
       {/* Main Navbar */}
       <div className="w-11/12 mx-auto flex justify-between items-center md:px-5 py-2">
         {/* Logo */}
         <div className="flex items-center gap-2">
           <a href="/">
-            <img src={logo} alt="Logo" className="w-48 dark:invert" />
+            <img src={logo1} alt="Logo" className="w-40 dark:invert" />
           </a>
         </div>
 
@@ -183,11 +168,7 @@ export default function Navbar() {
           {isMobile && (
             <div className="flex justify-between items-center">
               <a href="/">
-                <img
-                  src={logo}
-                  alt="Logo"
-                  className="w-36 invert dark:invert-0"
-                />
+                <img src={logo1} alt="Logo" className="w-40 dark:invert" />
               </a>
               <IoClose
                 className="text-3xl text-[var(--secondary-color)] dark:text-white"
@@ -328,7 +309,7 @@ export default function Navbar() {
 
       <div
         id="google_translate_element"
-        className="fixed  right-[95px] top-7 translate-x-0 md:right-[380px] md:top-[1px] md:-translate-x-1/2"
+        className="fixed  right-[95px] top-11 translate-x-0 md:right-[250px] md:top-[45px] md:-translate-x-1/2"
       />
       <JoinFormPopup isOpen={showForm} onClose={() => setShowForm(false)} />
     </header>

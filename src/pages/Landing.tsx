@@ -5,21 +5,20 @@ import HeroSection from "../components/Hero";
 import ILNBenefits from "../components/ILNBenefits";
 import JoinILN from "../components/JoinILN";
 import Navbar from "../components/Navbar";
-import ReviewSection from "../components/review";
+// import ReviewSection from "../components/review";
 import Services from "../components/Services";
-import WhyWorkWithUs from "../components/WhyWorkWithUs";
 
 function Landing() {
   return (
     <div>
       <Navbar />
       <HeroSection />
-      <WhyWorkWithUs />
+      {/* <WhyWorkWithUs /> */}
       <About />
       <Services />
       <JoinILN />
       <ILNBenefits />
-      <ReviewSection />
+      {/* <ReviewSection /> */}
       <Insights />
       <Footer />
     </div>

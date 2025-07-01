@@ -42,10 +42,7 @@ const AboutPage: React.FC = () => {
                 A Secured Global Network created by qualified companies in the
                 world of freight forwarding, dedicated to building a global
                 directory of top-class agencies that benefit from ILN customized
-                services and a strong sense of community.{" "}
-                <span className="underline text-blue-500 cursor-pointer">
-                  Our Services
-                </span>
+                services and a strong sense of community.
               </p>
               <p className="text-gray-700 dark:text-gray-300">
                 ILN members receive tailor-made solutions to suit their business

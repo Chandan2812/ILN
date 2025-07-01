@@ -2,6 +2,21 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import bannerImg from "../assets/verticals/membership verticals.jpg";
 import { useState } from "react";
+import { motion } from "framer-motion";
+import {
+  HiOutlineGlobeAlt,
+  HiOutlineUsers,
+  HiOutlineLockClosed,
+  HiOutlineChartBar,
+  HiOutlineUserGroup,
+  HiOutlineCalendar,
+  HiOutlineClock,
+  HiOutlineShieldCheck,
+  HiOutlineClipboardList,
+  HiOutlineNewspaper,
+  HiOutlineIdentification,
+} from "react-icons/hi";
+import Slider from "react-slick";
 
 interface Vertical {
   title: string;
@@ -140,9 +155,79 @@ const verticals: Vertical[] = [
   },
 ];
 
+const privileges = [
+  {
+    title: "Immediate Access to a Global Network",
+    desc: "Connect with professional partners within the exclusive ILN Community.",
+    icon: <HiOutlineGlobeAlt />,
+  },
+  {
+    title: "Strategic Global Partnerships",
+    desc: "Leverage our extensive network of global partners to expand your reach and explore new markets.",
+    icon: <HiOutlineUserGroup />,
+  },
+  {
+    title: "Exclusive Membership",
+    desc: "Restricted membership per country with exceptions to China, India, and the Americas, ensuring a high-quality and exclusive network.",
+    icon: <HiOutlineUsers />,
+  },
+  {
+    title: "Protected Member Access",
+    desc: "Secure access to the Members Lounge, a dedicated platform for exclusive member interactions.",
+    icon: <HiOutlineLockClosed />,
+  },
+  {
+    title: "Enhanced Visibility",
+    desc: "Create a compelling member profile page to showcase your strengths and attract potential partners.",
+    icon: <HiOutlineIdentification />,
+  },
+  {
+    title: "Member Development Opportunities",
+    desc: "Access exclusive resources, industry insights, and networking events to enhance your professional growth.",
+    icon: <HiOutlineClipboardList />,
+  },
+  {
+    title: "Annual General Meetings (AGMs)",
+    desc: "Participate in our prestigious AGMs for valuable networking, business development, and social interaction.",
+    icon: <HiOutlineCalendar />,
+  },
+  {
+    title: "ILN Scheduler",
+    desc: "Optimize your time at AGMs with the ILN Scheduler, a tool that facilitates efficient meeting scheduling with other members.",
+    icon: <HiOutlineClock />,
+  },
+  {
+    title: "Payment Protection Plan",
+    desc: "Enhance financial security with our unique Payment Protection Plan, designed to mitigate risks associated with non-payment of invoices between member partners. (Conditions Apply)",
+    icon: <HiOutlineShieldCheck />,
+  },
+  {
+    title: "Comprehensive Insurance & Risk Management",
+    desc: "Access competitively priced insurance solutions, including Marine Liability, General Liability, Warehouse/Property Coverage, and more, through our partnerships with leading risk management companies.",
+    icon: <HiOutlineChartBar />,
+  },
+  {
+    title: "Industry Insights",
+    desc: "Insights: Stay informed with the latest industry news, updates, and market trends through our dedicated newsfeed and regular newsletters.",
+    icon: <HiOutlineNewspaper />,
+  },
+];
+
 /* ────────────  component  ──────────── */
 const MembershipVerticals = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 800,
+    slidesToShow: 1,
+    arrows: false,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2500,
+    pauseOnHover: false,
+  };
   return (
     <div className="bg-white dark:bg-[var(--secondary-color)] text-[var(--secondary-color)] dark:text-white transition-colors duration-300">
       <Navbar />
@@ -280,6 +365,227 @@ const MembershipVerticals = () => {
               <li>1 power socket</li>
               <li>1 waste bin</li>
             </ul>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-12 px-4 bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-white">
+        <div className="w-11/12 md:w-5/6 mx-auto">
+          <h2 className="text-4xl font-bold text-center mb-6 text-[var(--primary-color)] ">
+            Membership Privileges
+          </h2>
+          <p className="text-lg text-center mb-12 text-gray-600 dark:text-gray-300">
+            Join the ILN network and create a safety net for your logistical
+            needs.
+          </p>
+
+          <div className=" grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 hidden md:grid">
+            {privileges.map((item, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1, duration: 0.6 }}
+                viewport={{ once: true }}
+                className="bg-white/30 dark:bg-white/10 backdrop-blur-lg border border-gray-200 dark:border-gray-700 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300"
+              >
+                <div className="text-3xl mb-4 text-[var(--primary-color)] dark:text-[var(--primary-color-dark)]">
+                  {item.icon}
+                </div>
+                <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
+                <p className="text-sm text-gray-700 dark:text-gray-300">
+                  {item.desc}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Mobile Slider */}
+          <div className="block lg:hidden">
+            <Slider {...sliderSettings}>
+              {privileges.map((item, i) => (
+                <div key={i}>
+                  <div className="bg-white dark:bg-neutral-800 border-l-4 border-[var(--primary-color)] p-6 rounded-xl shadow mx-3">
+                    <div className="flex items-start gap-3 mb-3">
+                      <div className="text-2xl text-[var(--primary-color)]">
+                        {item.icon}
+                      </div>
+                      <h4 className="text-lg font-semibold text-[var(--primary-color)]">
+                        {item.title}
+                      </h4>
+                    </div>
+                    <p className="text-sm text-gray-700 dark:text-gray-300">
+                      {item.desc}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </Slider>
+          </div>
+        </div>
+      </section>
+
+      <section className=" dark:bg-[var(--secondary-color)] text-gray-800 dark:text-white py-12 px-4 overflow-hidden">
+        <div className="w-11/12 md:w-5/6 mx-auto space-y-16">
+          {/* Hero Statement */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-[var(--primary-color)] dark:text-[var(--primary-color-dark)]">
+              Become a Member Now
+            </h2>
+            <p className="mt-2 text-lg text-gray-600 dark:text-gray-300">
+              And unlock the full potential of your logistics network.
+            </p>
+          </motion.div>
+
+          {/* ILN Financial Protection with visual flare */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7 }}
+            viewport={{ once: true }}
+            className="relative px-6 md:px-16 py-12 bg-gradient-to-tr from-[var(--primary-color)] to-indigo-600 text-white rounded-3xl shadow-xl"
+          >
+            <div className="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('/noise.png')] bg-cover bg-center" />
+            <div className="relative z-10">
+              <h3 className="text-2xl font-bold mb-4">
+                ILN Financial Protection
+              </h3>
+              <p className="text-base leading-relaxed whitespace-pre-line">
+                New members undergo a thorough Financial Due Diligence process.
+                Subsequently, they are protected by our comprehensive ILN
+                Financial Protection Plan, designed to safeguard their financial
+                interests in transactions conducted within the network. This
+                unique offering provides security against potential financial
+                losses due to non-payment of invoices between member partners.
+                (Conditions Apply)
+              </p>
+            </div>
+          </motion.div>
+
+          {/* AGM Timeline-like List */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="relative border-[var(--primary-color)]"
+          >
+            <div className="mb-10">
+              <h4 className="text-2xl font-bold mb-3 text-[var(--primary-color)]">
+                Scheduled Networking Opportunities & AGMs
+              </h4>
+              <ul className="space-y-4 text-base text-gray-700 dark:text-gray-300">
+                <li>
+                  <span className="font-semibold">
+                    Formal Business Meetings:
+                  </span>{" "}
+                  Engage in formal business discussions, explore potential
+                  partnerships, and identify new opportunities.
+                </li>
+                <li>
+                  <span className="font-semibold">Informal Networking:</span>{" "}
+                  Enjoy relaxed social settings to connect with fellow members,
+                  build relationships, and foster a strong sense of community.
+                </li>
+                <li>
+                  <span className="font-semibold">Social Events:</span>{" "}
+                  Participate in ice-breaker activities, evening receptions, and
+                  dinners to enhance social connections and build lasting
+                  relationships.
+                </li>
+                <li>
+                  <span className="font-semibold">
+                    Sponsorship Opportunities:
+                  </span>{" "}
+                  Sponsor the ILN AGM and gain valuable exposure to a network of
+                  influential industry leaders. Showcase your company’s
+                  expertise and build lasting relationships while supporting a
+                  thriving community.
+                </li>
+              </ul>
+            </div>
+          </motion.div>
+
+          {/* Scheduler & Insurance Split Section */}
+          <div className="grid md:grid-cols-2 gap-12">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="relative bg-[var(--primary-color-dark)]  p-8 rounded-2xl"
+            >
+              <h4 className="text-xl font-semibold mb-4 text-[var(--primary-color)]">
+                The ILN Scheduler
+              </h4>
+              <p className="text-sm whitespace-pre-line">
+                Prior to each AGM, members can utilize the ILN Scheduler to
+                efficiently schedule meetings with other members they wish to
+                connect with.
+              </p>
+              <ul className="list-disc list-inside mt-4 space-y-2 text-sm">
+                <li>
+                  <span className="font-semibold">
+                    Personalized Scheduling:
+                  </span>{" "}
+                  The Scheduler analyzes member preferences and creates a
+                  customized schedule, optimizing meeting times and maximizing
+                  networking efficiency.
+                </li>
+                <li>
+                  <span className="font-semibold">Streamlined Meetings:</span>{" "}
+                  Easily schedule one-on-one meetings and appointments, ensuring
+                  you make the most of your time at the AGM.
+                </li>
+                <li>
+                  <span className="font-semibold">Enhanced Productivity:</span>{" "}
+                  Identify potential partners, finalize business deals, and
+                  explore new opportunities through efficient and targeted
+                  networking.
+                </li>
+              </ul>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="relative bg-white dark:bg-neutral-800 p-8 rounded-2xl shadow-lg"
+            >
+              <h4 className="text-xl font-semibold mb-4 text-[var(--primary-color)]">
+                ILN Insurance & Risk Management
+              </h4>
+              <p className="text-sm whitespace-pre-line text-gray-700 dark:text-gray-300">
+                In collaboration with leading global risk management companies,
+                ILN is developing comprehensive risk management solutions for
+                its members.
+              </p>
+              <ul className="list-disc list-inside mt-4 space-y-2 text-sm text-gray-700 dark:text-gray-300">
+                <li>
+                  <span className="font-semibold">Comprehensive Coverage:</span>{" "}
+                  Access competitively priced insurance options, including
+                  Marine Liability, General Liability, Warehouse/Property
+                  Coverage, Transportation Coverage, and more.
+                </li>
+                <li>
+                  <span className="font-semibold">Tailored Solutions:</span>{" "}
+                  Find insurance solutions that meet your specific business
+                  needs and mitigate potential risks.
+                </li>
+                <li>
+                  <span className="font-semibold">Enhanced Security:</span>{" "}
+                  Protect your business from unforeseen events and ensure
+                  business continuity.
+                </li>
+              </ul>
+            </motion.div>
           </div>
         </div>
       </section>

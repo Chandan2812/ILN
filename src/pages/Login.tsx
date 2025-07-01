@@ -159,17 +159,6 @@ const Login = () => {
               <p className="text-sm text-center text-red-400">{message}</p>
             )}
           </form>
-
-          <div className="mt-6 flex items-center justify-center">
-            <span className="text-sm text-gray-300 mr-1">or</span>
-          </div>
-
-          <p className="text-xs text-gray-300 text-center mt-6">
-            Are you new?{" "}
-            <a href="/signup" className="text-blue-300 hover:underline">
-              Create an Account
-            </a>
-          </p>
         </div>
       </div>
     </div>
