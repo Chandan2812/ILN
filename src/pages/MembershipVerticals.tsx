@@ -240,8 +240,53 @@ const MembershipVerticals = () => {
           className="w-full h-full object-cover"
         />
       </div>
-
-      <section className="w-11/12 md:w-5/6 mx-auto py-16">
+      <section className="py-12 ">
+        <div className="w-11/12 md:w-5/6 mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="relative border-[var(--primary-color)]"
+          >
+            <div className="mb-10">
+              <h4 className="text-3xl font-bold mb-3 text-[var(--primary-color)]">
+                Scheduled Networking Opportunities & AGMs
+              </h4>
+              <ul className="space-y-4 text-base text-gray-700 dark:text-gray-300">
+                <li>
+                  <span className="font-semibold">
+                    Formal Business Meetings:
+                  </span>{" "}
+                  Engage in formal business discussions, explore potential
+                  partnerships, and identify new opportunities.
+                </li>
+                <li>
+                  <span className="font-semibold">Informal Networking:</span>{" "}
+                  Enjoy relaxed social settings to connect with fellow members,
+                  build relationships, and foster a strong sense of community.
+                </li>
+                <li>
+                  <span className="font-semibold">Social Events:</span>{" "}
+                  Participate in ice-breaker activities, evening receptions, and
+                  dinners to enhance social connections and build lasting
+                  relationships.
+                </li>
+                <li>
+                  <span className="font-semibold">
+                    Sponsorship Opportunities:
+                  </span>{" "}
+                  Sponsor the ILN AGM and gain valuable exposure to a network of
+                  influential industry leaders. Showcase your company’s
+                  expertise and build lasting relationships while supporting a
+                  thriving community.
+                </li>
+              </ul>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+      <section className="w-11/12 md:w-5/6 mx-auto py-12">
         <div className="grid md:grid-cols-[1fr_2fr] gap-10">
           {/* Left - Cards for Verticals */}
           <div className="space-y-4">
@@ -427,6 +472,8 @@ const MembershipVerticals = () => {
 
       <section className=" dark:bg-[var(--secondary-color)] text-gray-800 dark:text-white py-12 px-4 overflow-hidden">
         <div className="w-11/12 md:w-5/6 mx-auto space-y-16">
+          {/* AGM Timeline-like List */}
+
           {/* Hero Statement */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -449,7 +496,7 @@ const MembershipVerticals = () => {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7 }}
             viewport={{ once: true }}
-            className="relative px-6 md:px-16 py-12 bg-gradient-to-tr from-[var(--primary-color)] to-indigo-600 text-white rounded-3xl shadow-xl"
+            className="relative px-6 md:px-16 py-12 bg-gradient-to-tr from-[var(--primary-color)] to-[var(--primary-color)] text-white rounded-3xl shadow-xl"
           >
             <div className="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('/noise.png')] bg-cover bg-center" />
             <div className="relative z-10">
@@ -465,50 +512,6 @@ const MembershipVerticals = () => {
                 losses due to non-payment of invoices between member partners.
                 (Conditions Apply)
               </p>
-            </div>
-          </motion.div>
-
-          {/* AGM Timeline-like List */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="relative border-[var(--primary-color)]"
-          >
-            <div className="mb-10">
-              <h4 className="text-2xl font-bold mb-3 text-[var(--primary-color)]">
-                Scheduled Networking Opportunities & AGMs
-              </h4>
-              <ul className="space-y-4 text-base text-gray-700 dark:text-gray-300">
-                <li>
-                  <span className="font-semibold">
-                    Formal Business Meetings:
-                  </span>{" "}
-                  Engage in formal business discussions, explore potential
-                  partnerships, and identify new opportunities.
-                </li>
-                <li>
-                  <span className="font-semibold">Informal Networking:</span>{" "}
-                  Enjoy relaxed social settings to connect with fellow members,
-                  build relationships, and foster a strong sense of community.
-                </li>
-                <li>
-                  <span className="font-semibold">Social Events:</span>{" "}
-                  Participate in ice-breaker activities, evening receptions, and
-                  dinners to enhance social connections and build lasting
-                  relationships.
-                </li>
-                <li>
-                  <span className="font-semibold">
-                    Sponsorship Opportunities:
-                  </span>{" "}
-                  Sponsor the ILN AGM and gain valuable exposure to a network of
-                  influential industry leaders. Showcase your company’s
-                  expertise and build lasting relationships while supporting a
-                  thriving community.
-                </li>
-              </ul>
             </div>
           </motion.div>
 
@@ -557,7 +560,7 @@ const MembershipVerticals = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="relative bg-white dark:bg-neutral-800 p-8 rounded-2xl shadow-lg"
+              className="relative bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-lg"
             >
               <h4 className="text-xl font-semibold mb-4 text-[var(--primary-color)]">
                 ILN Insurance & Risk Management

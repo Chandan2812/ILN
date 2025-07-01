@@ -140,7 +140,7 @@ const JoinFormPopup: React.FC<JoinFormPopupProps> = ({ isOpen, onClose }) => {
             </section>
 
             <MultiSelectField
-              label="Business Verticals *"
+              label="Business Verticals * (Note: Select only those that apply)"
               options={businessOptions}
               selected={verticals}
               setSelected={setVerticals}

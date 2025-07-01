@@ -32,11 +32,12 @@ export default function About() {
             Introducing the Integrated Logistics Network (ILN){" "}
           </h2>
           <p className="text-md text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-            Integrated Logistics Network (ILN) is a thriving global community
-            that empowers independent and medium-sized freight forwarders and
-            logistics companies. Our platform facilitates trusted business
-            opportunities and risk mitigation through innovation, networking,
-            and reliable partnerships.
+            The Integrated Logistics Network (ILN) is a thriving community
+            empowering independent and medium-sized freight forwarders and
+            logistics companies. We foster a secure and reliable environment
+            where you can connect with a global network of professionals, access
+            essential risk mitigation services, and leverage cutting-edge
+            technology to streamline your operations.
           </p>
 
           {/* Bullet Points / Features */}

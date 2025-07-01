@@ -9,19 +9,26 @@ import hero4 from "../assets/h (4).jpg";
 const images = [
   {
     url: hero1,
-    title: "Innovating Global Logistics",
+    title: "Grow Your Global Network",
+    subtitle:
+      "Join a trusted community of independent freight forwarders worldwide.",
   },
   {
     url: hero2,
-    title: "Accelerating Global Trade",
+    title: "Meet. Share. Thrive.",
+    subtitle:
+      "Connect face-to-face at our Annual General Meetings and build lasting relationships.",
   },
   {
     url: hero3,
-    title: "Maximizing Supply Chain Impact",
+    title: "Collaborate & Succeed",
+    subtitle:
+      "Partner with ethical, like-minded logistics experts to drive mutual growth.",
   },
   {
     url: hero4,
-    title: "Shaping Tomorrow’s Logistics",
+    title: "Insights & Opportunities Await",
+    subtitle: "Access exclusive industry updates, trends, and business leads.",
   },
 ];
 
@@ -66,16 +73,15 @@ const HeroSection: React.FC = () => {
           data-aos="fade-up"
           data-aos-delay="300"
         >
-          The world’s first logistics loyalty program for freight forwarders and
-          traders
+          {images[currentIndex].subtitle}
         </p>
-        <button
+        {/* <button
           className="mt-6 px-6 py-2 rounded border text-white border-white font-semibold hover:bg-white hover:text-black transition"
           data-aos="fade-up"
           data-aos-delay="600"
         >
           READ MORE
-        </button>
+        </button> */}
       </div>
 
       <div className="absolute z-30 right-4 sm:right-10 top-[65%] transform -translate-y-1/2  gap-3 md:flex hidden">

@@ -65,6 +65,8 @@ function Newsfeed() {
             <li key={index} className="border-b pb-4">
               <a
                 href={article.link}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-md  text-[var(--primary-color)] hover:underline block"
               >
                 {article.title}
