@@ -30,6 +30,12 @@ export default function AdminPage() {
   const [filteredLeads, setFilteredLeads] = useState([]);
   const [subscriberFilterDate, setSubscriberFilterDate] = useState("");
   const [emailerFilterDate, setEmailerFilterDate] = useState("");
+  const [newsfeed, setNewsfeed] = useState([]);
+  const [contacts, setContacts] = useState([]);
+  const [showNewsfeedModal, setShowNewsfeedModal] = useState(false);
+  const [newNews, setNewNews] = useState({ title: "", link: "", date: "" });
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [loadingContacts, setLoadingContacts] = useState(true);
 
   const postsPerPage = 20;
 
@@ -69,6 +75,74 @@ export default function AdminPage() {
   }, []);
 
   //   const baseURL = import.meta.env.VITE_API_BASE_URL;
+
+  const fetchNewsfeed = async () => {
+    try {
+      const res = await axios.get(
+        `https://iln-backend.onrender.com/api/newsfeed`
+      );
+      setNewsfeed(res.data);
+    } catch (err) {
+      console.error("Failed to fetch newsfeed");
+    }
+  };
+
+  const fetchContacts = async () => {
+    try {
+      const res = await axios.get(
+        "https://iln-backend.onrender.com/api/contact"
+      );
+      setContacts(res.data);
+    } catch (err) {
+      console.error("Failed to fetch contacts:", err);
+    } finally {
+      setLoadingContacts(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchNewsfeed();
+    fetchContacts();
+  }, []);
+
+  const handleDeleteNewsfeed = async (id: any) => {
+    try {
+      await axios.delete(`https://iln-backend.onrender.com/api/newsfeed/${id}`);
+      fetchNewsfeed();
+    } catch (err) {
+      console.error("Delete failed", err);
+    }
+  };
+
+  const handleAddNews = async () => {
+    try {
+      await axios.post(
+        `https://iln-backend.onrender.com/api/newsfeed`,
+        newNews
+      );
+      setNewNews({ title: "", link: "", date: "" });
+      setShowNewsfeedModal(false);
+      fetchNewsfeed();
+    } catch (err) {
+      console.error("Failed to add news");
+    }
+  };
+
+  const handleEditNews = async () => {
+    if (!editingId) return;
+    try {
+      await axios.put(
+        `https://iln-backend.onrender.com/api/newsfeed/${editingId}`,
+        newNews
+      );
+      setNewNews({ title: "", link: "", date: "" });
+      setEditingId(null);
+      setShowNewsfeedModal(false);
+      fetchNewsfeed();
+    } catch (err) {
+      console.error("Failed to update newsfeed");
+    }
+  };
 
   useEffect(() => {
     axios
@@ -130,6 +204,8 @@ export default function AdminPage() {
     "Newsletter Data",
     "Blog Data",
     // "Offer Data",
+    "Newsfeed",
+    "Contact Form",
   ];
 
   const fetchBlogs = () => {
@@ -977,6 +1053,285 @@ export default function AdminPage() {
                           )
                         )}
                     </div>
+                  )}
+                </section>
+              )}
+
+              {activePanel === "Newsfeed" && (
+                <section className="bg-gray-100 dark:bg-neutral-900 p-4 md:p-6 rounded shadow mb-6">
+                  <div className="flex justify-between items-center mb-4">
+                    <h2 className="text-xl font-semibold">Newsfeed</h2>
+                    <button
+                      onClick={() => {
+                        setEditingId(null);
+                        setNewNews({ title: "", link: "", date: "" });
+                        setShowNewsfeedModal(true);
+                      }}
+                      className="flex items-center gap-2 px-4 py-2 text-sm bg-blue-600 text-white rounded hover:bg-blue-700"
+                    >
+                      Add Newsfeed
+                    </button>
+                  </div>
+
+                  {/* Table View */}
+                  <div className="hidden md:block overflow-auto">
+                    <table className="w-full text-left text-sm table-fixed">
+                      <thead>
+                        <tr className="border-b">
+                          <th className="pb-2 px-2 w-1/3 break-words">Title</th>
+                          <th className="pb-2 px-2 w-1/3 break-words">Link</th>
+                          <th className="pb-2 px-2 w-1/5 break-words">Date</th>
+                          <th className="pb-2 px-2 w-1/12 text-center">
+                            Actions
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {newsfeed.map((item: any) => (
+                          <tr key={item._id}>
+                            <td className="py-2 px-2">{item.title}</td>
+                            <td className="py-2 px-2 truncate">
+                              <a
+                                href={item.link}
+                                className="text-blue-600 underline"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                {item.link}
+                              </a>
+                            </td>
+                            <td className="py-2 px-2">
+                              {new Date(item.date).toLocaleDateString()}
+                            </td>
+                            <td className="py-2 px-2 text-center flex gap-2 justify-center">
+                              <button
+                                onClick={() => {
+                                  setNewNews({
+                                    title: item.title,
+                                    link: item.link,
+                                    date: item.date?.substring(0, 10),
+                                  });
+                                  setEditingId(item._id);
+                                  setShowNewsfeedModal(true);
+                                }}
+                                className="text-blue-600 hover:text-blue-800"
+                                title="Edit"
+                              >
+                                ✏️
+                              </button>
+                              <button
+                                onClick={() => handleDeleteNewsfeed(item._id)}
+                                className="text-red-600 hover:text-red-800"
+                                title="Delete"
+                              >
+                                🗑️
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+
+                  {/* Mobile Card View */}
+                  <div className="md:hidden space-y-4">
+                    {newsfeed.map((item: any) => (
+                      <div
+                        key={item._id}
+                        className="border rounded p-4 shadow-sm"
+                      >
+                        <p>
+                          <span className="font-semibold">Title:</span>{" "}
+                          {item.title}
+                        </p>
+                        <p>
+                          <span className="font-semibold">Link:</span>{" "}
+                          <a
+                            href={item.link}
+                            className="text-blue-600 underline"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {item.link}
+                          </a>
+                        </p>
+                        <p>
+                          <span className="font-semibold">Date:</span>{" "}
+                          {new Date(item.date).toLocaleDateString()}
+                        </p>
+                        <div className="mt-2 flex justify-end gap-2">
+                          <button
+                            onClick={() => {
+                              setNewNews({
+                                title: item.title,
+                                link: item.link,
+                                date: item.date?.substring(0, 10),
+                              });
+                              setEditingId(item._id);
+                              setShowNewsfeedModal(true);
+                            }}
+                            className="text-blue-600 hover:text-blue-800"
+                            title="Edit"
+                          >
+                            ✏️
+                          </button>
+                          <button
+                            onClick={() => handleDeleteNewsfeed(item._id)}
+                            className="text-red-600 hover:text-red-800"
+                            title="Delete"
+                          >
+                            🗑️
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Modal for Add/Edit */}
+                  {showNewsfeedModal && (
+                    <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50">
+                      <div className="bg-white dark:bg-neutral-800 p-6 rounded shadow-lg w-full max-w-md">
+                        <h3 className="text-xl font-semibold mb-4">
+                          {editingId ? "Edit Newsfeed" : "Add Newsfeed"}
+                        </h3>
+                        <div className="space-y-4">
+                          <input
+                            type="text"
+                            placeholder="Title"
+                            value={newNews.title}
+                            onChange={(e) =>
+                              setNewNews({ ...newNews, title: e.target.value })
+                            }
+                            className="w-full border px-3 py-2 rounded text-black"
+                          />
+                          <input
+                            type="text"
+                            placeholder="Link"
+                            value={newNews.link}
+                            onChange={(e) =>
+                              setNewNews({ ...newNews, link: e.target.value })
+                            }
+                            className="w-full border px-3 py-2 rounded text-black"
+                          />
+                          <input
+                            type="date"
+                            value={newNews.date}
+                            onChange={(e) =>
+                              setNewNews({ ...newNews, date: e.target.value })
+                            }
+                            className="w-full border px-3 py-2 rounded text-black"
+                          />
+                          <div className="flex justify-end gap-2 pt-4">
+                            <button
+                              onClick={() => {
+                                setShowNewsfeedModal(false);
+                                setEditingId(null);
+                                setNewNews({ title: "", link: "", date: "" });
+                              }}
+                              className="px-4 py-2 text-sm bg-gray-400 text-white rounded hover:bg-gray-500"
+                            >
+                              Cancel
+                            </button>
+                            <button
+                              onClick={
+                                editingId ? handleEditNews : handleAddNews
+                              }
+                              className="px-4 py-2 text-sm bg-green-600 text-white rounded hover:bg-green-700"
+                            >
+                              {editingId ? "Update" : "Add"}
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </section>
+              )}
+
+              {activePanel === "Contact Form" && (
+                <section className="bg-gray-100 dark:bg-neutral-900 p-4 md:p-6 rounded shadow mb-6">
+                  <div className="flex justify-between items-center mb-4">
+                    <h2 className="text-xl font-semibold">
+                      Contact Submissions
+                    </h2>
+                  </div>
+
+                  {loadingContacts ? (
+                    <p className="text-center py-8 text-gray-500">Loading...</p>
+                  ) : contacts.length === 0 ? (
+                    <p className="text-center py-8 text-gray-500">
+                      No contacts found.
+                    </p>
+                  ) : (
+                    <>
+                      {/* Desktop Table View */}
+                      <div className="hidden md:block overflow-auto">
+                        <table className="w-full text-left text-sm table-fixed">
+                          <thead>
+                            <tr className="border-b">
+                              <th className="pb-2 px-2 w-1/6">Name</th>
+                              <th className="pb-2 px-2 w-1/6">Email</th>
+                              <th className="pb-2 px-2 w-1/5">Subject</th>
+                              <th className="pb-2 px-2 w-1/3">Message</th>
+                              <th className="pb-2 px-2 w-1/12 text-center">
+                                Action
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {contacts.map((contact: any) => (
+                              <tr key={contact._id} className="border-t">
+                                <td className="py-2 px-2">{contact.name}</td>
+                                <td className="py-2 px-2">{contact.email}</td>
+                                <td className="py-2 px-2">{contact.subject}</td>
+                                <td className="py-2 px-2 truncate">
+                                  {contact.message}
+                                </td>
+                                <td className="py-2 px-2 text-center">
+                                  <a
+                                    href={`mailto:${contact.email}`}
+                                    className="text-blue-600 hover:text-blue-800"
+                                  >
+                                    Send Mail
+                                  </a>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+
+                      {/* Mobile Card View */}
+                      <div className="md:hidden space-y-4">
+                        {contacts.map((contact: any) => (
+                          <div
+                            key={contact._id}
+                            className="border rounded p-4 shadow-sm"
+                          >
+                            <p>
+                              <strong>Name:</strong> {contact.name}
+                            </p>
+                            <p>
+                              <strong>Email:</strong> {contact.email}
+                            </p>
+                            <p>
+                              <strong>Subject:</strong> {contact.subject}
+                            </p>
+                            <p>
+                              <strong>Message:</strong> {contact.message}
+                            </p>
+                            <div className="mt-2 text-right">
+                              <a
+                                href={`mailto:${contact.email}`}
+                                className="text-blue-600 hover:text-blue-800"
+                              >
+                                Send Mail
+                              </a>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </>
                   )}
                 </section>
               )}

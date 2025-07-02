@@ -1,48 +1,29 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import newsfeed from "../assets/newsfeed.jpeg";
-import { useState } from "react";
 
 function Newsfeed() {
-  const articles = [
-    {
-      title:
-        "With A Primitive Canoe, Scientists Replicate Prehistoric Seafaring",
-      date: "June 29, 2025",
-      link: "https://gcaptain.com/with-a-primitive-canoe-scientists-replicate-prehistoric-seafaring/",
-    },
-    {
-      title: "Russia Tries Again to Expand LNG Exports Upended by Sanctions",
-      date: "June 29, 2025",
-      link: "https://gcaptain.com/russia-tries-again-to-expand-lng-exports-upended-by-sanctions/",
-    },
-    {
-      title: "First Quantum Starts Shipping Stockpiled Copper From Panama Mine",
-      date: "June 28, 2025",
-      link: "https://gcaptain.com/first-quantum-starts-shipping-stockpiled-copper-from-panama-mine/",
-    },
-    {
-      title:
-        "“Book & Claim” is a valuable new tool to calculate scope 3 emissions",
-      date: "June 27, 2025",
-      link: "https://theloadstar.com/book-claim-is-a-valuable-new-tool-to-calculate-scope-3-emissions/",
-    },
-    {
-      title:
-        "Dachser’s management succession plan: Claus Wetzel named new Logistics Germany head",
-      date: "June 27, 2025",
-      link: "https://theloadstar.com/dachsers-management-succession-plan-claus-wetzel-named-new-logistics-germany-head/",
-    },
-    {
-      title:
-        "The Loadstar leader: A wagon train on the trail to recession in the new ‘Wild West’",
-      date: "June 27, 2025",
-      link: "https://theloadstar.com/the-loadstar-leader-a-waggon-train-on-the-trail-to-recession-in-the-new-wild-west/",
-    },
-  ];
-
+  const [articles, setArticles] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const articlesPerPage = 15;
+
+  useEffect(() => {
+    const fetchNewsfeed = async () => {
+      try {
+        const res = await axios.get(
+          "https://iln-backend.onrender.com/api/newsfeed"
+        );
+        setArticles(res.data.reverse()); // latest news first
+      } catch (err) {
+        console.error("Failed to fetch newsfeed", err);
+      }
+    };
+
+    fetchNewsfeed();
+  }, []);
+
   const totalPages = Math.ceil(articles.length / articlesPerPage);
 
   const currentArticles = articles.slice(
@@ -70,6 +51,7 @@ function Newsfeed() {
         pages.push("...", totalPages);
       }
     }
+
     return pages;
   };
 
@@ -93,43 +75,55 @@ function Newsfeed() {
 
       {/* News List */}
       <div className="max-w-5xl mx-auto py-10 px-4">
-        <ul className="space-y-6">
-          {currentArticles.map((article, index) => (
-            <li key={index} className="border-b pb-4">
-              <a
-                href={article.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-md text-[var(--primary-color)] hover:underline block"
-              >
-                {article.title}
-              </a>
-              <p className="text-gray-500 text-sm">{article.date}</p>
-            </li>
-          ))}
-        </ul>
+        {articles.length === 0 ? (
+          <p className="text-center text-gray-500">
+            No news available at the moment.
+          </p>
+        ) : (
+          <>
+            <ul className="space-y-6">
+              {currentArticles.map((article: any, index) => (
+                <li key={index} className="border-b pb-4">
+                  <a
+                    href={article.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-md text-[var(--primary-color)] hover:underline block"
+                  >
+                    {article.title}
+                  </a>
+                  <p className="text-gray-500 text-sm">
+                    {new Date(article.date).toLocaleDateString()}
+                  </p>
+                </li>
+              ))}
+            </ul>
 
-        {/* Pagination */}
-        <div className="mt-10 flex justify-center gap-2 flex-wrap">
-          {getPageNumbers().map((page, index) => (
-            <button
-              key={index}
-              onClick={() => typeof page === "number" && setCurrentPage(page)}
-              className={`px-3 py-1 rounded-md text-sm font-medium transition ${
-                page === currentPage
-                  ? "bg-[var(--primary-color)] text-white"
-                  : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200"
-              } ${
-                page === "..."
-                  ? "cursor-default"
-                  : "hover:bg-[var(--primary-color-light)] dark:hover:bg-gray-600"
-              }`}
-              disabled={page === "..."}
-            >
-              {page}
-            </button>
-          ))}
-        </div>
+            {/* Pagination */}
+            <div className="mt-10 flex justify-center gap-2 flex-wrap">
+              {getPageNumbers().map((page, index) => (
+                <button
+                  key={index}
+                  onClick={() =>
+                    typeof page === "number" && setCurrentPage(page)
+                  }
+                  className={`px-3 py-1 rounded-md text-sm font-medium transition ${
+                    page === currentPage
+                      ? "bg-[var(--primary-color)] text-white"
+                      : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200"
+                  } ${
+                    page === "..."
+                      ? "cursor-default"
+                      : "hover:bg-[var(--primary-color-light)] dark:hover:bg-gray-600"
+                  }`}
+                  disabled={page === "..."}
+                >
+                  {page}
+                </button>
+              ))}
+            </div>
+          </>
+        )}
       </div>
 
       <Footer />
