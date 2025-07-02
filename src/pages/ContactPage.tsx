@@ -1,6 +1,6 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope } from "react-icons/fa";
+import { FaMapMarkerAlt, FaEnvelope } from "react-icons/fa";
 import contactBanner from "../assets/Heathrow35-1024x652.jpg";
 
 export default function ContactPage() {
@@ -41,10 +41,10 @@ export default function ContactPage() {
                 <br /> Mody Road, Tsim Sha Tsui East, Kowloon, Hong Kong
               </span>
             </p>
-            <p className="flex items-center gap-3">
+            {/* <p className="flex items-center gap-3">
               <FaPhoneAlt className="text-[var(--primary-color)]" />
               +852-1234-5678
-            </p>
+            </p> */}
             <p className="flex items-center gap-3">
               <FaEnvelope className="text-[var(--primary-color)]" />
               info@integratedlognet.com

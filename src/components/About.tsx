@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import aboutImage from "../assets/303e5955fa99dd84c83c37496a3de2a9.jpg";
-import { FaShieldAlt, FaUsers, FaHandshake, FaGlobe } from "react-icons/fa";
+import { FaShieldAlt, FaUsers, FaRocket } from "react-icons/fa";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import JoinFormPopup from "./JoinForm";
@@ -47,9 +47,10 @@ export default function About() {
               data-aos="fade-up"
               data-aos-delay="200"
             >
-              <FaShieldAlt className="text-[var(--primary-color)] text-xl mt-1" />
+              <FaUsers className="text-[var(--primary-color)] text-xl mt-1" />
               <span className="text-gray-700 dark:text-gray-300">
-                Financial Protection & Cargo Insurance for peace of mind
+                Build valuable connections: Network with fellow professionals
+                worldwide, expanding your reach and finding trusted partners.
               </span>
             </li>
             <li
@@ -57,9 +58,10 @@ export default function About() {
               data-aos="fade-up"
               data-aos-delay="400"
             >
-              <FaUsers className="text-[var(--primary-color)] text-xl mt-1" />
+              <FaShieldAlt className="text-[var(--primary-color)] text-xl mt-1" />
               <span className="text-gray-700 dark:text-gray-300">
-                Access to an elite network of vetted logistics professionals
+                Mitigate risk: Access essential services like financial
+                protection and comprehensive cargo insurance.
               </span>
             </li>
             <li
@@ -67,19 +69,10 @@ export default function About() {
               data-aos="fade-up"
               data-aos-delay="600"
             >
-              <FaHandshake className="text-[var(--primary-color)] text-xl mt-1" />
+              <FaRocket className="text-[var(--primary-color)] text-xl mt-1" />
               <span className="text-gray-700 dark:text-gray-300">
-                Annual AGMs & conferences for building strong partnerships
-              </span>
-            </li>
-            <li
-              className="flex items-start gap-3"
-              data-aos="fade-up"
-              data-aos-delay="800"
-            >
-              <FaGlobe className="text-[var(--primary-color)] text-xl mt-1" />
-              <span className="text-gray-700 dark:text-gray-300">
-                Global reach with strategic partners at every key location
+                Drive innovation: Leverage cutting-edge technology and solutions
+                to streamline your operations and gain a competitive edge.
               </span>
             </li>
           </ul>

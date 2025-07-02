@@ -9,26 +9,27 @@ import hero4 from "../assets/h (4).jpg";
 const images = [
   {
     url: hero1,
-    title: "Grow Your Global Network",
+    title: "Experience Seamless Logistics with ILN.",
     subtitle:
-      "Join a trusted community of independent freight forwarders worldwide.",
+      "Simplify global freight operations with a network that ensures reliability, security, and speed.",
   },
   {
     url: hero2,
-    title: "Meet. Share. Thrive.",
+    title: "ILN: Connect. Collaborate. Conquer.",
     subtitle:
-      "Connect face-to-face at our Annual General Meetings and build lasting relationships.",
+      "Form meaningful partnerships, share insights, and achieve success together across borders.",
   },
   {
     url: hero3,
-    title: "Collaborate & Succeed",
+    title: "ILN: Where Logistics Meets Innovation.",
     subtitle:
-      "Partner with ethical, like-minded logistics experts to drive mutual growth.",
+      "Leverage smart technology and ethical collaboration to stay ahead in a competitive industry.",
   },
   {
     url: hero4,
-    title: "Insights & Opportunities Await",
-    subtitle: "Access exclusive industry updates, trends, and business leads.",
+    title: "Join ILN: The Future of Logistics.",
+    subtitle:
+      "Be part of a visionary community shaping the future of freight forwarding worldwide.",
   },
 ];
 
@@ -65,7 +66,7 @@ const HeroSection: React.FC = () => {
 
       {/* Text Content */}
       <div className="relative z-20 flex flex-col justify-center items-start h-full text-left px-6 md:px-16 text-white">
-        <h1 className="text-4xl sm:text-6xl font-bold" data-aos="fade-up">
+        <h1 className="text-5xl font-bold" data-aos="fade-up">
           {images[currentIndex].title}
         </h1>
         <p

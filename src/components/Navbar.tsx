@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import {
   FaMapMarkerAlt,
-  FaPhoneAlt,
   FaFacebook,
   FaLinkedin,
   FaInstagram,
@@ -275,10 +274,10 @@ export default function Navbar() {
                         Unit 1112, 11/F, Wing On Plaza 62, Mody Road, Tsim Sha
                         Tsui East Kowloon, Hong Kong
                       </p>
-                      <p className="flex items-center gap-2">
+                      {/* <p className="flex items-center gap-2">
                         <FaPhoneAlt className="text-[var(--primary-color)]" />{" "}
                         0-123-456-789
-                      </p>
+                      </p> */}
                       <p className="flex items-center gap-2">
                         <FaEnvelope className="text-[var(--primary-color)]" />{" "}
                         info@integratedlognet.com
