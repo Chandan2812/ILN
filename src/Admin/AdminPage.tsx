@@ -16,7 +16,7 @@ export default function AdminPage() {
   const [newsletterData, setNewsletterData] = useState([]);
   const [emailSubscribers, setEmailSubscribers] = useState([]);
   const [popupLeads, setPopupLeads] = useState([]);
-  const [activePanel, setActivePanel] = useState("Users");
+  const [activePanel, setActivePanel] = useState("Email Subscribers");
   const [emailerData, setEmailerData] = useState([]);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [blogs, setBlogs] = useState([]);
@@ -72,7 +72,7 @@ export default function AdminPage() {
 
   useEffect(() => {
     axios
-      .get(`https://cft-b87k.onrender.com/api/auth/allUser`)
+      .get(`https://iln-backend.onrender.com/api/auth/allUser`)
       .then((res) => {
         // console.log("Users:", res.data);
         setUsers(res.data);
@@ -80,7 +80,7 @@ export default function AdminPage() {
       .catch((err) => console.error("Users error:", err));
 
     axios
-      .get(`https://cft-b87k.onrender.com/newsletter`)
+      .get(`https://iln-backend.onrender.com/newsletter`)
       .then((res) => {
         // console.log("Newsletter:", res.data);
         setNewsletterData(res.data);
@@ -88,7 +88,7 @@ export default function AdminPage() {
       .catch((err) => console.error("Newsletter error:", err));
 
     axios
-      .get(`https://cft-b87k.onrender.com/subscribers`)
+      .get(`https://iln-backend.onrender.com/subscribers`)
       .then((res) => {
         // console.log("Subscribers:", res.data);
         setEmailSubscribers(res.data);
@@ -96,7 +96,7 @@ export default function AdminPage() {
       .catch((err) => console.error("Subscribers error:", err));
 
     axios
-      .get(`https://cft-b87k.onrender.com/api/popup-lead`)
+      .get(`https://iln-backend.onrender.com/api/popup-lead`)
       .then((res) => {
         // console.log("Leads:", res.data);
         setPopupLeads(res.data);
@@ -105,7 +105,7 @@ export default function AdminPage() {
 
     // Fetch Emailer Data
     axios
-      .get(`https://cft-b87k.onrender.com/emailer`)
+      .get(`https://iln-backend.onrender.com/emailer`)
       .then((res) => {
         // console.log("Emailer:", res.data);
         setEmailerData(res.data);
@@ -113,7 +113,7 @@ export default function AdminPage() {
       .catch((err) => console.error("Emailer error:", err));
 
     axios
-      .get(`https://cft-b87k.onrender.com/api/blogs/viewblog`)
+      .get(`https://iln-backend.onrender.com/api/blogs/viewblog`)
       .then((res) => {
         // console.log("Blogs:", res.data);
         setBlogs(res.data);
@@ -122,10 +122,10 @@ export default function AdminPage() {
   }, []);
 
   const menuItems = [
-    "Users",
+    // "Users",
 
     "Email Subscribers",
-    "Popup Leads",
+    // "Popup Leads",
     "Emailer Data",
     "Newsletter Data",
     "Blog Data",
@@ -134,7 +134,7 @@ export default function AdminPage() {
 
   const fetchBlogs = () => {
     axios
-      .get(`https://cft-b87k.onrender.com/api/blogs/viewblog`)
+      .get(`https://iln-backend.onrender.com/api/blogs/viewblog`)
       .then((res) => setBlogs(res.data))
       .catch((err) => console.error("Blogs error:", err));
   };
@@ -151,7 +151,7 @@ export default function AdminPage() {
     if (!window.confirm("Are you sure you want to delete this blog?")) return;
     try {
       const res = await axios.delete(
-        `https://cft-b87k.onrender.com/api/blogs/${slug}`
+        `https://iln-backend.onrender.com/api/blogs/${slug}`
       );
       alert(res.data.msg || "Deleted");
       fetchBlogs();
@@ -205,7 +205,7 @@ export default function AdminPage() {
 
           <aside className="fixed top-32 left-10 h-fit mt-2 w-64 bg-gray-100 dark:bg-neutral-900 p-4 shadow z-40 hidden md:block overflow-y-auto">
             <h2 className="text-xl font-semibold mb-4 text-[var(--primary-color)]">
-              Access Panel
+              Admin Panel
             </h2>
             <ul className="space-y-2">
               {menuItems.map((item) => (
@@ -905,7 +905,7 @@ export default function AdminPage() {
                             onClick={async () => {
                               try {
                                 const res = await fetch(
-                                  `https://cft-b87k.onrender.com/api/blogs/${selectedBlog?.slug}`,
+                                  `https://iln-backend.onrender.com/api/blogs/${selectedBlog?.slug}`,
                                   {
                                     method: "PUT",
                                     headers: {

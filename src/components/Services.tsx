@@ -98,7 +98,7 @@ export default function Services() {
             {verticalData.map((item, index) => (
               <div
                 key={index}
-                className="cursor-pointer p-4 rounded-lg shadow-md transition-all duration-300 hover:shadow-xl bg-white dark:bg-neutral-800"
+                className="bg-white dark:bg-[var(--bg-color1)] rounded-xl shadow-md hover:shadow-xl dark:drop-shadow-[0_0_10px_rgba(255,255,255,0.1)] transition-all p-6 text-center flex flex-col items-center"
               >
                 <div className="flex items-center gap-3 mb-2">
                   <div className="text-2xl text-[var(--primary-color)]">

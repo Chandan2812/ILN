@@ -15,6 +15,8 @@ import JoinFormPopup from "./components/JoinForm";
 import { useState } from "react";
 import { FaUserPlus } from "react-icons/fa";
 
+import BlogDetails from "./pages/BlogDetails";
+
 function App() {
   const [showForm, setShowForm] = useState(false);
   return (
@@ -28,6 +30,7 @@ function App() {
         <Route path="/Login" element={<Login />} />
         <Route path="/newsfeed" element={<Newsfeed />} />
         <Route path="/blogs" element={<Blog />} />
+        <Route path="/blogs/:slug" element={<BlogDetails />} />
         <Route path="/AdminPage" element={<AdminPage />} />
       </Routes>
       <div className="md:flex hidden">

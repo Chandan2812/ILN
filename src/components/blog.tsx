@@ -1,36 +1,82 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
 import Slider from "react-slick";
-import blogsData from "../data/blogsData.json";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "../index.css"; // If you use global fonts or custom classes
+import { useNavigate } from "react-router-dom";
+
+const baseURL = import.meta.env.VITE_API_BASE_URL;
+
+interface BlogType {
+  _id: string;
+  title: string;
+  coverImage: string;
+  datePublished: string;
+  slug: string;
+}
 
 const Insights = () => {
+  const [blogs, setBlogs] = useState<BlogType[]>([]);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const res = await axios.get(`${baseURL}/api/blogs/viewblog`);
+        const limited = res.data.slice(0, 4); // Only take first 4 blogs
+        setBlogs(limited);
+      } catch (err) {
+        console.error("Failed to fetch blogs", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBlogs();
+  }, []);
+
   const settings = {
     dots: true,
     arrows: false,
-    infinite: true, // make sure this is true so it loops
+    infinite: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 4000, // 4 seconds per slide
+    autoplaySpeed: 4000,
     appendDots: (dots: React.ReactNode) => (
       <div className="flex justify-center mt-4 gap-2">{dots}</div>
     ),
   };
 
-  return (
-    <div className="px-4 py-10 bg-[var(--bg-color2)] dark:bg-[var(--bg-color1)] font-['PT_Serif'] dark:text-white  text-[var(--secondary-color)]  font-raleway font-light dark:font-thin gradient-top relative">
-      <h2 className="text-center text-3xl font-thin">INSIGHTS</h2>
+  if (loading) {
+    return (
+      <div className="py-20 text-center text-gray-600 dark:text-gray-300">
+        Loading insights...
+      </div>
+    );
+  }
 
-      {/* Slider Section */}
-      <div className="w-full md:w-5/6 mx-auto mt-8">
+  if (!blogs.length) {
+    return (
+      <div className="py-20 text-center text-gray-500 dark:text-gray-400 text-xl">
+        No blogs found.
+      </div>
+    );
+  }
+
+  return (
+    <div className="px-4 py-10 bg-[var(--bg-color2)] dark:bg-[var(--bg-color1)] font-['PT_Serif'] dark:text-white text-[var(--secondary-color)] font-raleway font-light dark:font-thin gradient-top relative">
+      <h2 className="text-4xl font-bold text-center">INSIGHTS</h2>
+
+      <div className="w-11/12 md:w-5/6 mx-auto mt-8">
         <Slider {...settings}>
-          {blogsData.slice(0, 4).map((item, i) => (
-            <div key={i}>
+          {blogs.map((item, i) => (
+            <div key={item._id || i}>
               <div className="border border-gray-300 dark:border-gray-600 flex flex-col lg:flex-row w-full h-full overflow-hidden bg-white dark:bg-black">
                 <img
-                  src={item.image}
+                  src={item.coverImage}
                   alt={item.title}
                   className="w-full lg:w-1/2 h-full object-cover"
                   draggable={false}
@@ -38,14 +84,14 @@ const Insights = () => {
                 <div className="p-8 flex flex-col justify-center w-full bg-[var(--bg-color2)] dark:bg-[var(--bg-color1)]">
                   <h3 className="text-2xl font-thin">{item.title}</h3>
                   <p className="mt-4 text-gray-700 dark:text-gray-300">
-                    {item.date}
+                    {new Date(item.datePublished).toLocaleDateString()}
                   </p>
-                  <a
-                    href="/viewblogs"
-                    className="mt-6 rounded-tl-2xl rounded-br-2xl bg-[var(--primary-color)] text-white text-md font-light hover:opacity-70 px-6 py-2 uppercase tracking-wide transition w-fit inline-block"
+                  <button
+                    onClick={() => navigate(`/blogs/${item.slug}`)}
+                    className="mt-6 rounded-tl-2xl rounded-br-2xl bg-[var(--primary-color)] text-white text-md font-light hover:opacity-70 px-6 py-2 uppercase tracking-wide transition w-fit"
                   >
-                    All Blogs
-                  </a>
+                    Read More
+                  </button>
                 </div>
               </div>
             </div>

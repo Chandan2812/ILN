@@ -109,7 +109,7 @@ export default function WhyJoinILN() {
           >
             <div>
               <h3 className="text-2xl font-bold text-[var(--primary-color)] mb-6">
-                Why Leading Forwarders Join ILN
+                ILN membership provides a platform for businesses to:
               </h3>
               <ul className="space-y-5 text-sm text-gray-700 dark:text-gray-300">
                 <li className="flex gap-3">

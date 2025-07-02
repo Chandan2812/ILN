@@ -24,7 +24,7 @@ export default function ILNBenefits() {
 
   return (
     <section className="bg-gray-50 dark:bg-[var(--secondary-color)] text-[var(--secondary-color)] dark:text-white py-16">
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="w-11/12 md:w-5/6 mx-auto">
         <div className="text-center mb-10">
           <p className="text-sm uppercase text-[var(--primary-color)]">
             Benefits
@@ -42,7 +42,7 @@ export default function ILNBenefits() {
           {benefits.map((item, index) => (
             <div
               key={index}
-              className="p-6 rounded-lg shadow-md transition-all duration-300 hover:shadow-xl bg-white dark:bg-neutral-800"
+              className="bg-white dark:bg-[var(--bg-color1)] rounded-xl shadow-md hover:shadow-xl dark:drop-shadow-[0_0_10px_rgba(255,255,255,0.1)] transition-all p-6 text-center flex flex-col items-center "
             >
               <h3 className="text-lg font-semibold mb-2 text-[var(--primary-color)]">
                 {item.title}
