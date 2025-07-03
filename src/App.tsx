@@ -31,7 +31,7 @@ function App() {
         <Route path="/newsfeed" element={<Newsfeed />} />
         <Route path="/blogs" element={<Blog />} />
         <Route path="/blogs/:slug" element={<BlogDetails />} />
-        <Route path="/AdminPage" element={<AdminPage />} />
+        <Route path="/admin" element={<AdminPage />} />
       </Routes>
       <div className="md:flex hidden">
         <ContactSidebar />
