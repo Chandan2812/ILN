@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { exportToExcel } from "../utils/exportToExcel";
 import { ChevronDown, ChevronUp, Trash2 } from "lucide-react";
@@ -51,7 +51,7 @@ export default function AdminPage() {
 
   const totalPages = Math.ceil(blogs.length / postsPerPage);
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   interface BlogPost {
     _id: string;
@@ -93,12 +93,12 @@ export default function AdminPage() {
     ["link"],
   ];
 
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user") || "{}");
-    if (user.email !== "admin@gmail.com") {
-      navigate("/login");
-    }
-  }, []);
+  // useEffect(() => {
+  //   const user = JSON.parse(localStorage.getItem("user") || "{}");
+  //   if (user.email !== "admin@gmail.com") {
+  //     navigate("/login");
+  //   }
+  // }, []);
 
   //   const baseURL = import.meta.env.VITE_API_BASE_URL;
 
