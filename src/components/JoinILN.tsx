@@ -105,7 +105,7 @@ export default function WhyJoinILN() {
           {/* Right: Summary Box */}
           <div
             className="bg-white dark:bg-[var(--secondary2-color)] border border-gray-200 dark:border-gray-700 rounded-2xl shadow-lg p-8 flex flex-col justify-between"
-            data-aos="zoom-in-left"
+            data-aos="zoom-in"
           >
             <div>
               <h3 className="text-2xl font-bold text-[var(--primary-color)] mb-6">

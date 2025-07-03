@@ -189,7 +189,11 @@ export default function Navbar() {
                 ].map((item) => (
                   <a
                     key={item}
-                    href={`/${item.toLowerCase().replace(/\s+/g, "-")}`}
+                    href={
+                      item === "Home"
+                        ? "/"
+                        : `/${item.toLowerCase().replace(/\s+/g, "-")}`
+                    }
                     className="block py-2 text-[var(--primary-color)] dark:text-white"
                   >
                     {item}
