@@ -8,7 +8,7 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Newsfeed from "./pages/Newsfeed";
 import Blog from "./pages/Blogs";
-import ContactSidebar from "./components/ContactSideBar";
+// import ContactSidebar from "./components/ContactSideBar";
 import AdminPage from "./Admin/AdminPage";
 import { Phone } from "lucide-react";
 import JoinFormPopup from "./components/JoinForm";
@@ -33,9 +33,9 @@ function App() {
         <Route path="/blogs/:slug" element={<BlogDetails />} />
         <Route path="/admin" element={<AdminPage />} />
       </Routes>
-      <div className="md:flex hidden">
+      {/* <div className="md:flex hidden">
         <ContactSidebar />
-      </div>
+      </div> */}
 
       <div className="fixed bottom-0 left-0 w-full z-50 flex md:hidden">
         <a
