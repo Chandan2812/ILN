@@ -26,9 +26,9 @@ export default function ILNBenefits() {
     <section className="bg-gray-50 dark:bg-[var(--secondary-color)] text-[var(--secondary-color)] dark:text-white py-16">
       <div className="w-11/12 md:w-5/6 mx-auto">
         <div className="text-center mb-10">
-          <p className="text-sm uppercase text-[var(--primary-color)]">
+          {/* <p className="text-sm uppercase text-[var(--primary-color)]">
             Benefits
-          </p>
+          </p> */}
           <h2 className="text-4xl font-bold mt-2">
             Experience Unparalleled Growth
           </h2>

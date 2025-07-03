@@ -4,6 +4,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useNavigate } from "react-router-dom";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 const baseURL = import.meta.env.VITE_API_BASE_URL;
 
@@ -14,6 +15,31 @@ interface BlogType {
   datePublished: string;
   slug: string;
 }
+
+// Custom Arrows for Desktop
+const NextArrow = (props: any) => {
+  const { onClick } = props;
+  return (
+    <button
+      className="hidden md:flex absolute top-1/2 -right-20 transform -translate-y-1/2 z-10 bg-[var(--primary-color)] text-white p-3 rounded-full hover:opacity-80"
+      onClick={onClick}
+    >
+      <FiChevronRight size={20} />
+    </button>
+  );
+};
+
+const PrevArrow = (props: any) => {
+  const { onClick } = props;
+  return (
+    <button
+      className="hidden md:flex absolute top-1/2 -left-20 transform -translate-y-1/2 z-10 bg-[var(--primary-color)] text-white p-3 rounded-full hover:opacity-80"
+      onClick={onClick}
+    >
+      <FiChevronLeft size={20} />
+    </button>
+  );
+};
 
 const Insights = () => {
   const [blogs, setBlogs] = useState<BlogType[]>([]);
@@ -38,13 +64,14 @@ const Insights = () => {
 
   const settings = {
     dots: true,
-    arrows: false,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 4000,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
     appendDots: (dots: React.ReactNode) => (
       <div className="flex justify-center mt-4 gap-2">{dots}</div>
     ),
@@ -70,18 +97,18 @@ const Insights = () => {
     <div className="px-4 py-10 bg-[var(--bg-color2)] dark:bg-[var(--bg-color1)] font-['PT_Serif'] dark:text-white text-[var(--secondary-color)] font-raleway font-light dark:font-thin gradient-top relative">
       <h2 className="text-4xl font-bold text-center">INSIGHTS</h2>
 
-      <div className="w-11/12 md:w-5/6 mx-auto mt-8">
+      <div className="relative w-11/12 md:w-5/6 mx-auto mt-8">
         <Slider {...settings}>
           {blogs.map((item, i) => (
             <div key={item._id || i}>
-              <div className="border border-gray-300 dark:border-gray-600 flex flex-col lg:flex-row w-full h-full overflow-hidden bg-white dark:bg-black">
+              <div className="border border-gray-300 dark:border-gray-600 flex flex-col lg:flex-row w-full h-[400px] overflow-hidden bg-white dark:bg-black">
                 <img
                   src={item.coverImage}
                   alt={item.title}
                   className="w-full lg:w-1/2 h-full object-cover"
                   draggable={false}
                 />
-                <div className="p-8 flex flex-col justify-center w-full bg-[var(--bg-color2)] dark:bg-[var(--bg-color1)]">
+                <div className="p-8 flex flex-col justify-center w-full h-full bg-[var(--bg-color2)] dark:bg-[var(--bg-color1)] overflow-hidden">
                   <h3 className="text-2xl font-thin">{item.title}</h3>
                   <p className="mt-4 text-gray-700 dark:text-gray-300">
                     {new Date(item.datePublished).toLocaleDateString()}
