@@ -9,6 +9,7 @@ import AddBlog from "../components/AddBlogs"; // adjust path if needed
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "../index.css";
+const baseURL = import.meta.env.VITE_API_BASE_URL;
 // import YourOfferModalComponent from "../components/AddOffer"; // adjust path if needed
 
 export default function AdminPage() {
@@ -37,6 +38,11 @@ export default function AdminPage() {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [loadingContacts, setLoadingContacts] = useState(true);
 
+  const [showPopup, setShowPopup] = useState(false);
+  const [members, setMembers] = useState<Member[]>([]);
+  const [selectedMember, setSelectedMember] = useState<Member | null>(null);
+  const [_loading, setLoading] = useState(false);
+
   const postsPerPage = 20;
 
   const indexOfLastPost = currentPage * postsPerPage;
@@ -55,6 +61,26 @@ export default function AdminPage() {
     datePublished: string;
     slug: string;
     content: string; // ✅ Add this line
+  }
+
+  interface Member {
+    _id: string;
+    companyName: string;
+    legalStructure: string;
+    establishmentDate: string;
+    building: string;
+    street: string;
+    area: string;
+    landmark?: string;
+    poBox?: string;
+    state?: string;
+    country: string;
+    telephone: string;
+    email: string;
+    businessVerticals: string[];
+    companyProfile: string;
+    contactName: string;
+    designation: string;
   }
 
   const toolbarOptions = [
@@ -78,20 +104,34 @@ export default function AdminPage() {
 
   const fetchNewsfeed = async () => {
     try {
-      const res = await axios.get(
-        `https://iln-backend.onrender.com/api/newsfeed`
-      );
+      const res = await axios.get(`${baseURL}/api/newsfeed`);
       setNewsfeed(res.data);
     } catch (err) {
       console.error("Failed to fetch newsfeed");
     }
   };
 
+  useEffect(() => {
+    const fetchMembers = async () => {
+      try {
+        setLoading(true);
+        const res = await fetch(`${baseURL}/api/members`);
+        const data = await res.json();
+        // console.log(data);
+        setMembers(data);
+      } catch (err) {
+        console.error("Failed to fetch members:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMembers();
+  }, []);
+
   const fetchContacts = async () => {
     try {
-      const res = await axios.get(
-        "https://iln-backend.onrender.com/api/contact"
-      );
+      const res = await axios.get(`${baseURL}/api/contact`);
       setContacts(res.data);
     } catch (err) {
       console.error("Failed to fetch contacts:", err);
@@ -107,7 +147,7 @@ export default function AdminPage() {
 
   const handleDeleteNewsfeed = async (id: any) => {
     try {
-      await axios.delete(`https://iln-backend.onrender.com/api/newsfeed/${id}`);
+      await axios.delete(`${baseURL}/api/newsfeed/${id}`);
       fetchNewsfeed();
     } catch (err) {
       console.error("Delete failed", err);
@@ -116,10 +156,7 @@ export default function AdminPage() {
 
   const handleAddNews = async () => {
     try {
-      await axios.post(
-        `https://iln-backend.onrender.com/api/newsfeed`,
-        newNews
-      );
+      await axios.post(`${baseURL}/api/newsfeed`, newNews);
       setNewNews({ title: "", link: "", date: "" });
       setShowNewsfeedModal(false);
       fetchNewsfeed();
@@ -131,10 +168,7 @@ export default function AdminPage() {
   const handleEditNews = async () => {
     if (!editingId) return;
     try {
-      await axios.put(
-        `https://iln-backend.onrender.com/api/newsfeed/${editingId}`,
-        newNews
-      );
+      await axios.put(`${baseURL}/api/newsfeed/${editingId}`, newNews);
       setNewNews({ title: "", link: "", date: "" });
       setEditingId(null);
       setShowNewsfeedModal(false);
@@ -146,7 +180,7 @@ export default function AdminPage() {
 
   useEffect(() => {
     axios
-      .get(`https://iln-backend.onrender.com/api/auth/allUser`)
+      .get(`${baseURL}/api/auth/allUser`)
       .then((res) => {
         // console.log("Users:", res.data);
         setUsers(res.data);
@@ -154,7 +188,7 @@ export default function AdminPage() {
       .catch((err) => console.error("Users error:", err));
 
     axios
-      .get(`https://iln-backend.onrender.com/newsletter`)
+      .get(`${baseURL}/newsletter`)
       .then((res) => {
         // console.log("Newsletter:", res.data);
         setNewsletterData(res.data);
@@ -162,7 +196,7 @@ export default function AdminPage() {
       .catch((err) => console.error("Newsletter error:", err));
 
     axios
-      .get(`https://iln-backend.onrender.com/subscribers`)
+      .get(`${baseURL}/subscribers`)
       .then((res) => {
         // console.log("Subscribers:", res.data);
         setEmailSubscribers(res.data);
@@ -170,7 +204,7 @@ export default function AdminPage() {
       .catch((err) => console.error("Subscribers error:", err));
 
     axios
-      .get(`https://iln-backend.onrender.com/api/popup-lead`)
+      .get(`${baseURL}/api/popup-lead`)
       .then((res) => {
         // console.log("Leads:", res.data);
         setPopupLeads(res.data);
@@ -179,7 +213,7 @@ export default function AdminPage() {
 
     // Fetch Emailer Data
     axios
-      .get(`https://iln-backend.onrender.com/emailer`)
+      .get(`${baseURL}/emailer`)
       .then((res) => {
         // console.log("Emailer:", res.data);
         setEmailerData(res.data);
@@ -187,7 +221,7 @@ export default function AdminPage() {
       .catch((err) => console.error("Emailer error:", err));
 
     axios
-      .get(`https://iln-backend.onrender.com/api/blogs/viewblog`)
+      .get(`${baseURL}/api/blogs/viewblog`)
       .then((res) => {
         // console.log("Blogs:", res.data);
         setBlogs(res.data);
@@ -206,11 +240,12 @@ export default function AdminPage() {
     // "Offer Data",
     "Newsfeed",
     "Contact Form",
+    "Membership Requests",
   ];
 
   const fetchBlogs = () => {
     axios
-      .get(`https://iln-backend.onrender.com/api/blogs/viewblog`)
+      .get(`${baseURL}/api/blogs/viewblog`)
       .then((res) => setBlogs(res.data))
       .catch((err) => console.error("Blogs error:", err));
   };
@@ -226,9 +261,7 @@ export default function AdminPage() {
   const handleDelete = async (slug: string) => {
     if (!window.confirm("Are you sure you want to delete this blog?")) return;
     try {
-      const res = await axios.delete(
-        `https://iln-backend.onrender.com/api/blogs/${slug}`
-      );
+      const res = await axios.delete(`${baseURL}/api/blogs/${slug}`);
       alert(res.data.msg || "Deleted");
       fetchBlogs();
     } catch (error) {
@@ -302,7 +335,7 @@ export default function AdminPage() {
           </aside>
 
           {/* MAIN CONTENT */}
-          <div className="w-full mt-16 md:mt-4 md:ml-80 p-4 md:w-3/4">
+          <div className="w-full mt-16 md:mt-0  md:ml-80 p-4 md:w-3/4">
             {/* MOBILE HEADER */}
             <div className="flex fixed top-36 left-0 w-full px-5  items-center justify-between md:hidden bg-gray-100  dark:bg-neutral-900 py-4 rounded shadow mb-4">
               <h2 className="text-xl font-semibold">Access Panel</h2>
@@ -981,7 +1014,7 @@ export default function AdminPage() {
                             onClick={async () => {
                               try {
                                 const res = await fetch(
-                                  `https://iln-backend.onrender.com/api/blogs/${selectedBlog?.slug}`,
+                                  `${baseURL}/api/blogs/${selectedBlog?.slug}`,
                                   {
                                     method: "PUT",
                                     headers: {
@@ -1334,6 +1367,122 @@ export default function AdminPage() {
                     </>
                   )}
                 </section>
+              )}
+
+              {activePanel === "Membership Requests" && (
+                <div>
+                  <h2 className="text-2xl font-bold mb-4">
+                    Membership Requests
+                  </h2>
+                  <div className="overflow-auto">
+                    <table className="min-w-full bg-white dark:bg-gray-800 border">
+                      <thead>
+                        <tr className="text-left text-sm text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700">
+                          <th className="p-3">Company Name</th>
+                          <th className="p-3">Email</th>
+                          <th className="p-3">Country</th>
+                          <th className="p-3">Phone</th>
+                          <th className="p-3">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {members.map((member) => (
+                          <tr key={member._id} className="border-t text-sm">
+                            <td className="p-3">{member.companyName}</td>
+                            <td className="p-3">{member.email}</td>
+                            <td className="p-3">{member.country}</td>
+                            <td className="p-3">{member.telephone}</td>
+                            <td className="p-3">
+                              <button
+                                onClick={() => {
+                                  setSelectedMember(member);
+                                  setShowPopup(true);
+                                }}
+                                className="text-sm px-3 py-1 bg-[var(--primary-color)] text-white rounded hover:brightness-110"
+                              >
+                                View
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              )}
+
+              {showPopup && selectedMember && (
+                <div className="fixed inset-0 bg-black/50 z-[9999] flex justify-center items-center">
+                  <div className="bg-white dark:bg-black max-w-3xl w-full p-6 rounded shadow-lg overflow-y-auto max-h-[90vh] relative">
+                    <button
+                      onClick={() => setShowPopup(false)}
+                      className="absolute top-4 right-4 text-xl font-bold text-gray-700 dark:text-gray-200"
+                    >
+                      &times;
+                    </button>
+
+                    <h3 className="text-xl font-bold mb-4 text-[var(--primary-color)]">
+                      Member Application Details
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                      <p>
+                        <strong>Company Name:</strong>{" "}
+                        {selectedMember.companyName}
+                      </p>
+                      <p>
+                        <strong>Legal Structure:</strong>{" "}
+                        {selectedMember.legalStructure}
+                      </p>
+                      <p>
+                        <strong>Date of Establishment:</strong>{" "}
+                        {selectedMember.establishmentDate}
+                      </p>
+                      <p>
+                        <strong>Building:</strong> {selectedMember.building}
+                      </p>
+                      <p>
+                        <strong>Street:</strong> {selectedMember.street}
+                      </p>
+                      <p>
+                        <strong>Area:</strong> {selectedMember.area}
+                      </p>
+                      <p>
+                        <strong>Landmark:</strong> {selectedMember.landmark}
+                      </p>
+                      <p>
+                        <strong>PO Box:</strong> {selectedMember.poBox}
+                      </p>
+                      <p>
+                        <strong>State:</strong> {selectedMember.state}
+                      </p>
+                      <p>
+                        <strong>Country:</strong> {selectedMember.country}
+                      </p>
+                      <p>
+                        <strong>Telephone:</strong> {selectedMember.telephone}
+                      </p>
+                      <p>
+                        <strong>Email:</strong> {selectedMember.email}
+                      </p>
+                      <p>
+                        <strong>Business Verticals:</strong>{" "}
+                        {selectedMember.businessVerticals.join(", ")}
+                      </p>
+                      <p>
+                        <strong>Company Profile:</strong>{" "}
+                        {selectedMember.companyProfile}
+                      </p>
+                      <p>
+                        <strong>Contact Person:</strong>{" "}
+                        {selectedMember.contactName}
+                      </p>
+                      <p>
+                        <strong>Designation:</strong>{" "}
+                        {selectedMember.designation}
+                      </p>
+                    </div>
+                  </div>
+                </div>
               )}
             </main>
           </div>

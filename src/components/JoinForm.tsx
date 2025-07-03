@@ -1,28 +1,35 @@
 import { useEffect, useState } from "react";
+const baseURL = import.meta.env.VITE_API_BASE_URL;
 
 interface JoinFormPopupProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const InputField = ({ label, ...props }: any) => (
+const InputField = ({ label, name, value, onChange, ...props }: any) => (
   <div className="flex flex-col gap-1">
     <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
       {label}
     </label>
     <input
+      name={name}
+      value={value}
+      onChange={onChange}
       {...props}
       className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] transition"
     />
   </div>
 );
 
-const TextareaField = ({ label, ...props }: any) => (
+const TextareaField = ({ label, name, value, onChange, ...props }: any) => (
   <div className="flex flex-col gap-1">
     <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
       {label}
     </label>
     <textarea
+      name={name}
+      value={value}
+      onChange={onChange}
       {...props}
       className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] transition"
     />
@@ -69,6 +76,27 @@ const JoinFormPopup: React.FC<JoinFormPopupProps> = ({ isOpen, onClose }) => {
   }, [isOpen]);
 
   const [verticals, setVerticals] = useState<string[]>([]);
+  const [formData, setFormData] = useState({
+    companyName: "",
+    legalStructure: "",
+    establishmentDate: "",
+    building: "",
+    street: "",
+    area: "",
+    landmark: "",
+    poBox: "",
+    state: "",
+    country: "",
+    telephone: "",
+    email: "",
+    companyProfile: "",
+    contactName: "",
+    designation: "",
+  });
+  const [loading, setLoading] = useState(false);
+  const [successMsg, setSuccessMsg] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
+
   const businessOptions = [
     "Freight Forwarding & Customs Brokers",
     "Supply Chain",
@@ -80,6 +108,55 @@ const JoinFormPopup: React.FC<JoinFormPopupProps> = ({ isOpen, onClose }) => {
     "Events & Exhibition Handlers",
     "Oil & Gas and Renewable Energy",
   ];
+
+  const handleChange = (e: any) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setSuccessMsg("");
+    setErrorMsg("");
+
+    try {
+      const response = await fetch(`${baseURL}/api/members`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...formData, businessVerticals: verticals }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setSuccessMsg("Member application submitted successfully!");
+        setFormData({
+          companyName: "",
+          legalStructure: "",
+          establishmentDate: "",
+          building: "",
+          street: "",
+          area: "",
+          landmark: "",
+          poBox: "",
+          state: "",
+          country: "",
+          telephone: "",
+          email: "",
+          companyProfile: "",
+          contactName: "",
+          designation: "",
+        });
+        setVerticals([]);
+      } else {
+        setErrorMsg(data?.error || "Something went wrong.");
+      }
+    } catch (err) {
+      setErrorMsg("Network error. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div
@@ -105,38 +182,105 @@ const JoinFormPopup: React.FC<JoinFormPopupProps> = ({ isOpen, onClose }) => {
             Join the ILN Network
           </h2>
 
-          <form className="space-y-8 text-sm text-black dark:text-white">
-            {/* Company Info */}
+          <form
+            className="space-y-8 text-sm text-black dark:text-white"
+            onSubmit={handleSubmit}
+          >
             <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <InputField label="Company Name *" required />
-              <InputField label="Legal Structure *" required />
+              <InputField
+                label="Company Name *"
+                name="companyName"
+                value={formData.companyName}
+                onChange={handleChange}
+                required
+              />
+              <InputField
+                label="Legal Structure *"
+                name="legalStructure"
+                value={formData.legalStructure}
+                onChange={handleChange}
+                required
+              />
               <InputField
                 label="Date of Establishment *"
+                name="establishmentDate"
                 type="date"
+                value={formData.establishmentDate}
+                onChange={handleChange}
                 required
               />
             </section>
 
-            {/* Registered Office */}
             <fieldset className="border border-gray-300 dark:border-gray-700 rounded-xl p-6">
               <legend className="px-2 text-lg font-semibold text-gray-800 dark:text-gray-200">
                 Registered Office
               </legend>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-                <InputField label="Building Name & Office Number *" required />
-                <InputField label="Street *" required />
-                <InputField label="Area *" required />
-                <InputField label="Nearest Landmark" />
-                <InputField label="PO Box" />
-                <InputField label="State" />
-                <InputField label="Country *" required />
+                <InputField
+                  label="Building Name & Office Number *"
+                  name="building"
+                  value={formData.building}
+                  onChange={handleChange}
+                  required
+                />
+                <InputField
+                  label="Street *"
+                  name="street"
+                  value={formData.street}
+                  onChange={handleChange}
+                  required
+                />
+                <InputField
+                  label="Area *"
+                  name="area"
+                  value={formData.area}
+                  onChange={handleChange}
+                  required
+                />
+                <InputField
+                  label="Nearest Landmark"
+                  name="landmark"
+                  value={formData.landmark}
+                  onChange={handleChange}
+                />
+                <InputField
+                  label="PO Box"
+                  name="poBox"
+                  value={formData.poBox}
+                  onChange={handleChange}
+                />
+                <InputField
+                  label="State"
+                  name="state"
+                  value={formData.state}
+                  onChange={handleChange}
+                />
+                <InputField
+                  label="Country *"
+                  name="country"
+                  value={formData.country}
+                  onChange={handleChange}
+                  required
+                />
               </div>
             </fieldset>
 
-            {/* Contact Info */}
             <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <InputField label="Telephone *" required />
-              <InputField label="Email ID *" type="email" required />
+              <InputField
+                label="Telephone *"
+                name="telephone"
+                value={formData.telephone}
+                onChange={handleChange}
+                required
+              />
+              <InputField
+                label="Email ID *"
+                name="email"
+                type="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
             </section>
 
             <MultiSelectField
@@ -146,19 +290,42 @@ const JoinFormPopup: React.FC<JoinFormPopupProps> = ({ isOpen, onClose }) => {
               setSelected={setVerticals}
             />
 
-            <TextareaField label="Company Profile *" rows={4} required />
+            <TextareaField
+              label="Company Profile *"
+              name="companyProfile"
+              value={formData.companyProfile}
+              onChange={handleChange}
+              rows={4}
+              required
+            />
 
             <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <InputField label="Name *" required />
-              <InputField label="Designation *" required />
+              <InputField
+                label="Name *"
+                name="contactName"
+                value={formData.contactName}
+                onChange={handleChange}
+                required
+              />
+              <InputField
+                label="Designation *"
+                name="designation"
+                value={formData.designation}
+                onChange={handleChange}
+                required
+              />
             </section>
 
             <button
               type="submit"
               className="mt-4 bg-[var(--primary-color)] text-white px-8 py-3 rounded-md font-semibold hover:brightness-110 transition"
+              disabled={loading}
             >
-              Submit Application
+              {loading ? "Submitting..." : "Submit Application"}
             </button>
+
+            {successMsg && <p className="text-green-500 mt-2">{successMsg}</p>}
+            {errorMsg && <p className="text-red-500 mt-2">{errorMsg}</p>}
           </form>
         </div>
       </div>

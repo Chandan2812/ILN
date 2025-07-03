@@ -4,6 +4,7 @@ import { FaMapMarkerAlt, FaEnvelope } from "react-icons/fa";
 import contactBanner from "../assets/Heathrow35-1024x652.jpg";
 import { useState } from "react";
 import axios from "axios";
+const baseURL = import.meta.env.VITE_API_BASE_URL;
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -30,10 +31,7 @@ export default function ContactPage() {
     setErrorMsg("");
 
     try {
-      const res = await axios.post(
-        "https://iln-backend.onrender.com/api/contact",
-        formData
-      );
+      const res = await axios.post(`${baseURL}/api/contact`, formData);
       setSuccessMsg(res.data.message || "Message sent successfully!");
       setFormData({ name: "", email: "", subject: "", message: "" });
     } catch (err: any) {

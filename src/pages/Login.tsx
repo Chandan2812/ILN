@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import logo from "../assets/ILN-logo_c089e4b10fad01a7ab60f4da7afc45c2.png";
 import sideImage from "../assets/Heathrow35-1024x652.jpg";
+const baseURL = import.meta.env.VITE_API_BASE_URL;
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -38,7 +39,7 @@ const Login = () => {
 
     try {
       setLoading(true);
-      const res = await fetch("https://cft-b87k.onrender.com/api/auth/login", {
+      const res = await fetch(`${baseURL}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),

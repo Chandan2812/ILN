@@ -11,6 +11,7 @@ import {
 import { HiPaperAirplane } from "react-icons/hi";
 import { SiX } from "react-icons/si";
 import axios from "axios";
+const baseURL = import.meta.env.VITE_API_BASE_URL;
 
 const Footer: React.FC = () => {
   const [subscriberEmail, setSubscriberEmail] = useState("");
@@ -41,7 +42,7 @@ const Footer: React.FC = () => {
     setLoading(true);
 
     try {
-      await axios.post("https://iln-backend.onrender.com/subscribe", {
+      await axios.post(`${baseURL}/subscribe`, {
         email: subscriberEmail,
       });
 

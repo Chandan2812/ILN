@@ -3,6 +3,7 @@ import axios from "axios";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import newsfeed from "../assets/newsfeed.jpeg";
+const baseURL = import.meta.env.VITE_API_BASE_URL;
 
 function Newsfeed() {
   const [articles, setArticles] = useState([]);
@@ -12,9 +13,7 @@ function Newsfeed() {
   useEffect(() => {
     const fetchNewsfeed = async () => {
       try {
-        const res = await axios.get(
-          "https://iln-backend.onrender.com/api/newsfeed"
-        );
+        const res = await axios.get(`${baseURL}/api/newsfeed`);
         setArticles(res.data.reverse()); // latest news first
       } catch (err) {
         console.error("Failed to fetch newsfeed", err);
