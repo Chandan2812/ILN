@@ -1,6 +1,6 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import bannerImg from "../assets/verticals/membership verticals.jpg";
+import bannerImg from "../assets/verticals/supply-chain.webp";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import {
@@ -15,6 +15,7 @@ import {
   HiOutlineClipboardList,
   HiOutlineNewspaper,
   HiOutlineIdentification,
+  HiOutlineArrowCircleRight,
 } from "react-icons/hi";
 import Slider from "react-slick";
 
@@ -233,59 +234,14 @@ const MembershipVerticals = () => {
       <Navbar />
 
       {/* banner */}
-      <div className="w-full h-[300px] md:h-[400px] overflow-hidden">
+      <div className="w-full h-[60vh] md:h-[80vh] overflow-hidden">
         <img
           src={bannerImg}
           alt="Membership Verticals"
           className="w-full h-full object-cover"
         />
       </div>
-      <section className="py-12 ">
-        <div className="w-11/12 md:w-5/6 mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="relative border-[var(--primary-color)]"
-          >
-            <div className="mb-10">
-              <h4 className="text-3xl font-bold mb-3 text-[var(--primary-color)]">
-                Scheduled Networking Opportunities & AGMs
-              </h4>
-              <ul className="space-y-4 text-base text-gray-700 dark:text-gray-300">
-                <li>
-                  <span className="font-semibold">
-                    Formal Business Meetings:
-                  </span>{" "}
-                  Engage in formal business discussions, explore potential
-                  partnerships, and identify new opportunities.
-                </li>
-                <li>
-                  <span className="font-semibold">Informal Networking:</span>{" "}
-                  Enjoy relaxed social settings to connect with fellow members,
-                  build relationships, and foster a strong sense of community.
-                </li>
-                <li>
-                  <span className="font-semibold">Social Events:</span>{" "}
-                  Participate in ice-breaker activities, evening receptions, and
-                  dinners to enhance social connections and build lasting
-                  relationships.
-                </li>
-                <li>
-                  <span className="font-semibold">
-                    Sponsorship Opportunities:
-                  </span>{" "}
-                  Sponsor the ILN AGM and gain valuable exposure to a network of
-                  influential industry leaders. Showcase your company’s
-                  expertise and build lasting relationships while supporting a
-                  thriving community.
-                </li>
-              </ul>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+
       <section className="w-11/12 md:w-5/6 mx-auto py-12">
         <div className="grid md:grid-cols-[1fr_2fr] gap-10">
           {/* Left - Cards for Verticals */}
@@ -355,13 +311,125 @@ const MembershipVerticals = () => {
         </div>
       </section>
 
-      <section className="w-11/12 md:w-5/6 mx-auto py-12">
+      <section className="py-12">
+        <div className="w-11/12 md:w-5/6 mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="relative border-[var(--primary-color)]"
+          >
+            <div className="mb-10">
+              <h4 className="text-3xl font-bold mb-6 text-[var(--primary-color)]">
+                Scheduled Networking Opportunities & AGMs
+              </h4>
+              <p className="mb-6 text-gray-700 dark:text-gray-300 leading-relaxed">
+                The ILN Annual General Meeting is a cornerstone of our
+                community, offering unparalleled opportunities for networking,
+                business development, and social interaction.
+              </p>
+              <ul className="space-y-4">
+                {[
+                  {
+                    title: "Formal Business Meetings",
+                    description:
+                      "Engage in formal business discussions, explore potential partnerships, and identify new opportunities.",
+                  },
+                  {
+                    title: "Informal Networking",
+                    description:
+                      "Enjoy relaxed social settings to connect with fellow members, build relationships, and foster a strong sense of community.",
+                  },
+                  {
+                    title: "Social Events",
+                    description:
+                      "Participate in ice-breaker activities, evening receptions, and dinners to enhance social connections and build lasting relationships.",
+                  },
+                  {
+                    title: "Sponsorship Opportunities",
+                    description:
+                      "Sponsor the ILN AGM and gain valuable exposure to a network of influential industry leaders. Showcase your company’s expertise and build lasting relationships while supporting a thriving community.",
+                  },
+                ].map((item, index) => (
+                  <li key={index} className="flex items-start gap-4">
+                    <HiOutlineArrowCircleRight className="mt-1 text-[var(--primary-color)] text-xl flex-shrink-0" />
+                    <div>
+                      <p className="font-semibold text-[var(--primary-color)]">
+                        {item.title}
+                      </p>
+                      <p className="text-gray-700 dark:text-gray-300">
+                        {item.description}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      <section>
+        <div className="w-11/12 md:w-5/6 mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="relative border-[var(--primary-color)]"
+          >
+            <div className="mb-10">
+              <h4 className="text-3xl font-bold mb-6 text-[var(--primary-color)]">
+                The ILN Scheduler
+              </h4>
+              <p className="mb-6 text-gray-700 dark:text-gray-300 leading-relaxed">
+                Prior to each AGM, members can utilize the ILN Scheduler to
+                efficiently schedule meetings with other members they wish to
+                connect with.
+              </p>
+              <ul className="space-y-6">
+                {[
+                  {
+                    title: "Personalized Scheduling",
+                    description:
+                      "The Scheduler analyzes member preferences and creates a customized schedule, optimizing meeting times and maximizing networking efficiency.",
+                  },
+                  {
+                    title: "Streamlined Meetings",
+                    description:
+                      "Easily schedule one-on-one meetings and appointments, ensuring you make the most of your time at the AGM.",
+                  },
+                  {
+                    title: "Enhanced Productivity",
+                    description:
+                      "Identify potential partners, finalize business deals, and explore new opportunities through efficient and targeted networking.",
+                  },
+                ].map((item, index) => (
+                  <li key={index} className="flex items-start gap-4">
+                    <HiOutlineArrowCircleRight className="mt-1 text-[var(--primary-color)] text-xl flex-shrink-0" />
+                    <div>
+                      <p className="font-semibold text-[var(--primary-color)]">
+                        {item.title}
+                      </p>
+                      <p className="text-gray-700 dark:text-gray-300">
+                        {item.description}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+      {/* <section className="w-11/12 md:w-5/6 mx-auto py-12">
         <h2 className="text-3xl font-bold text-center text-[var(--primary-color)] mb-12">
           Conference Sponsorships
         </h2>
 
         <div className="grid md:grid-cols-2 gap-10">
-          {/* Platinum Sponsor */}
+          
           <div className="bg-[#f5faff] border-l-4 border-blue-400 rounded-2xl shadow p-6">
             <h3 className="text-2xl font-bold text-blue-600 mb-4">
               PLATINUM SPONSOR
@@ -387,7 +455,7 @@ const MembershipVerticals = () => {
             </ul>
           </div>
 
-          {/* Gold Sponsor */}
+         
           <div className="bg-[#fffaf3] border-l-4 border-yellow-400 rounded-2xl shadow p-6">
             <h3 className="text-2xl font-bold text-yellow-600 mb-4">
               GOLD SPONSOR
@@ -412,7 +480,7 @@ const MembershipVerticals = () => {
             </ul>
           </div>
         </div>
-      </section>
+      </section> */}
 
       <section className="py-12 px-4 bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-white">
         <div className="w-11/12 md:w-5/6 mx-auto">
@@ -498,82 +566,60 @@ const MembershipVerticals = () => {
               </p>
             </div>
           </motion.div>
+        </div>
+      </section>
 
-          {/* Scheduler & Insurance Split Section */}
-          <div className="grid md:grid-cols-2 gap-12">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="relative bg-[var(--primary-color-dark)]  p-8 rounded-2xl"
-            >
-              <h4 className="text-xl font-semibold mb-4 text-[var(--primary-color)]">
-                The ILN Scheduler
-              </h4>
-              <p className="text-sm whitespace-pre-line">
-                Prior to each AGM, members can utilize the ILN Scheduler to
-                efficiently schedule meetings with other members they wish to
-                connect with.
-              </p>
-              <ul className="list-disc list-inside mt-4 space-y-2 text-sm">
-                <li>
-                  <span className="font-semibold">
-                    Personalized Scheduling:
-                  </span>{" "}
-                  The Scheduler analyzes member preferences and creates a
-                  customized schedule, optimizing meeting times and maximizing
-                  networking efficiency.
-                </li>
-                <li>
-                  <span className="font-semibold">Streamlined Meetings:</span>{" "}
-                  Easily schedule one-on-one meetings and appointments, ensuring
-                  you make the most of your time at the AGM.
-                </li>
-                <li>
-                  <span className="font-semibold">Enhanced Productivity:</span>{" "}
-                  Identify potential partners, finalize business deals, and
-                  explore new opportunities through efficient and targeted
-                  networking.
-                </li>
-              </ul>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="relative bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-lg"
-            >
-              <h4 className="text-xl font-semibold mb-4 text-[var(--primary-color)]">
+      <section>
+        <div className="w-11/12 md:w-5/6 mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="relative border-[var(--primary-color)]"
+          >
+            <div className="mb-10">
+              <h4 className="text-3xl font-bold mb-6 text-[var(--primary-color)]">
                 ILN Insurance & Risk Management
               </h4>
-              <p className="text-sm whitespace-pre-line text-gray-700 dark:text-gray-300">
+              <p className="mb-6 text-gray-700 dark:text-gray-300 leading-relaxed">
                 In collaboration with leading global risk management companies,
                 ILN is developing comprehensive risk management solutions for
                 its members.
               </p>
-              <ul className="list-disc list-inside mt-4 space-y-2 text-sm text-gray-700 dark:text-gray-300">
-                <li>
-                  <span className="font-semibold">Comprehensive Coverage:</span>{" "}
-                  Access competitively priced insurance options, including
-                  Marine Liability, General Liability, Warehouse/Property
-                  Coverage, Transportation Coverage, and more.
-                </li>
-                <li>
-                  <span className="font-semibold">Tailored Solutions:</span>{" "}
-                  Find insurance solutions that meet your specific business
-                  needs and mitigate potential risks.
-                </li>
-                <li>
-                  <span className="font-semibold">Enhanced Security:</span>{" "}
-                  Protect your business from unforeseen events and ensure
-                  business continuity.
-                </li>
+              <ul className="space-y-6">
+                {[
+                  {
+                    title: "Comprehensive Coverage",
+                    description:
+                      "Access competitively priced insurance options, including Marine Liability, General Liability, Warehouse/Property Coverage, Transportation Coverage, and more.",
+                  },
+                  {
+                    title: "Tailored Solutions",
+                    description:
+                      "Find insurance solutions that meet your specific business needs and mitigate potential risks.",
+                  },
+                  {
+                    title: "Enhanced Security",
+                    description:
+                      "Protect your business from unforeseen events and ensure business continuity.",
+                  },
+                ].map((item, index) => (
+                  <li key={index} className="flex items-start gap-4">
+                    <HiOutlineArrowCircleRight className="mt-1 text-[var(--primary-color)] text-xl flex-shrink-0" />
+                    <div>
+                      <p className="font-semibold text-[var(--primary-color)]">
+                        {item.title}
+                      </p>
+                      <p className="text-gray-700 dark:text-gray-300">
+                        {item.description}
+                      </p>
+                    </div>
+                  </li>
+                ))}
               </ul>
-            </motion.div>
-          </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 

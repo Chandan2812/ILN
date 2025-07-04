@@ -7,6 +7,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import JoinFormPopup from "../components/JoinForm";
 import { FaSearch, FaLock, FaCalendarAlt, FaBookOpen } from "react-icons/fa";
+import hero from "../assets/verticals/about.jpg";
 
 const keyFeatures = [
   {
@@ -43,12 +44,8 @@ const AboutPage: React.FC = () => {
       <Navbar />
       <section className="text-[#111] dark:text-white font-raleway bg-[--bg-color2] dark:bg-[--bg-color1]">
         {/* Hero Section */}
-        <div className="relative h-[60vh] md:h-[70vh] w-full overflow-hidden">
-          <img
-            src="https://www.integratedlognet.com/wp-content/uploads/2019/01/about-bg2-1.jpg"
-            alt="About Hero"
-            className="w-full h-full object-cover"
-          />
+        <div className="relative h-[60vh] md:h-[80vh] object-contain w-full overflow-hidden">
+          <img src={hero} alt="About Hero" className="w-full h-full " />
           <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
             <h1 className="text-4xl md:text-6xl font-light text-white drop-shadow-lg">
               About Us
