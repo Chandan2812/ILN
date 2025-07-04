@@ -400,9 +400,9 @@ export default function AdminPage() {
           </aside>
 
           {/* MAIN CONTENT */}
-          <div className="w-full mt-16 md:mt-0  md:ml-80 p-4 md:w-3/4">
+          <div className="w-full mt-16 md:mt-0  md:ml-80 px-4 md:w-3/4">
             {/* MOBILE HEADER */}
-            <div className="flex fixed top-36 left-0 w-full px-5  items-center justify-between md:hidden bg-gray-100  dark:bg-neutral-900 py-4 rounded shadow mb-4">
+            <div className="flex fixed top-28 left-0 w-full px-5  items-center justify-between md:hidden bg-gray-100  dark:bg-neutral-900 py-4 rounded shadow mb-4">
               <h2 className="text-xl font-semibold">Access Panel</h2>
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
