@@ -9,6 +9,7 @@ import AddBlog from "../components/AddBlogs"; // adjust path if needed
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "../index.css";
+import AddOffer from "../components/AddOffer";
 const baseURL = import.meta.env.VITE_API_BASE_URL;
 // import YourOfferModalComponent from "../components/AddOffer"; // adjust path if needed
 
@@ -37,6 +38,9 @@ export default function AdminPage() {
   const [newNews, setNewNews] = useState({ title: "", link: "", date: "" });
   const [editingId, setEditingId] = useState<string | null>(null);
   const [loadingContacts, setLoadingContacts] = useState(true);
+  const [offers, setOffers] = useState<Offer[]>([]);
+  const [editingOffer, setEditingOffer] = useState<Offer | null>(null);
+  const [showOfferModal, setShowOfferModal] = useState(false);
 
   const [showPopup, setShowPopup] = useState(false);
   const [members, setMembers] = useState<Member[]>([]);
@@ -81,6 +85,17 @@ export default function AdminPage() {
     companyProfile: string;
     contactName: string;
     designation: string;
+  }
+
+  interface Offer {
+    _id: string;
+    title: string;
+    subtitle?: string;
+    bannerImage?: string;
+    ctaLabel?: string;
+    ctaLink?: string;
+    startDate?: string;
+    endDate?: string;
   }
 
   const toolbarOptions = [
@@ -139,10 +154,21 @@ export default function AdminPage() {
       setLoadingContacts(false);
     }
   };
+  const fetchOffers = async () => {
+    try {
+      const res = await axios.get(`${baseURL}/api/offer/view`);
+      setOffers(res.data);
+    } catch (err) {
+      console.error("Failed to fetch contacts:", err);
+    } finally {
+      setLoadingContacts(false);
+    }
+  };
 
   useEffect(() => {
     fetchNewsfeed();
     fetchContacts();
+    fetchOffers();
   }, []);
 
   const handleDeleteNewsfeed = async (id: any) => {
@@ -237,7 +263,7 @@ export default function AdminPage() {
     "Emailer Data",
     "Newsletter Data",
     "Blog Data",
-    // "Offer Data",
+    "Offer Data",
     "Newsfeed",
     "Contact Form",
     "Membership Requests",
@@ -1483,6 +1509,98 @@ export default function AdminPage() {
                     </div>
                   </div>
                 </div>
+              )}
+
+              {activePanel === "Offer Data" && (
+                <section className="bg-gray-100 dark:bg-neutral-900 p-4 md:p-6 rounded shadow mb-6">
+                  <div className="flex justify-between items-center mb-4">
+                    <h2 className="text-xl font-semibold">Offers</h2>
+                    <button
+                      className="px-4 py-2 text-sm bg-green-600 text-white rounded hover:bg-green-700"
+                      onClick={() => {
+                        setEditingOffer(null);
+                        setShowOfferModal(true);
+                      }}
+                    >
+                      Add Offer
+                    </button>
+                  </div>
+
+                  <div className="overflow-auto">
+                    <table className="w-full text-left text-sm table-auto">
+                      <thead>
+                        <tr className="border-b">
+                          <th className="px-4 py-2">Title</th>
+                          <th className="px-4 py-2">Subtitle</th>
+
+                          <th className="px-4 py-2">Start</th>
+                          <th className="px-4 py-2">End</th>
+                          <th className="px-4 py-2">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {offers.map((offer) => (
+                          <tr key={offer._id} className="border-t align-top">
+                            <td className="px-4 py-2">{offer.title}</td>
+                            <td className="px-4 py-2">{offer.subtitle}</td>
+
+                            <td className="px-4 py-2">
+                              {offer.startDate?.slice(0, 10)}
+                            </td>
+                            <td className="px-4 py-2">
+                              {offer.endDate?.slice(0, 10)}
+                            </td>
+                            <td className="px-4 py-2 space-x-2">
+                              <button
+                                onClick={() => {
+                                  setEditingOffer(offer);
+                                  setShowOfferModal(true);
+                                }}
+                                className="text-blue-600 hover:text-blue-800"
+                              >
+                                <Edit size={16} />
+                              </button>
+                              <button
+                                onClick={async () => {
+                                  if (confirm("Delete this offer?")) {
+                                    try {
+                                      await axios.delete(
+                                        `${baseURL}/api/offer/${offer._id}`
+                                      );
+                                      setOffers((prev) =>
+                                        prev.filter((o) => o._id !== offer._id)
+                                      );
+                                    } catch (err) {
+                                      alert("Delete failed");
+                                    }
+                                  }
+                                }}
+                                className="text-red-600 hover:text-red-800"
+                              >
+                                <Trash2 size={16} />
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+
+                  {showOfferModal && (
+                    <AddOffer
+                      existingOffer={editingOffer}
+                      onClose={() => {
+                        setShowOfferModal(false);
+                        setEditingOffer(null);
+                      }}
+                      onSuccess={() => {
+                        axios
+                          .get(`${baseURL}/api/offer/view`)
+                          .then((res) => setOffers(res.data));
+                      }}
+                    />
+                  )}
+                </section>
               )}
             </main>
           </div>

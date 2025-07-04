@@ -16,6 +16,7 @@ import { useState } from "react";
 import { FaUserPlus } from "react-icons/fa";
 
 import BlogDetails from "./pages/BlogDetails";
+import OfferPopup from "./components/OfferPopup";
 
 function App() {
   const [showForm, setShowForm] = useState(false);
@@ -54,6 +55,7 @@ function App() {
         </button>
       </div>
       <JoinFormPopup isOpen={showForm} onClose={() => setShowForm(false)} />
+      <OfferPopup />
     </Router>
   );
 }
