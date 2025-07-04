@@ -41,6 +41,9 @@ export default function AdminPage() {
   const [offers, setOffers] = useState<Offer[]>([]);
   const [editingOffer, setEditingOffer] = useState<Offer | null>(null);
   const [showOfferModal, setShowOfferModal] = useState(false);
+  const [loadingAction, setLoadingAction] = useState<
+    "approve" | "reject" | null
+  >(null);
 
   const [agms, setAgms] = useState<AgmType[]>([]);
   const [title, setTitle] = useState("");
@@ -93,6 +96,7 @@ export default function AdminPage() {
     companyProfile: string;
     contactName: string;
     designation: string;
+    status: string;
   }
 
   interface Offer {
@@ -153,23 +157,19 @@ export default function AdminPage() {
     }
   };
 
-  useEffect(() => {
-    const fetchMembers = async () => {
-      try {
-        setLoading(true);
-        const res = await fetch(`${baseURL}/api/members`);
-        const data = await res.json();
-        // console.log(data);
-        setMembers(data);
-      } catch (err) {
-        console.error("Failed to fetch members:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchMembers();
-  }, []);
+  const fetchMembers = async () => {
+    try {
+      setLoading(true);
+      const res = await fetch(`${baseURL}/api/members`);
+      const data = await res.json();
+      // console.log(data);
+      setMembers(data);
+    } catch (err) {
+      console.error("Failed to fetch members:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const fetchContacts = async () => {
     try {
@@ -206,6 +206,7 @@ export default function AdminPage() {
     fetchContacts();
     fetchOffers();
     fetchAgms();
+    fetchMembers();
   }, []);
 
   const handleDeleteNewsfeed = async (id: any) => {
@@ -1446,29 +1447,54 @@ export default function AdminPage() {
                           <th className="p-3">Email</th>
                           <th className="p-3">Country</th>
                           <th className="p-3">Phone</th>
+                          <th className="p-3">Status</th>
                           <th className="p-3">Actions</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {members.map((member) => (
-                          <tr key={member._id} className="border-t text-sm">
-                            <td className="p-3">{member.companyName}</td>
-                            <td className="p-3">{member.email}</td>
-                            <td className="p-3">{member.country}</td>
-                            <td className="p-3">{member.telephone}</td>
-                            <td className="p-3">
-                              <button
-                                onClick={() => {
-                                  setSelectedMember(member);
-                                  setShowPopup(true);
-                                }}
-                                className="text-sm px-3 py-1 bg-[var(--primary-color)] text-white rounded hover:brightness-110"
-                              >
-                                View
-                              </button>
+                        {members.length === 0 ? (
+                          <tr>
+                            <td
+                              colSpan={6}
+                              className="p-4 text-center text-gray-500"
+                            >
+                              No membership requests found.
                             </td>
                           </tr>
-                        ))}
+                        ) : (
+                          members.map((member) => (
+                            <tr key={member._id} className="border-t text-sm">
+                              <td className="p-3">{member.companyName}</td>
+                              <td className="p-3">{member.email}</td>
+                              <td className="p-3">{member.country}</td>
+                              <td className="p-3">{member.telephone}</td>
+                              <td className="p-3">
+                                <span
+                                  className={`px-2 py-1 rounded-full text-xs font-semibold ${
+                                    member.status === "Approved"
+                                      ? "bg-green-100 text-green-800"
+                                      : member.status === "Rejected"
+                                      ? "bg-red-100 text-red-800"
+                                      : "bg-yellow-100 text-yellow-800"
+                                  }`}
+                                >
+                                  {member.status || "Pending"}
+                                </span>
+                              </td>
+                              <td className="p-3">
+                                <button
+                                  onClick={() => {
+                                    setSelectedMember(member);
+                                    setShowPopup(true);
+                                  }}
+                                  className="text-sm px-3 py-1 bg-[var(--primary-color)] text-white rounded hover:brightness-110"
+                                >
+                                  View
+                                </button>
+                              </td>
+                            </tr>
+                          ))
+                        )}
                       </tbody>
                     </table>
                   </div>
@@ -1488,7 +1514,9 @@ export default function AdminPage() {
                     <h3 className="text-xl font-bold mb-4 text-[var(--primary-color)]">
                       Member Application Details
                     </h3>
+
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                      {/* Member Details */}
                       <p>
                         <strong>Company Name:</strong>{" "}
                         {selectedMember.companyName}
@@ -1544,6 +1572,54 @@ export default function AdminPage() {
                         <strong>Designation:</strong>{" "}
                         {selectedMember.designation}
                       </p>
+                    </div>
+
+                    <div className="mt-6 flex justify-end gap-3">
+                      <button
+                        onClick={async () => {
+                          setLoadingAction("reject");
+                          try {
+                            await axios.put(
+                              `${baseURL}/api/members/status/${selectedMember._id}`,
+                              { status: "Rejected" }
+                            );
+                            setShowPopup(false);
+                            fetchMembers();
+                          } catch (err) {
+                            alert("Failed to reject");
+                          } finally {
+                            setLoadingAction(null);
+                          }
+                        }}
+                        className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 disabled:opacity-50"
+                        disabled={loadingAction !== null}
+                      >
+                        {loadingAction === "reject" ? "Rejecting..." : "Reject"}
+                      </button>
+
+                      <button
+                        onClick={async () => {
+                          setLoadingAction("approve");
+                          try {
+                            await axios.put(
+                              `${baseURL}/api/members/status/${selectedMember._id}`,
+                              { status: "Approved" }
+                            );
+                            setShowPopup(false);
+                            fetchMembers();
+                          } catch (err) {
+                            alert("Failed to approve");
+                          } finally {
+                            setLoadingAction(null);
+                          }
+                        }}
+                        className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 disabled:opacity-50"
+                        disabled={loadingAction !== null}
+                      >
+                        {loadingAction === "approve"
+                          ? "Accepting..."
+                          : "Approve"}
+                      </button>
                     </div>
                   </div>
                 </div>

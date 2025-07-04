@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import logo from "../assets/ILN-logo_c089e4b10fad01a7ab60f4da7afc45c2.png";
 import sideImage from "../assets/Heathrow35-1024x652.jpg";
+
 const baseURL = import.meta.env.VITE_API_BASE_URL;
 
 const Login = () => {
@@ -39,7 +40,7 @@ const Login = () => {
 
     try {
       setLoading(true);
-      const res = await fetch(`${baseURL}/api/auth/login`, {
+      const res = await fetch(`${baseURL}/api/members/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -50,13 +51,7 @@ const Login = () => {
         setMessage(data.error || "Login failed.");
       } else {
         localStorage.setItem("user", JSON.stringify(data.user));
-
-        const isAdmin = data.user.email === "admin@gmail.com";
-        if (isAdmin) {
-          navigate("/AdminPage");
-        } else {
-          navigate("/");
-        }
+        navigate("/");
         window.location.reload();
       }
     } catch (err) {
@@ -71,10 +66,8 @@ const Login = () => {
       className="relative min-h-screen bg-cover bg-center flex items-center justify-center"
       style={{ backgroundImage: `url(${sideImage})` }}
     >
-      {/* Semi-transparent dark overlay */}
       <div className="absolute inset-0 bg-black/70 z-0" />
 
-      {/* Logo at top-left */}
       <a href="/" className="absolute top-5 left-5 z-10" title="Go to homepage">
         <img
           src={logo}
@@ -83,9 +76,7 @@ const Login = () => {
         />
       </a>
 
-      {/* Container */}
       <div className="relative z-10 max-w-6xl w-full px-4 md:px-10 flex flex-col md:flex-row items-center justify-between text-white">
-        {/* Left Text Section */}
         <div className="hidden md:flex flex-col w-1/2 pr-8 space-y-6">
           <h1 className="text-5xl font-extrabold leading-tight">
             EXPLORE <br /> HORIZONS
@@ -100,7 +91,6 @@ const Login = () => {
           </p>
         </div>
 
-        {/* Right Login Box */}
         <div className="w-full md:w-1/2 max-w-md backdrop-blur-lg bg-white/10 rounded-2xl p-8 shadow-2xl border border-white/20">
           <h2 className="text-3xl font-semibold mb-2 text-white">
             Welcome Back
@@ -139,14 +129,14 @@ const Login = () => {
               </div>
             </div>
 
-            {/* <div className="text-right text-sm">
+            <div className="text-right text-sm text-white/70">
               <a
                 href="/forgot-password"
-                className="text-blue-300 hover:underline"
+                className="hover:underline text-blue-300"
               >
-                Forgot password?
+                Forgot/Change password?
               </a>
-            </div> */}
+            </div>
 
             <button
               type="submit"

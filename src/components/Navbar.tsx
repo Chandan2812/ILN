@@ -30,6 +30,21 @@ export default function Navbar() {
   });
   const location = useLocation();
 
+  const [user, setUser] = useState<{ name: string; email: string } | null>(
+    null
+  );
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      try {
+        setUser(JSON.parse(storedUser));
+      } catch (err) {
+        console.error("Failed to parse user:", err);
+      }
+    }
+  }, []);
+
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add("dark");
@@ -115,9 +130,34 @@ export default function Navbar() {
               <FaMoon className="text-[var(--secondary-color)]" />
             )}
           </button>
-          <button className="bg-[var(--primary-color)] text-white px-6 py-2 rounded-tl-2xl rounded-br-2xl">
-            <a href="/Login">Sign in</a>
-          </button>
+          {user ? (
+            <div className="relative group">
+              <div className="w-10 h-10 rounded-full bg-[var(--primary-color)] text-white flex items-center justify-center font-bold text-lg cursor-pointer">
+                {user.name?.charAt(0).toUpperCase() ||
+                  user.email.charAt(0).toUpperCase()}
+              </div>
+              {/* Hover logout menu */}
+              <div className="absolute hidden group-hover:flex flex-col top-10 left-0 bg-white dark:bg-black text-[var(--secondary-color)] dark:text-white shadow-lg rounded w-28 z-50">
+                <p className="px-4 py-2 text-sm border-b border-gray-200 dark:border-white/20">
+                  {user.name || user.email.split("@")[0]}
+                </p>
+                <button
+                  onClick={() => {
+                    localStorage.removeItem("user");
+                    window.location.href = "/";
+                  }}
+                  className="px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-white/10 flex items-center justify-between"
+                >
+                  Logout
+                </button>
+              </div>
+            </div>
+          ) : (
+            <button className="bg-[var(--primary-color)] text-white px-6 py-2 rounded-tl-2xl rounded-br-2xl">
+              <a href="/Login">Sign in</a>
+            </button>
+          )}
+
           <button
             className="text-2xl text-[var(--primary-color)] dark:text-white"
             onClick={() => setMenuOpen(true)}
@@ -179,6 +219,13 @@ export default function Navbar() {
           <div className={`mt-10 ${isMobile ? "" : "space-y-6"}`}>
             {isMobile ? (
               <>
+                {user && (
+                  <div className="mb-4">
+                    <p className="text-lg font-semibold text-[var(--primary-color)] dark:text-white">
+                      Hi, {user.name?.split(" ")[0] || user.email.split("@")[0]}
+                    </p>
+                  </div>
+                )}
                 {[
                   "Home",
                   "About",
@@ -201,16 +248,24 @@ export default function Navbar() {
                 ))}
 
                 <div className="flex gap-5">
-                  <a href="/login">
-                    <button className="mt-6 bg-white text-[var(--primary-color)] border border-[var(--primary-color)] px-6 py-2 rounded-tl-2xl rounded-br-2xl">
-                      Sign In
+                  {user ? (
+                    <button
+                      onClick={() => {
+                        localStorage.removeItem("user");
+                        setUser(null); // Update state immediately
+                        window.location.href = "/";
+                      }}
+                      className="mt-6 bg-white text-[var(--primary-color)] border border-[var(--primary-color)] px-6 py-2 rounded-tl-2xl rounded-br-2xl"
+                    >
+                      Logout
                     </button>
-                  </a>
-                  <a href="/signup">
-                    <button className="mt-6 bg-[var(--primary-color)] text-white px-6 py-2 rounded-tl-2xl rounded-br-2xl">
-                      Sign up
-                    </button>
-                  </a>
+                  ) : (
+                    <a href="/login">
+                      <button className="mt-6 bg-white text-[var(--primary-color)] border border-[var(--primary-color)] px-6 py-2 rounded-tl-2xl rounded-br-2xl">
+                        Sign In
+                      </button>
+                    </a>
+                  )}
                 </div>
               </>
             ) : (
