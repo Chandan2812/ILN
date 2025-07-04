@@ -17,6 +17,7 @@ import { FaUserPlus } from "react-icons/fa";
 
 import BlogDetails from "./pages/BlogDetails";
 import OfferPopup from "./components/OfferPopup";
+import Agm from "./pages/Agm";
 
 function App() {
   const [showForm, setShowForm] = useState(false);
@@ -33,6 +34,7 @@ function App() {
         <Route path="/blogs" element={<Blog />} />
         <Route path="/blogs/:slug" element={<BlogDetails />} />
         <Route path="/admin" element={<AdminPage />} />
+        <Route path="/agm" element={<Agm />} />
       </Routes>
       {/* <div className="md:flex hidden">
         <ContactSidebar />

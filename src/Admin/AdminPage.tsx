@@ -42,6 +42,14 @@ export default function AdminPage() {
   const [editingOffer, setEditingOffer] = useState<Offer | null>(null);
   const [showOfferModal, setShowOfferModal] = useState(false);
 
+  const [agms, setAgms] = useState<AgmType[]>([]);
+  const [title, setTitle] = useState("");
+  const [subtitle, setSubtitle] = useState("");
+  const [content, setContent] = useState("");
+  const [showAgmModal, setShowAgmModal] = useState(false);
+  const [editingAgm, setEditingAgm] = useState<AgmType | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const [showPopup, setShowPopup] = useState(false);
   const [members, setMembers] = useState<Member[]>([]);
   const [selectedMember, setSelectedMember] = useState<Member | null>(null);
@@ -98,6 +106,13 @@ export default function AdminPage() {
     endDate?: string;
   }
 
+  type AgmType = {
+    _id: string;
+    title: string;
+    subtitle: string;
+    content?: string;
+  };
+
   const toolbarOptions = [
     ["bold", "italic", "underline", "strike"],
     [{ color: [] }, { background: [] }],
@@ -116,6 +131,18 @@ export default function AdminPage() {
   // }, []);
 
   //   const baseURL = import.meta.env.VITE_API_BASE_URL;
+
+  useEffect(() => {
+    if (editingAgm) {
+      setTitle(editingAgm.title || "");
+      setSubtitle(editingAgm.subtitle || "");
+      setContent(editingAgm.content || "");
+    } else {
+      setTitle("");
+      setSubtitle("");
+      setContent("");
+    }
+  }, [editingAgm]);
 
   const fetchNewsfeed = async () => {
     try {
@@ -165,10 +192,20 @@ export default function AdminPage() {
     }
   };
 
+  const fetchAgms = async () => {
+    try {
+      const res = await axios.get(`${baseURL}/agm`);
+      setAgms(res.data);
+    } catch (err) {
+      console.error("Failed to fetch AGM");
+    }
+  };
+
   useEffect(() => {
     fetchNewsfeed();
     fetchContacts();
     fetchOffers();
+    fetchAgms();
   }, []);
 
   const handleDeleteNewsfeed = async (id: any) => {
@@ -267,6 +304,7 @@ export default function AdminPage() {
     "Newsfeed",
     "Contact Form",
     "Membership Requests",
+    "AGM",
   ];
 
   const fetchBlogs = () => {
@@ -1599,6 +1637,156 @@ export default function AdminPage() {
                           .then((res) => setOffers(res.data));
                       }}
                     />
+                  )}
+                </section>
+              )}
+
+              {activePanel === "AGM" && (
+                <section className="bg-gray-100 dark:bg-neutral-900 p-4 md:p-6 rounded shadow mb-6">
+                  <div className="flex justify-between items-center mb-4">
+                    <h2 className="text-xl font-semibold">AGM Content</h2>
+                    <button
+                      className="px-4 py-2 text-sm bg-green-600 text-white rounded hover:bg-green-700"
+                      onClick={() => {
+                        setEditingAgm(null);
+                        setShowAgmModal(true);
+                      }}
+                    >
+                      Add AGM
+                    </button>
+                  </div>
+
+                  <div className="overflow-auto">
+                    <table className="w-full text-left text-sm table-auto">
+                      <thead>
+                        <tr className="border-b">
+                          <th className="px-4 py-2">Title</th>
+                          <th className="px-4 py-2">Subtitle</th>
+                          <th className="px-4 py-2">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {agms.map((agm) => (
+                          <tr key={agm._id} className="border-t align-top">
+                            <td className="px-4 py-2">{agm.title}</td>
+                            <td className="px-4 py-2">{agm.subtitle}</td>
+                            <td className="px-4 py-2 space-x-2">
+                              <button
+                                onClick={() => {
+                                  setEditingAgm(agm);
+                                  setShowAgmModal(true);
+                                }}
+                                className="text-blue-600 hover:text-blue-800"
+                              >
+                                <Edit size={16} />
+                              </button>
+                              <button
+                                onClick={async () => {
+                                  if (confirm("Delete this AGM entry?")) {
+                                    await axios.delete(
+                                      `${baseURL}/agm/${agm._id}`
+                                    );
+                                    fetchAgms();
+                                  }
+                                }}
+                                className="text-red-600 hover:text-red-800"
+                              >
+                                <Trash2 size={16} />
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+
+                  {showAgmModal && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 overflow-y-auto">
+                      <div className="bg-white dark:bg-neutral-800 w-[95%] max-w-2xl p-6 rounded shadow-lg relative max-h-[90vh] overflow-hidden">
+                        <h2 className="text-lg font-semibold mb-4">
+                          {editingAgm ? "Edit AGM" : "Add AGM"}
+                        </h2>
+
+                        {/* Form with loading state */}
+                        <form
+                          onSubmit={async (e) => {
+                            e.preventDefault();
+                            setIsSubmitting(true);
+
+                            const payload = { title, subtitle, content };
+
+                            try {
+                              if (editingAgm) {
+                                await axios.put(
+                                  `${baseURL}/agm/${editingAgm._id}`,
+                                  payload
+                                );
+                              } else {
+                                await axios.post(`${baseURL}/agm`, payload);
+                              }
+                              setShowAgmModal(false);
+                              setEditingAgm(null);
+                              fetchAgms();
+                            } catch (err) {
+                              alert("Something went wrong");
+                            } finally {
+                              setIsSubmitting(false);
+                            }
+                          }}
+                          className="overflow-y-auto max-h-[70vh] pr-1"
+                        >
+                          <input
+                            type="text"
+                            placeholder="Title"
+                            className="w-full mb-3 p-2 border rounded text-black"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                            required
+                          />
+                          <input
+                            type="text"
+                            placeholder="Subtitle"
+                            className="w-full mb-3 p-2 border rounded text-black"
+                            value={subtitle}
+                            onChange={(e) => setSubtitle(e.target.value)}
+                            required
+                          />
+                          <ReactQuill
+                            theme="snow"
+                            value={content}
+                            onChange={setContent}
+                            className="bg-white text-black mb-4"
+                          />
+
+                          <div className="flex justify-end gap-2 mt-4">
+                            <button
+                              type="button"
+                              className="px-4 py-2 bg-gray-300 dark:bg-neutral-600 rounded"
+                              onClick={() => {
+                                setShowAgmModal(false);
+                                setEditingAgm(null);
+                              }}
+                              disabled={isSubmitting}
+                            >
+                              Cancel
+                            </button>
+                            <button
+                              type="submit"
+                              className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+                              disabled={isSubmitting}
+                            >
+                              {isSubmitting
+                                ? editingAgm
+                                  ? "Updating..."
+                                  : "Adding..."
+                                : editingAgm
+                                ? "Update"
+                                : "Create"}
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
                   )}
                 </section>
               )}
