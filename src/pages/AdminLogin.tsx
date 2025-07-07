@@ -1,8 +1,7 @@
-// src/pages/AdminLogin.tsx
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import { Eye, EyeOff } from "lucide-react"; // 👈 Import Eye icons
+import { Eye, EyeOff } from "lucide-react";
 
 const ADMIN_EMAIL = import.meta.env.VITE_ADMIN_EMAIL;
 const ADMIN_PASS = import.meta.env.VITE_ADMIN_PASS;
@@ -10,9 +9,17 @@ const ADMIN_PASS = import.meta.env.VITE_ADMIN_PASS;
 export default function AdminLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false); // 👈 Toggle state
+  const [showPassword, setShowPassword] = useState(false);
   const [msg, setMsg] = useState("");
   const navigate = useNavigate();
+
+  // 🔒 Redirect if normal user already logged in
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (user) {
+      navigate("/", { replace: true }); // Redirect to home or other page
+    }
+  }, [navigate]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,7 +49,6 @@ export default function AdminLogin() {
             className="w-full mb-4 px-3 py-2 border rounded"
           />
 
-          {/* Password input with eye icon */}
           <div className="relative mb-4">
             <input
               type={showPassword ? "text" : "password"}
