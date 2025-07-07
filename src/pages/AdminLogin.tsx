@@ -1,10 +1,8 @@
-import { useEffect, useState } from "react";
+// src/pages/AdminLogin.tsx
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../components/Navbar";
 import { Eye, EyeOff } from "lucide-react";
-
-const ADMIN_EMAIL = import.meta.env.VITE_ADMIN_EMAIL;
-const ADMIN_PASS = import.meta.env.VITE_ADMIN_PASS;
+import Navbar from "../components/Navbar";
 
 export default function AdminLogin() {
   const [email, setEmail] = useState("");
@@ -13,21 +11,27 @@ export default function AdminLogin() {
   const [msg, setMsg] = useState("");
   const navigate = useNavigate();
 
-  // 🔒 Redirect if normal user already logged in
-  useEffect(() => {
-    const user = localStorage.getItem("user");
-    if (user) {
-      navigate("/", { replace: true }); // Redirect to home or other page
-    }
-  }, [navigate]);
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email === ADMIN_EMAIL && password === ADMIN_PASS) {
-      localStorage.setItem("adminAuth", "true");
-      navigate("/adminPage", { replace: true });
-    } else {
-      setMsg("Invalid credentials");
+
+    try {
+      const res = await fetch("http://localhost:8000/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        localStorage.setItem("adminToken", data.token);
+        navigate("/adminPage");
+      } else {
+        setMsg(data.error || "Login failed");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      setMsg("Something went wrong");
     }
   };
 

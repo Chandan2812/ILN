@@ -11,6 +11,8 @@ import "react-quill/dist/quill.snow.css";
 import "../index.css";
 import AddOffer from "../components/AddOffer";
 const baseURL = import.meta.env.VITE_API_BASE_URL;
+import { useNavigate } from "react-router-dom";
+
 // import YourOfferModalComponent from "../components/AddOffer"; // adjust path if needed
 
 export default function AdminPage() {
@@ -66,7 +68,7 @@ export default function AdminPage() {
 
   const totalPages = Math.ceil(blogs.length / postsPerPage);
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   interface BlogPost {
     _id: string;
@@ -126,6 +128,25 @@ export default function AdminPage() {
     [{ align: [] }],
     ["link"],
   ];
+
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      localStorage.removeItem("adminToken");
+    };
+
+    const handlePopState = () => {
+      localStorage.removeItem("adminToken");
+      navigate("/admin", { replace: true });
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    window.addEventListener("popstate", handlePopState);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, [navigate]);
 
   // useEffect(() => {
   //   const user = JSON.parse(localStorage.getItem("user") || "{}");
@@ -396,6 +417,19 @@ export default function AdminPage() {
                   </button>
                 </li>
               ))}
+
+              {/* Logout Button */}
+              <li>
+                <button
+                  onClick={() => {
+                    localStorage.removeItem("adminToken");
+                    window.location.href = "/admin";
+                  }}
+                  className="w-full text-left px-2 py-1 rounded text-red-600 hover:bg-red-100 dark:hover:bg-red-900"
+                >
+                  Logout
+                </button>
+              </li>
             </ul>
           </aside>
 
