@@ -19,6 +19,7 @@ import BlogDetails from "./pages/BlogDetails";
 import OfferPopup from "./components/OfferPopup";
 import Agm from "./pages/Agm";
 import ForgotPassword from "./components/ForgotPassword";
+import AdminLogin from "./pages/AdminLogin";
 
 function App() {
   const [showForm, setShowForm] = useState(false);
@@ -34,7 +35,8 @@ function App() {
         <Route path="/newsfeed" element={<Newsfeed />} />
         <Route path="/blogs" element={<Blog />} />
         <Route path="/blogs/:slug" element={<BlogDetails />} />
-        <Route path="/admin" element={<AdminPage />} />
+        <Route path="/adminPage" element={<AdminPage />} />
+        <Route path="/admin" element={<AdminLogin />} />
         <Route path="/agm" element={<Agm />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
       </Routes>
