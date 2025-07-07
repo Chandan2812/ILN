@@ -179,11 +179,16 @@ const JoinFormPopup: React.FC<JoinFormPopupProps> = ({ isOpen, onClose }) => {
           >
             &times;
           </button>
-          <img
-            src={logo}
-            alt="Join the ILN Network"
-            className="mb-8 w-auto h-12 md:h-16"
-          />
+          <div className="flex items-center justify-between mb-8">
+            <img
+              src={logo}
+              alt="Join the ILN Network"
+              className="h-12 md:h-16"
+            />
+            <h2 className="text-xl md:text-3xl font-bold text-center flex-1 text-[var(--primary-color)]">
+              Join the ILN Network
+            </h2>
+          </div>
 
           <form
             className="space-y-8 text-sm text-black dark:text-white"
