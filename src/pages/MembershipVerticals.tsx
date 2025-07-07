@@ -583,9 +583,10 @@ const MembershipVerticals = () => {
                 ILN Insurance & Risk Management
               </h4>
               <p className="mb-6 text-gray-700 dark:text-gray-300 leading-relaxed">
-                In collaboration with leading global risk management companies,
-                ILN is developing comprehensive risk management solutions for
-                its members.
+                ILN, in collaboration with global risk management experts, is
+                exploring special insurance packages with providers to offer
+                risk management assistance to members, without directly
+                offering insurance.
               </p>
               <ul className="space-y-6">
                 {[
