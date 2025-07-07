@@ -28,6 +28,7 @@ export default function Navbar() {
   const [darkMode, setDarkMode] = useState(() => {
     return sessionStorage.getItem("theme") === "dark";
   });
+
   const location = useLocation();
 
   const [user, setUser] = useState<{ name: string; email: string } | null>(
@@ -289,16 +290,17 @@ export default function Navbar() {
                       </button>
                     </a>
                   </div>
-                  <div className="relative inline-block">
-                    <div className="absolute top-1 left-1 w-full h-full bg-[var(--primary-color)] opacity-30 rounded z-0" />
-
-                    <button
-                      onClick={() => setShowForm(true)}
-                      className="relative z-10 text-white bg-[var(--primary-color)] px-6 py-2 font-semibold rounded"
-                    >
-                      Become a Member
-                    </button>
-                  </div>
+                  {!user && (
+                    <div className="relative inline-block">
+                      <div className="absolute top-1 left-1 w-full h-full bg-[var(--primary-color)] opacity-30 rounded z-0" />
+                      <button
+                        onClick={() => setShowForm(true)}
+                        className="relative z-10 text-white bg-[var(--primary-color)] px-6 py-2 font-semibold rounded"
+                      >
+                        Become a Member
+                      </button>
+                    </div>
+                  )}
                 </div>
 
                 <hr className="border-black/30 dark:border-white/30 my-6" />

@@ -13,9 +13,20 @@ import JoinFormPopup from "./JoinForm";
 
 export default function WhyJoinILN() {
   const [showForm, setShowForm] = useState(false);
+  const [user, setUser] = useState<{ name: string; email: string } | null>(
+    null
+  );
 
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      try {
+        setUser(JSON.parse(storedUser));
+      } catch (err) {
+        console.error("Invalid login data:", err);
+      }
+    }
   }, []);
 
   const benefits = [
@@ -142,12 +153,14 @@ export default function WhyJoinILN() {
                 </li>
               </ul>
             </div>
-            <button
-              onClick={() => setShowForm(true)}
-              className="mt-8 w-full bg-[var(--primary-color)] text-white font-semibold py-3 rounded-tl-2xl rounded-br-2xl hover:bg-opacity-90 transition"
-            >
-              Join the ILN Community
-            </button>
+            {!user && (
+              <button
+                onClick={() => setShowForm(true)}
+                className="mt-8 w-full bg-[var(--primary-color)] text-white font-semibold py-3 rounded-tl-2xl rounded-br-2xl hover:bg-opacity-90 transition"
+              >
+                Join the ILN Community
+              </button>
+            )}
           </div>
         </div>
       </div>

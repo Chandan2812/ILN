@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import logo from "../assets/ILN_logo-01.png";
 const baseURL = import.meta.env.VITE_API_BASE_URL;
 
 interface JoinFormPopupProps {
@@ -178,9 +179,11 @@ const JoinFormPopup: React.FC<JoinFormPopupProps> = ({ isOpen, onClose }) => {
           >
             &times;
           </button>
-          <h2 className="text-3xl font-bold mb-8 text-[var(--primary-color)]">
-            Join the ILN Network
-          </h2>
+          <img
+            src={logo}
+            alt="Join the ILN Network"
+            className="mb-8 w-auto h-12 md:h-16"
+          />
 
           <form
             className="space-y-8 text-sm text-black dark:text-white"
