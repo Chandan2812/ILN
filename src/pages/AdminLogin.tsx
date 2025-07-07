@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import Navbar from "../components/Navbar";
+const baseURL = import.meta.env.VITE_API_BASE_URL;
 
 export default function AdminLogin() {
   const [email, setEmail] = useState("");
@@ -15,7 +16,7 @@ export default function AdminLogin() {
     e.preventDefault();
 
     try {
-      const res = await fetch("http://localhost:8000/api/auth/login", {
+      const res = await fetch(`${baseURL}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
