@@ -1,7 +1,7 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { FaMapMarkerAlt, FaEnvelope } from "react-icons/fa";
-import contactBanner from "../assets/Heathrow35-1024x652.jpg";
+import contactBanner from "../assets/contact2.jpg";
 import { useState } from "react";
 import axios from "axios";
 const baseURL = import.meta.env.VITE_API_BASE_URL;
@@ -50,7 +50,7 @@ export default function ContactPage() {
         <img
           src={contactBanner}
           alt="Contact Us"
-          className="w-full h-full object-cover brightness-75"
+          className="w-full h-full object-fill brightness-75"
         />
         <div className="absolute inset-0 flex items-center justify-center">
           <h1 className="text-white text-4xl md:text-5xl font-bold drop-shadow-lg text-center px-4">
