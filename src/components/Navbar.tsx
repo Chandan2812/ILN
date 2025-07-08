@@ -10,7 +10,8 @@ import {
 } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 // import logo from "../assets/ILN Logo v2.png";
-import logo1 from "../assets/ILN_logo-01.png";
+// import logo1 from "../assets/ILN_logo-01.png";
+import logo from "../assets/ILN Logo v2.png";
 import { useLocation } from "react-router-dom";
 import JoinFormPopup from "./JoinForm";
 import { SiX } from "react-icons/si";
@@ -91,7 +92,7 @@ export default function Navbar() {
         {/* Logo */}
         <div className="flex items-center gap-2">
           <a href="/">
-            <img src={logo1} alt="Logo" className="w-40 dark:invert" />
+            <img src={logo} alt="Logo" className="w-64 md:w-80 dark:invert" />
           </a>
         </div>
 
@@ -104,6 +105,7 @@ export default function Navbar() {
             { label: "Newsfeed", path: "/newsfeed" },
             { label: "Blogs", path: "/blogs" },
             { label: "Contact", path: "/contact" },
+            ...(user ? [{ label: "AGM", path: "/agm" }] : []),
           ].map((link) => (
             <a
               key={link.label}
@@ -208,7 +210,7 @@ export default function Navbar() {
           {isMobile && (
             <div className="flex justify-between items-center">
               <a href="/">
-                <img src={logo1} alt="Logo" className="w-40 dark:invert" />
+                <img src={logo} alt="Logo" className="w-60 dark:invert" />
               </a>
               <IoClose
                 className="text-3xl text-[var(--secondary-color)] dark:text-white"
@@ -227,6 +229,7 @@ export default function Navbar() {
                     </p>
                   </div>
                 )}
+
                 {[
                   "Home",
                   "About",
@@ -234,6 +237,7 @@ export default function Navbar() {
                   "Newsfeed",
                   "Blogs",
                   "Contact",
+                  ...(user ? ["AGM"] : []), // Conditionally add AGM
                 ].map((item) => (
                   <a
                     key={item}
@@ -362,10 +366,10 @@ export default function Navbar() {
         </div>
       )}
 
-      <div
+      {/* <div
         id="google_translate_element"
-        className="fixed  right-[95px] top-11 translate-x-0 md:right-[250px] md:top-[45px] md:-translate-x-1/2"
-      />
+        className="fixed  right-[95px] top-11 translate-x-0 md:right-[220px] md:top-[45px] md:-translate-x-1/2"
+      /> */}
       <JoinFormPopup isOpen={showForm} onClose={() => setShowForm(false)} />
     </header>
   );

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import logo from "../assets/ILN_logo-01.png";
+// import logo from "../assets/ILN_logo-01.png";
+import logo1 from "../assets/ILN Logo v2.png";
 const baseURL = import.meta.env.VITE_API_BASE_URL;
+import Swal from "sweetalert2";
 
 interface JoinFormPopupProps {
   isOpen: boolean;
@@ -77,6 +79,8 @@ const JoinFormPopup: React.FC<JoinFormPopupProps> = ({ isOpen, onClose }) => {
   }, [isOpen]);
 
   const [verticals, setVerticals] = useState<string[]>([]);
+  // const [showSuccessModal, setShowSuccessModal] = useState(false);
+
   const [formData, setFormData] = useState({
     companyName: "",
     legalStructure: "",
@@ -95,8 +99,7 @@ const JoinFormPopup: React.FC<JoinFormPopupProps> = ({ isOpen, onClose }) => {
     designation: "",
   });
   const [loading, setLoading] = useState(false);
-  const [successMsg, setSuccessMsg] = useState("");
-  const [errorMsg, setErrorMsg] = useState("");
+  const [_errorMsg, setErrorMsg] = useState("");
 
   const businessOptions = [
     "Freight Forwarding & Customs Brokers",
@@ -110,15 +113,21 @@ const JoinFormPopup: React.FC<JoinFormPopupProps> = ({ isOpen, onClose }) => {
     "Oil & Gas and Renewable Energy",
   ];
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    // Prevent alphabets in telephone field
+    if (name === "telephone") {
+      const filteredValue = value.replace(/[A-Za-z]/g, ""); // remove letters
+      setFormData((prev) => ({ ...prev, [name]: filteredValue }));
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setSuccessMsg("");
     setErrorMsg("");
 
     try {
@@ -130,7 +139,6 @@ const JoinFormPopup: React.FC<JoinFormPopupProps> = ({ isOpen, onClose }) => {
 
       const data = await response.json();
       if (response.ok) {
-        setSuccessMsg("Member application submitted successfully!");
         setFormData({
           companyName: "",
           legalStructure: "",
@@ -149,8 +157,31 @@ const JoinFormPopup: React.FC<JoinFormPopupProps> = ({ isOpen, onClose }) => {
           designation: "",
         });
         setVerticals([]);
+        setLoading(false);
+
+        // ✅ Show SweetAlert
+        Swal.fire({
+          icon: "success",
+          title: "Application Submitted!",
+          html: `
+    <p>Your member application has been submitted successfully.</p>
+    <p class="mt-2">We’ve also sent an email with further instructions. Please check your inbox and share the required documents for verification.</p>
+  `,
+          confirmButtonColor: "var(--primary-color)",
+          confirmButtonText: "Got it",
+        }).then(() => {
+          onClose(); // 👈 Close the popup after user clicks OK
+        });
       } else {
-        setErrorMsg(data?.error || "Something went wrong.");
+        const errorMessage = data?.error || "Something went wrong.";
+        setErrorMsg(errorMessage);
+        Swal.fire({
+          icon: "error",
+          title: "Submission Failed",
+          text: errorMessage,
+          confirmButtonColor: "var(--primary-color)",
+          confirmButtonText: "Try Again",
+        });
       }
     } catch (err) {
       setErrorMsg("Network error. Please try again.");
@@ -181,9 +212,9 @@ const JoinFormPopup: React.FC<JoinFormPopupProps> = ({ isOpen, onClose }) => {
           </button>
           <div className="flex items-center justify-between mb-8">
             <img
-              src={logo}
+              src={logo1}
               alt="Join the ILN Network"
-              className="h-12 md:h-16"
+              className="h-16 md:h-24"
             />
             <h2 className="text-xl md:text-3xl font-bold text-center flex-1 text-[var(--primary-color)]">
               Join the ILN Network
@@ -299,7 +330,7 @@ const JoinFormPopup: React.FC<JoinFormPopupProps> = ({ isOpen, onClose }) => {
             />
 
             <TextareaField
-              label="Company Profile *"
+              label="Company Profile (Not Exceeding 500 words)*"
               name="companyProfile"
               value={formData.companyProfile}
               onChange={handleChange}
@@ -331,14 +362,33 @@ const JoinFormPopup: React.FC<JoinFormPopupProps> = ({ isOpen, onClose }) => {
             >
               {loading ? "Submitting..." : "Submit Application"}
             </button>
-
-            {successMsg && <p className="text-green-500 mt-2">{successMsg}</p>}
-            {errorMsg && <p className="text-red-500 mt-2">{errorMsg}</p>}
           </form>
         </div>
       </div>
+      {/* {showSuccessModal && (
+        <SuccessModal onClose={() => setShowSuccessModal(false)} />
+      )} */}
     </div>
   );
 };
 
 export default JoinFormPopup;
+
+// const SuccessModal = ({ onClose }: { onClose: () => void }) => (
+//   <div className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/50 backdrop-blur-sm">
+//     <div className="bg-white dark:bg-black p-8 rounded-xl shadow-xl text-center space-y-4 max-w-sm w-full">
+//       <h2 className="text-xl font-bold text-[var(--primary-color)]">
+//         Success!
+//       </h2>
+//       <p className="text-gray-700 dark:text-gray-300">
+//         Your member application has been submitted successfully.
+//       </p>
+//       <button
+//         onClick={onClose}
+//         className="mt-4 bg-[var(--primary-color)] text-white px-6 py-2 rounded-md font-semibold hover:brightness-110 transition"
+//       >
+//         Close
+//       </button>
+//     </div>
+//   </div>
+// );

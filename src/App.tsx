@@ -22,6 +22,7 @@ import { FaUserPlus } from "react-icons/fa";
 
 // 👇 Add this import
 import ProtectedAdminRoute from "./components/ProtectedAdminRoute";
+import ScrollToTopButton from "./components/ScrollToTop";
 
 function App() {
   const [showForm, setShowForm] = useState(false);
@@ -73,6 +74,7 @@ function App() {
 
       <JoinFormPopup isOpen={showForm} onClose={() => setShowForm(false)} />
       <OfferPopup />
+      <ScrollToTopButton />
     </Router>
   );
 }

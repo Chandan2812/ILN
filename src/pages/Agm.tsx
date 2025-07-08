@@ -10,6 +10,8 @@ type AgmType = {
   title: string;
   subtitle: string;
   content: string;
+  image?: string;
+  createdAt?: string;
 };
 
 const Agm: React.FC = () => {
@@ -21,7 +23,13 @@ const Agm: React.FC = () => {
       try {
         const res = await axios.get<AgmType[]>(`${baseURL}/agm`);
         if (res.data && res.data.length > 0) {
-          setAgm(res.data[0]); // show first/latest AGM
+          // Sort by createdAt descending and take the latest
+          const sorted = res.data.sort(
+            (a, b) =>
+              new Date(b.createdAt || "").getTime() -
+              new Date(a.createdAt || "").getTime()
+          );
+          setAgm(sorted[0]);
         }
       } catch (err) {
         console.error("Failed to load AGM content", err);
@@ -59,6 +67,17 @@ const Agm: React.FC = () => {
         <p className="text-center text-xl mt-5 text-gray-600 dark:text-gray-300 mb-6">
           {agm.subtitle}
         </p>
+
+        {agm.image && (
+          <div className="flex justify-center mb-6">
+            <img
+              src={agm.image}
+              alt="AGM visual"
+              className="max-h-[400px] w-auto rounded-lg shadow-lg"
+            />
+          </div>
+        )}
+
         <div className="prose prose-lg max-w-none dark:prose-invert prose-headings:my-2 prose-p:my-2 prose-li:my-1">
           <div dangerouslySetInnerHTML={{ __html: agm.content }} />
         </div>

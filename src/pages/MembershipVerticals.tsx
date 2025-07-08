@@ -1,7 +1,7 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import bannerImg from "../assets/verticals/supply-chain.webp";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
   HiOutlineGlobeAlt,
@@ -18,6 +18,9 @@ import {
   HiOutlineArrowCircleRight,
 } from "react-icons/hi";
 import Slider from "react-slick";
+import JoinFormPopup from "../components/JoinForm";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 interface Vertical {
   title: string;
@@ -217,6 +220,23 @@ const privileges = [
 /* ────────────  component  ──────────── */
 const MembershipVerticals = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [showForm, setShowForm] = useState(false);
+  const [user, setUser] = useState<{ name: string; email: string } | null>(
+    null
+  );
+
+  useEffect(() => {
+    AOS.init({ duration: 1000, once: true });
+
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      try {
+        setUser(JSON.parse(storedUser));
+      } catch (err) {
+        console.error("Invalid login data:", err);
+      }
+    }
+  }, []);
 
   const sliderSettings = {
     dots: true,
@@ -233,18 +253,77 @@ const MembershipVerticals = () => {
     <div className="bg-white dark:bg-[var(--secondary-color)] text-[var(--secondary-color)] dark:text-white transition-colors duration-300">
       <Navbar />
 
-      {/* banner */}
-      <div className="w-full h-[60vh] md:h-[80vh] overflow-hidden">
-        <img
-          src={bannerImg}
-          alt="Membership Verticals"
-          className="w-full h-full object-cover"
-        />
+      <div className="relative h-full md:h-[90vh] object-cover w-full overflow-hidden">
+        <img src={bannerImg} alt="About Hero" className="w-full h-full " />
+        <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+          <h1 className="text-4xl md:text-6xl font-light text-white drop-shadow-lg">
+            Membership
+          </h1>
+        </div>
       </div>
 
       <section className="w-11/12 md:w-5/6 mx-auto py-12">
-        <div className="grid md:grid-cols-[1fr_2fr] gap-10">
-          {/* Left - Cards for Verticals */}
+        {/* ✅ Mobile View: Accordion */}
+        <div className="md:hidden">
+          <h2 className="text-3xl font-bold text-[var(--primary-color)] mb-4 dark:text-white">
+            Membership Verticals
+          </h2>
+          <div className="space-y-4">
+            {verticals.map((item, index) => {
+              const isOpen = selectedIndex === index;
+              return (
+                <div key={index} className="border rounded-lg overflow-hidden">
+                  <button
+                    onClick={() => setSelectedIndex(isOpen ? -1 : index)}
+                    className={`w-full text-left px-4 py-3 font-medium flex justify-between items-center transition ${
+                      isOpen
+                        ? "bg-[var(--primary-color)] text-white"
+                        : "bg-gray-100 dark:bg-gray-800 text-black dark:text-white"
+                    }`}
+                  >
+                    {item.title}
+                    <span className="text-xl">{isOpen ? "−" : "+"}</span>
+                  </button>
+
+                  {isOpen && (
+                    <div className="px-4 py-3 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 space-y-2">
+                      {item.content
+                        .split("\n")
+                        .filter((para) => para.trim() !== "")
+                        .map((para, i) => {
+                          const trimmed = para.trim();
+                          if (trimmed.startsWith("-")) {
+                            return (
+                              <ul
+                                key={i}
+                                className="list-disc list-inside pl-4"
+                              >
+                                <li className="mb-2">
+                                  {trimmed.replace(/^-\s*/, "")}
+                                </li>
+                              </ul>
+                            );
+                          } else if (trimmed.endsWith(":")) {
+                            return (
+                              <p key={i} className="font-semibold text-lg">
+                                {trimmed}
+                              </p>
+                            );
+                          } else {
+                            return <p key={i}>{trimmed}</p>;
+                          }
+                        })}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* ✅ Desktop View: Two-Column Layout */}
+        <div className="hidden md:grid md:grid-cols-[1fr_2fr] gap-10">
+          {/* Left - Cards */}
           <div className="space-y-4">
             <h2 className="text-3xl font-bold text-[var(--primary-color)] mb-4 dark:text-white">
               Membership Verticals
@@ -268,45 +347,50 @@ const MembershipVerticals = () => {
 
           {/* Right - Content */}
           <div className="space-y-6">
-            <h3 className="text-xl md:text-2xl font-semibold text-gray-800 dark:text-white">
-              {verticals[selectedIndex].title}
-            </h3>
+            {selectedIndex >= 0 && verticals[selectedIndex] && (
+              <>
+                <h3 className="text-xl md:text-2xl font-semibold text-gray-800 dark:text-white">
+                  {verticals[selectedIndex].title}
+                </h3>
+                {verticals[selectedIndex].content
+                  .split("\n")
+                  .filter((para) => para.trim() !== "")
+                  .map((para, i) => {
+                    const trimmed = para.trim();
 
-            {verticals[selectedIndex].content
-              .split("\n")
-              .filter((para) => para.trim() !== "")
-              .map((para, i) => {
-                const trimmed = para.trim();
-
-                if (trimmed.startsWith("-")) {
-                  return (
-                    <ul
-                      key={i}
-                      className="list-disc list-inside text-gray-700 dark:text-gray-300 pl-4"
-                    >
-                      <li className="mb-2">{trimmed.replace(/^-\s*/, "")}</li>
-                    </ul>
-                  );
-                } else if (trimmed.endsWith(":")) {
-                  return (
-                    <p
-                      key={i}
-                      className="font-semibold text-lg text-gray-800 dark:text-white"
-                    >
-                      {trimmed}
-                    </p>
-                  );
-                } else {
-                  return (
-                    <p
-                      key={i}
-                      className="text-gray-700 dark:text-gray-300 leading-relaxed"
-                    >
-                      {trimmed}
-                    </p>
-                  );
-                }
-              })}
+                    if (trimmed.startsWith("-")) {
+                      return (
+                        <ul
+                          key={i}
+                          className="list-disc list-inside text-gray-700 dark:text-gray-300 pl-4"
+                        >
+                          <li className="mb-2">
+                            {trimmed.replace(/^-\s*/, "")}
+                          </li>
+                        </ul>
+                      );
+                    } else if (trimmed.endsWith(":")) {
+                      return (
+                        <p
+                          key={i}
+                          className="font-semibold text-lg text-gray-800 dark:text-white"
+                        >
+                          {trimmed}
+                        </p>
+                      );
+                    } else {
+                      return (
+                        <p
+                          key={i}
+                          className="text-gray-700 dark:text-gray-300 leading-relaxed"
+                        >
+                          {trimmed}
+                        </p>
+                      );
+                    }
+                  })}
+              </>
+            )}
           </div>
         </div>
       </section>
@@ -320,7 +404,7 @@ const MembershipVerticals = () => {
             viewport={{ once: true }}
             className="relative border-[var(--primary-color)]"
           >
-            <div className="mb-10">
+            <div className="mb-5">
               <h4 className="text-3xl font-bold mb-6 text-[var(--primary-color)]">
                 Scheduled Networking Opportunities & AGMs
               </h4>
@@ -367,6 +451,17 @@ const MembershipVerticals = () => {
               </ul>
             </div>
           </motion.div>
+
+          {!user && (
+            <div data-aos="zoom-in" data-aos-delay="1000">
+              <button
+                onClick={() => setShowForm(true)}
+                className="bg-[var(--primary-color)] text-white px-8 py-3 rounded-tl-2xl rounded-br-2xl font-semibold transition hover:opacity-90"
+              >
+                Join the Network
+              </button>
+            </div>
+          )}
         </div>
       </section>
 
@@ -578,7 +673,7 @@ const MembershipVerticals = () => {
             viewport={{ once: true }}
             className="relative border-[var(--primary-color)]"
           >
-            <div className="mb-10">
+            <div className="mb-5">
               <h4 className="text-3xl font-bold mb-6 text-[var(--primary-color)]">
                 ILN Insurance & Risk Management
               </h4>
@@ -621,6 +716,16 @@ const MembershipVerticals = () => {
               </ul>
             </div>
           </motion.div>
+          {!user && (
+            <div data-aos="zoom-in" data-aos-delay="1000">
+              <button
+                onClick={() => setShowForm(true)}
+                className="bg-[var(--primary-color)] text-white px-8 py-3 rounded-tl-2xl rounded-br-2xl font-semibold transition hover:opacity-90"
+              >
+                Join the Network
+              </button>
+            </div>
+          )}
         </div>
       </section>
 
@@ -629,7 +734,7 @@ const MembershipVerticals = () => {
           <div className="grid md:grid-cols-2 gap-8">
             {/* Member Lounge */}
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-center md:text-left text-[var(--primary-color)] mb-4">
+              <h2 className="text-3xl font-bold text-center md:text-left text-[var(--primary-color)] mb-4">
                 Member Lounge
               </h2>
               <p className="text-center md:text-left text-gray-600 dark:text-gray-300 mb-8">
@@ -670,7 +775,7 @@ const MembershipVerticals = () => {
 
             {/* Newsfeed */}
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-center md:text-left text-[var(--primary-color)] dark:text-[var(--primary-color-dark)] mb-4">
+              <h2 className="text-3xl  font-bold text-center md:text-left text-[var(--primary-color)] dark:text-[var(--primary-color-dark)] mb-4">
                 Newsfeed
               </h2>
               <p className="text-center md:text-left text-gray-600 dark:text-gray-300 mb-8">
@@ -713,6 +818,7 @@ const MembershipVerticals = () => {
       </section>
 
       <Footer />
+      <JoinFormPopup isOpen={showForm} onClose={() => setShowForm(false)} />
     </div>
   );
 };
