@@ -424,7 +424,7 @@ export default function AdminPage() {
               ))}
 
               {/* Logout Button */}
-              <li>
+              {/* <li>
                 <button
                   onClick={() => {
                     localStorage.removeItem("adminToken");
@@ -434,7 +434,7 @@ export default function AdminPage() {
                 >
                   Logout
                 </button>
-              </li>
+              </li> */}
             </ul>
           </aside>
 
@@ -1667,7 +1667,7 @@ export default function AdminPage() {
               {activePanel === "Information Pop-up" && (
                 <section className="bg-gray-100 dark:bg-neutral-900 p-4 md:p-6 rounded shadow mb-6">
                   <div className="flex justify-between items-center mb-4">
-                    <h2 className="text-xl font-semibold">Offers</h2>
+                    <h2 className="text-xl font-semibold">Information</h2>
                     <button
                       className="px-4 py-2 text-sm bg-green-600 text-white rounded hover:bg-green-700"
                       onClick={() => {
@@ -1675,7 +1675,7 @@ export default function AdminPage() {
                         setShowOfferModal(true);
                       }}
                     >
-                      Add Offer
+                      Add Information
                     </button>
                   </div>
 
