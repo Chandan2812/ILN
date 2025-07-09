@@ -21,8 +21,10 @@ import { useState } from "react";
 import { FaUserPlus } from "react-icons/fa";
 
 // 👇 Add this import
-import ProtectedAdminRoute from "./components/ProtectedAdminRoute";
+// import ProtectedAdminRoute from "./components/ProtectedAdminRoute";
 import ScrollToTopButton from "./components/ScrollToTop";
+import NewsletterForm from "./pages/Newsletter";
+import Emailer from "./pages/Emailer";
 
 function App() {
   const [showForm, setShowForm] = useState(false);
@@ -42,16 +44,11 @@ function App() {
         <Route path="/admin" element={<AdminLogin />} />
         <Route path="/agm" element={<Agm />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/newsletter" element={<NewsletterForm />} />
+        <Route path="/emailer" element={<Emailer />} />
 
         {/* 🔒 Protected Route for Admin Page */}
-        <Route
-          path="/adminPage"
-          element={
-            <ProtectedAdminRoute>
-              <AdminPage />
-            </ProtectedAdminRoute>
-          }
-        />
+        <Route path="/adminPage" element={<AdminPage />} />
       </Routes>
 
       {/* Mobile Floating Buttons */}

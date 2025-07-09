@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 // import { useNavigate } from "react-router-dom";
-import Navbar from "../components/Navbar";
+// import Navbar from "../components/Navbar";
+import logo from "../assets/ILN Logo v2.png";
 import { exportToExcel } from "../utils/exportToExcel";
 import { ChevronDown, ChevronUp, Trash2 } from "lucide-react";
 import { Edit, Trash } from "lucide-react";
@@ -322,7 +323,7 @@ export default function AdminPage() {
     "Emailer Data",
     "Newsletter Data",
     "Blog Data",
-    "Offer Data",
+    "Information Pop-up",
     "Newsfeed",
     "Contact Form",
     "Membership Requests",
@@ -392,8 +393,12 @@ export default function AdminPage() {
     : emailerData;
 
   return (
-    <div className="text-black dark:text-white">
-      <Navbar />
+    <div className="text-black dark:text-white relative">
+      <nav className="sticky top-0 w-full z-50 shadow py-2 px-6 bg-white">
+        <a href="/adminPage">
+          <img src={logo} alt="ILN Logo" className="h-24" draggable="false" />
+        </a>
+      </nav>
       <div className="min-h-screen bg-white dark:bg-black py-6 ">
         <div className="flex flex-col md:flex-row gap-6">
           {/* SIDEBAR (Desktop Only) */}
@@ -1199,7 +1204,7 @@ export default function AdminPage() {
                         setNewNews({ title: "", link: "", date: "" });
                         setShowNewsfeedModal(true);
                       }}
-                      className="flex items-center gap-2 px-4 py-2 text-sm bg-blue-600 text-white rounded hover:bg-blue-700"
+                      className="flex items-center gap-2 px-4 py-2 text-sm bg-green-600 text-white rounded hover:bg-green-700"
                     >
                       Add Newsfeed
                     </button>
@@ -1659,7 +1664,7 @@ export default function AdminPage() {
                 </div>
               )}
 
-              {activePanel === "Offer Data" && (
+              {activePanel === "Information Pop-up" && (
                 <section className="bg-gray-100 dark:bg-neutral-900 p-4 md:p-6 rounded shadow mb-6">
                   <div className="flex justify-between items-center mb-4">
                     <h2 className="text-xl font-semibold">Offers</h2>

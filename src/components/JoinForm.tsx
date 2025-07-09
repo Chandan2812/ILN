@@ -313,7 +313,7 @@ const JoinFormPopup: React.FC<JoinFormPopupProps> = ({ isOpen, onClose }) => {
                 required
               />
               <InputField
-                label="Email ID *"
+                label="Email *"
                 name="email"
                 type="email"
                 value={formData.email}
