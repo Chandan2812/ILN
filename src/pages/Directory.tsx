@@ -50,7 +50,7 @@ const Directory = () => {
         }
 
         // Return true if at least one selected vertical matches
-        return selectedVerticals.every((v) => verticals.includes(v));
+        return selectedVerticals.some((v) => verticals.includes(v));
       });
     }
 
