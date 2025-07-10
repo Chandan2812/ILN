@@ -25,6 +25,8 @@ import { FaUserPlus } from "react-icons/fa";
 import ScrollToTopButton from "./components/ScrollToTop";
 import NewsletterForm from "./pages/Newsletter";
 import Emailer from "./pages/Emailer";
+import Directory from "./pages/Directory";
+import MemberDetails from "./pages/MemberDetails";
 
 function App() {
   const [showForm, setShowForm] = useState(false);
@@ -43,6 +45,8 @@ function App() {
         <Route path="/blogs/:slug" element={<BlogDetails />} />
         <Route path="/admin" element={<AdminLogin />} />
         <Route path="/agm" element={<Agm />} />
+        <Route path="/directory" element={<Directory />} />
+        <Route path="/member/:id" element={<MemberDetails />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/newsletter" element={<NewsletterForm />} />
         <Route path="/emailer" element={<Emailer />} />

@@ -79,6 +79,8 @@ const JoinFormPopup: React.FC<JoinFormPopupProps> = ({ isOpen, onClose }) => {
   }, [isOpen]);
 
   const [verticals, setVerticals] = useState<string[]>([]);
+  const [logo, setLogo] = useState<File | null>(null);
+
   // const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -97,6 +99,7 @@ const JoinFormPopup: React.FC<JoinFormPopupProps> = ({ isOpen, onClose }) => {
     companyProfile: "",
     contactName: "",
     designation: "",
+    website: "",
   });
   const [loading, setLoading] = useState(false);
   const [_errorMsg, setErrorMsg] = useState("");
@@ -130,15 +133,36 @@ const JoinFormPopup: React.FC<JoinFormPopupProps> = ({ isOpen, onClose }) => {
     setLoading(true);
     setErrorMsg("");
 
+    if (!logo) {
+      setErrorMsg("Company Profile Logo is required.");
+      setLoading(false);
+      Swal.fire({
+        icon: "error",
+        title: "Logo Required",
+        text: "Please upload a company profile logo.",
+        confirmButtonColor: "var(--primary-color)",
+      });
+      return;
+    }
+
     try {
+      const formPayload = new FormData();
+      Object.entries(formData).forEach(([key, value]) => {
+        formPayload.append(key, value);
+      });
+
+      formPayload.append("businessVerticals", JSON.stringify(verticals));
+      formPayload.append("logo", logo);
+
       const response = await fetch(`${baseURL}/api/members`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...formData, businessVerticals: verticals }),
+        body: formPayload,
       });
 
       const data = await response.json();
+
       if (response.ok) {
+        // Reset form
         setFormData({
           companyName: "",
           legalStructure: "",
@@ -155,22 +179,23 @@ const JoinFormPopup: React.FC<JoinFormPopupProps> = ({ isOpen, onClose }) => {
           companyProfile: "",
           contactName: "",
           designation: "",
+          website: "",
         });
         setVerticals([]);
+        setLogo(null);
         setLoading(false);
 
-        // ✅ Show SweetAlert
         Swal.fire({
           icon: "success",
           title: "Application Submitted!",
           html: `
-    <p>Your member application has been submitted successfully.</p>
-    <p class="mt-2">We’ve also sent an email with further instructions. Please check your inbox and share the required documents for verification.</p>
-  `,
+          <p>Your member application has been submitted successfully.</p>
+          <p class="mt-2">We’ve also sent an email with further instructions. Please check your inbox and share the required documents for verification.</p>
+        `,
           confirmButtonColor: "var(--primary-color)",
           confirmButtonText: "Got it",
         }).then(() => {
-          onClose(); // 👈 Close the popup after user clicks OK
+          onClose(); // Close modal
         });
       } else {
         const errorMessage = data?.error || "Something went wrong.";
@@ -185,6 +210,12 @@ const JoinFormPopup: React.FC<JoinFormPopupProps> = ({ isOpen, onClose }) => {
       }
     } catch (err) {
       setErrorMsg("Network error. Please try again.");
+      Swal.fire({
+        icon: "error",
+        title: "Network Error",
+        text: "Please check your internet connection and try again.",
+        confirmButtonColor: "var(--primary-color)",
+      });
     } finally {
       setLoading(false);
     }
@@ -247,6 +278,12 @@ const JoinFormPopup: React.FC<JoinFormPopupProps> = ({ isOpen, onClose }) => {
                 value={formData.establishmentDate}
                 onChange={handleChange}
                 required
+              />
+              <InputField
+                label="Website"
+                name="website"
+                value={formData.website}
+                onChange={handleChange}
               />
             </section>
 
@@ -355,6 +392,19 @@ const JoinFormPopup: React.FC<JoinFormPopupProps> = ({ isOpen, onClose }) => {
               />
             </section>
 
+            <div className="flex flex-col gap-1">
+              <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                Company Profile Logo *
+              </label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => setLogo(e.target.files?.[0] || null)}
+                required
+                className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] transition file:text-sm file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:bg-[var(--primary-color)] file:text-white hover:file:brightness-110"
+              />
+            </div>
+
             <button
               type="submit"
               className="mt-4 bg-[var(--primary-color)] text-white px-8 py-3 rounded-md font-semibold hover:brightness-110 transition"
@@ -365,30 +415,8 @@ const JoinFormPopup: React.FC<JoinFormPopupProps> = ({ isOpen, onClose }) => {
           </form>
         </div>
       </div>
-      {/* {showSuccessModal && (
-        <SuccessModal onClose={() => setShowSuccessModal(false)} />
-      )} */}
     </div>
   );
 };
 
 export default JoinFormPopup;
-
-// const SuccessModal = ({ onClose }: { onClose: () => void }) => (
-//   <div className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/50 backdrop-blur-sm">
-//     <div className="bg-white dark:bg-black p-8 rounded-xl shadow-xl text-center space-y-4 max-w-sm w-full">
-//       <h2 className="text-xl font-bold text-[var(--primary-color)]">
-//         Success!
-//       </h2>
-//       <p className="text-gray-700 dark:text-gray-300">
-//         Your member application has been submitted successfully.
-//       </p>
-//       <button
-//         onClick={onClose}
-//         className="mt-4 bg-[var(--primary-color)] text-white px-6 py-2 rounded-md font-semibold hover:brightness-110 transition"
-//       >
-//         Close
-//       </button>
-//     </div>
-//   </div>
-// );

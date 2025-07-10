@@ -32,15 +32,18 @@ export default function Navbar() {
 
   const location = useLocation();
 
-  const [user, setUser] = useState<{ name: string; email: string } | null>(
-    null
-  );
+  const [user, setUser] = useState<{
+    name: string;
+    email: string;
+    memberId: string;
+  } | null>(null);
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
       try {
         setUser(JSON.parse(storedUser));
+        console.log(user);
       } catch (err) {
         console.error("Failed to parse user:", err);
       }
@@ -105,7 +108,12 @@ export default function Navbar() {
             { label: "Newsfeed", path: "/newsfeed" },
             { label: "Blogs", path: "/blogs" },
             { label: "Contact", path: "/contact" },
-            ...(user ? [{ label: "AGM", path: "/agm" }] : []),
+            ...(user
+              ? [
+                  { label: "Directory", path: "/directory" },
+                  { label: "AGM", path: "/agm" },
+                ]
+              : []),
           ].map((link) => (
             <a
               key={link.label}
@@ -140,10 +148,16 @@ export default function Navbar() {
                   user.email.charAt(0).toUpperCase()}
               </div>
               {/* Hover logout menu */}
-              <div className="absolute hidden group-hover:flex flex-col top-10 left-0 bg-white dark:bg-black text-[var(--secondary-color)] dark:text-white shadow-lg rounded w-28 z-50">
+              <div className="absolute hidden group-hover:flex flex-col top-10 left-0 bg-white dark:bg-black text-[var(--secondary-color)] dark:text-white shadow-lg rounded w-36 z-50">
                 <p className="px-4 py-2 text-sm border-b border-gray-200 dark:border-white/20">
                   {user.name || user.email.split("@")[0]}
+                  {user.memberId && (
+                    <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                      Member ID: {user.memberId}
+                    </div>
+                  )}
                 </p>
+
                 <button
                   onClick={() => {
                     localStorage.removeItem("user");
@@ -227,6 +241,11 @@ export default function Navbar() {
                     <p className="text-lg font-semibold text-[var(--primary-color)] dark:text-white">
                       Hi, {user.name?.split(" ")[0] || user.email.split("@")[0]}
                     </p>
+                    {user.memberId && (
+                      <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
+                        Member ID: {user.memberId}
+                      </p>
+                    )}
                   </div>
                 )}
 
@@ -237,7 +256,7 @@ export default function Navbar() {
                   "Newsfeed",
                   "Blogs",
                   "Contact",
-                  ...(user ? ["AGM"] : []), // Conditionally add AGM
+                  ...(user ? ["Directory", "AGM"] : []), // Conditionally add AGM
                 ].map((item) => (
                   <a
                     key={item}

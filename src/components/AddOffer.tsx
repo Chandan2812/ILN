@@ -125,7 +125,7 @@ const AddOffer: React.FC<Props> = ({ existingOffer, onClose, onSuccess }) => {
     <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-start justify-center overflow-y-auto mt-5">
       <div className="bg-white rounded-lg shadow-lg w-full max-w-3xl my-10 p-6 space-y-4 max-h-[85vh] overflow-y-auto text-black">
         <h2 className="text-xl font-semibold">
-          {existingOffer ? "Edit Offer" : "Add Offer"}
+          {existingOffer ? "Edit Information" : "Add Information"}
         </h2>
 
         <div className="grid grid-cols-1 gap-3">

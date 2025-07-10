@@ -55,6 +55,8 @@ export default function AdminPage() {
   const [showAgmModal, setShowAgmModal] = useState(false);
   const [editingAgm, setEditingAgm] = useState<AgmType | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [existingImageUrl, setExistingImageUrl] = useState<string | null>(null);
 
   const [showPopup, setShowPopup] = useState(false);
   const [members, setMembers] = useState<Member[]>([]);
@@ -84,6 +86,7 @@ export default function AdminPage() {
   interface Member {
     _id: string;
     companyName: string;
+    logoUrl: string;
     legalStructure: string;
     establishmentDate: string;
     building: string;
@@ -118,6 +121,7 @@ export default function AdminPage() {
     title: string;
     subtitle: string;
     content?: string;
+    image?: string;
   };
 
   const toolbarOptions = [
@@ -130,31 +134,31 @@ export default function AdminPage() {
     ["link"],
   ];
 
-  useEffect(() => {
-    const handleBeforeUnload = () => {
-      localStorage.removeItem("adminToken");
-    };
-
-    const handlePopState = () => {
-      localStorage.removeItem("adminToken");
-      navigate("/admin", { replace: true });
-    };
-
-    window.addEventListener("beforeunload", handleBeforeUnload);
-    window.addEventListener("popstate", handlePopState);
-
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-      window.removeEventListener("popstate", handlePopState);
-    };
-  }, [navigate]);
-
   // useEffect(() => {
-  //   const user = JSON.parse(localStorage.getItem("user") || "{}");
-  //   if (user.email !== "admin@gmail.com") {
-  //     navigate("/login");
-  //   }
-  // }, []);
+  //   const handleBeforeUnload = () => {
+  //     localStorage.removeItem("adminToken");
+  //   };
+
+  //   const handlePopState = () => {
+  //     localStorage.removeItem("adminToken");
+  //     navigate("/admin", { replace: true });
+  //   };
+
+  //   window.addEventListener("beforeunload", handleBeforeUnload);
+  //   window.addEventListener("popstate", handlePopState);
+
+  //   return () => {
+  //     window.removeEventListener("beforeunload", handleBeforeUnload);
+  //     window.removeEventListener("popstate", handlePopState);
+  //   };
+  // }, [navigate]);
+
+  useEffect(() => {
+    const token = localStorage.getItem("adminToken");
+    if (!token) {
+      navigate("/admin");
+    }
+  }, []);
 
   //   const baseURL = import.meta.env.VITE_API_BASE_URL;
 
@@ -163,10 +167,14 @@ export default function AdminPage() {
       setTitle(editingAgm.title || "");
       setSubtitle(editingAgm.subtitle || "");
       setContent(editingAgm.content || "");
+      setExistingImageUrl(editingAgm.image || null); // Set image URL for preview
+      setImageFile(null);
     } else {
       setTitle("");
       setSubtitle("");
       setContent("");
+      setExistingImageUrl(null);
+      setImageFile(null);
     }
   }, [editingAgm]);
 
@@ -1482,6 +1490,7 @@ export default function AdminPage() {
                     <table className="min-w-full bg-white dark:bg-gray-800 border">
                       <thead>
                         <tr className="text-left text-sm text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700">
+                          <th className="p-3">Company Logo</th>
                           <th className="p-3">Company Name</th>
                           <th className="p-3">Email</th>
                           <th className="p-3">Country</th>
@@ -1503,6 +1512,13 @@ export default function AdminPage() {
                         ) : (
                           members.map((member) => (
                             <tr key={member._id} className="border-t text-sm">
+                              <td className="p-3">
+                                <img
+                                  src={member.logoUrl}
+                                  alt=""
+                                  className="w-20"
+                                />
+                              </td>
                               <td className="p-3">{member.companyName}</td>
                               <td className="p-3">{member.email}</td>
                               <td className="p-3">{member.country}</td>
@@ -1822,23 +1838,40 @@ export default function AdminPage() {
                           {editingAgm ? "Edit AGM" : "Add AGM"}
                         </h2>
 
-                        {/* Form with loading state */}
                         <form
                           onSubmit={async (e) => {
                             e.preventDefault();
                             setIsSubmitting(true);
 
-                            const payload = { title, subtitle, content };
-
                             try {
+                              const formData = new FormData();
+                              formData.append("title", title);
+                              formData.append("subtitle", subtitle);
+                              formData.append("content", content);
+                              if (imageFile) {
+                                formData.append("image", imageFile); // important!
+                              }
+
                               if (editingAgm) {
+                                // PUT with multipart/form-data (some setups may require `methodOverride`)
                                 await axios.put(
                                   `${baseURL}/agm/${editingAgm._id}`,
-                                  payload
+                                  formData,
+                                  {
+                                    headers: {
+                                      "Content-Type": "multipart/form-data",
+                                    },
+                                  }
                                 );
                               } else {
-                                await axios.post(`${baseURL}/agm`, payload);
+                                // POST for new record
+                                await axios.post(`${baseURL}/agm`, formData, {
+                                  headers: {
+                                    "Content-Type": "multipart/form-data",
+                                  },
+                                });
                               }
+
                               setShowAgmModal(false);
                               setEditingAgm(null);
                               fetchAgms();
@@ -1872,6 +1905,23 @@ export default function AdminPage() {
                             onChange={setContent}
                             className="bg-white text-black mb-4"
                           />
+
+                          <input
+                            type="file"
+                            accept="image/*"
+                            className="mb-3"
+                            onChange={(e) =>
+                              setImageFile(e.target.files?.[0] || null)
+                            }
+                          />
+
+                          {existingImageUrl && !imageFile && (
+                            <img
+                              src={existingImageUrl}
+                              alt="Current"
+                              className="mb-3 w-32 h-auto rounded border"
+                            />
+                          )}
 
                           <div className="flex justify-end gap-2 mt-4">
                             <button

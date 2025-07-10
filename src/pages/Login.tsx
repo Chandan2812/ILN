@@ -51,7 +51,7 @@ const Login = () => {
         setMessage(data.error || "Login failed.");
       } else {
         localStorage.setItem("user", JSON.stringify(data.user));
-        navigate("/");
+        navigate("/directory");
         window.location.reload();
       }
     } catch (err) {
