@@ -30,7 +30,13 @@ const Directory = () => {
   const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
 
   useEffect(() => {
-    axios.get(`${baseURL}/api/members/approvedMembers`).then((res) => {
+    const userData = localStorage.getItem("user");
+    if (!userData) return;
+
+    const { email } = JSON.parse(userData);
+    if (!email) return;
+
+    axios.get(`${baseURL}/api/members/approvedMembers/${email}`).then((res) => {
       setMembers(res.data);
       setFiltered(res.data);
     });
@@ -107,7 +113,7 @@ const Directory = () => {
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 py-10">
+      <div className="w-11/12 md:w-5/6 mx-auto px-4 py-10">
         {/* Filters */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
           {/* Verticals */}

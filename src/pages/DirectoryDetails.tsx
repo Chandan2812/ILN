@@ -6,6 +6,16 @@ import axios from "axios";
 
 const baseURL = import.meta.env.VITE_API_BASE_URL;
 
+interface KeyMember {
+  _id: string;
+  name: string;
+  image: string;
+  phone: string;
+  email: string;
+  role: string;
+  description: string;
+}
+
 interface Member {
   _id: string;
   companyName: string;
@@ -26,12 +36,14 @@ interface Member {
   contactName: string;
   designation: string;
   logoUrl: string;
+  keyMembers?: KeyMember[];
 }
 
-const MemberDetails = () => {
+const DirectoryDetails = () => {
   const { id } = useParams();
   const [member, setMember] = useState<Member | null>(null);
   const [loading, setLoading] = useState(true);
+  const [selectedMember, setSelectedMember] = useState<KeyMember | null>(null);
 
   useEffect(() => {
     axios.get(`${baseURL}/api/members/${id}`).then((res) => {
@@ -47,7 +59,7 @@ const MemberDetails = () => {
     <div className="bg-white dark:bg-[var(--secondary-color)] text-black dark:text-white min-h-screen">
       <Navbar />
 
-      <div className="max-w-6xl mx-auto px-4 py-12">
+      <div className="w-11/12 md:w-5/6 mx-auto px-4 py-12">
         {/* Top Section */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start mb-12">
           {/* Logo */}
@@ -134,11 +146,87 @@ const MemberDetails = () => {
             </p>
           </div>
         )}
+
+        {member.keyMembers && member.keyMembers.length > 0 && (
+          <div className="mb-12">
+            <h2 className="text-2xl font-semibold mb-4">Key Members</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+              {member.keyMembers.map((km, index) => (
+                <div
+                  key={index}
+                  onClick={() => setSelectedMember(km)}
+                  className="bg-white dark:bg-[var(--bg-color1)] rounded-xl shadow p-4 flex flex-col items-center text-center cursor-pointer"
+                >
+                  <div className="w-24 h-24 rounded-full overflow-hidden mb-3 border">
+                    {km.image ? (
+                      <img
+                        src={km.image}
+                        alt={km.name}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <span className="text-sm text-gray-400">No Image</span>
+                    )}
+                  </div>
+                  <h3 className="text-lg font-semibold">{km.name}</h3>
+                  <p className="text-sm text-gray-500 dark:text-gray-300 mb-1">
+                    {km.role}
+                  </p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">
+                    {km.email}
+                  </p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">
+                    {km.phone}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
+      {selectedMember && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center px-4">
+          <div className="bg-white dark:bg-[var(--bg-color1)] text-black dark:text-white p-6 rounded-lg w-full max-w-md relative">
+            <button
+              onClick={() => setSelectedMember(null)}
+              className="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-xl"
+            >
+              &times;
+            </button>
+
+            <div className="flex flex-col items-center text-center space-y-3">
+              <div className="w-24 h-24 rounded-full overflow-hidden border">
+                {selectedMember.image ? (
+                  <img
+                    src={selectedMember.image}
+                    alt={selectedMember.name}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <span className="text-sm text-gray-400">No Image</span>
+                )}
+              </div>
+              <h3 className="text-xl font-semibold">{selectedMember.name}</h3>
+              <p className="text-sm text-gray-500 dark:text-gray-300">
+                {selectedMember.role}
+              </p>
+              <p className="text-xs text-gray-600 dark:text-gray-400">
+                📧 {selectedMember.email}
+              </p>
+              <p className="text-xs text-gray-600 dark:text-gray-400">
+                📞 {selectedMember.phone}
+              </p>
+              <p className="text-sm mt-2 text-gray-700 dark:text-gray-300 whitespace-pre-line">
+                {selectedMember.description || "No description provided."}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
 
       <Footer />
     </div>
   );
 };
 
-export default MemberDetails;
+export default DirectoryDetails;

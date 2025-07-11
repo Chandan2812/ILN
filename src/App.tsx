@@ -26,7 +26,8 @@ import ScrollToTopButton from "./components/ScrollToTop";
 import NewsletterForm from "./pages/Newsletter";
 import Emailer from "./pages/Emailer";
 import Directory from "./pages/Directory";
-import MemberDetails from "./pages/MemberDetails";
+import Profile from "./pages/Profile";
+import DirectoryDetails from "./pages/DirectoryDetails";
 
 function App() {
   const [showForm, setShowForm] = useState(false);
@@ -46,7 +47,8 @@ function App() {
         <Route path="/admin" element={<AdminLogin />} />
         <Route path="/agm" element={<Agm />} />
         <Route path="/directory" element={<Directory />} />
-        <Route path="/member/:id" element={<MemberDetails />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/member/:id" element={<DirectoryDetails />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/newsletter" element={<NewsletterForm />} />
         <Route path="/emailer" element={<Emailer />} />

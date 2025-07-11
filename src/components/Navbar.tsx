@@ -35,7 +35,9 @@ export default function Navbar() {
   const [user, setUser] = useState<{
     name: string;
     email: string;
+    companyName: string;
     memberId: string;
+    logo: string;
   } | null>(null);
 
   useEffect(() => {
@@ -143,20 +145,27 @@ export default function Navbar() {
           </button>
           {user ? (
             <div className="relative group">
-              <div className="w-10 h-10 rounded-full bg-[var(--primary-color)] text-white flex items-center justify-center font-bold text-lg cursor-pointer">
-                {user.name?.charAt(0).toUpperCase() ||
-                  user.email.charAt(0).toUpperCase()}
+              <div className="w-10 h-10 rounded-full border p-1 text-white flex items-center justify-center font-bold text-lg cursor-pointer">
+                <img src={user.logo} alt={user.companyName} />
               </div>
               {/* Hover logout menu */}
               <div className="absolute hidden group-hover:flex flex-col top-10 left-0 bg-white dark:bg-black text-[var(--secondary-color)] dark:text-white shadow-lg rounded w-36 z-50">
                 <p className="px-4 py-2 text-sm border-b border-gray-200 dark:border-white/20">
-                  {user.name || user.email.split("@")[0]}
+                  {user.companyName || user.email.split("@")[0]}
                   {user.memberId && (
                     <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">
                       Member ID: {user.memberId}
                     </div>
                   )}
                 </p>
+
+                {/* Profile */}
+                <button
+                  onClick={() => (window.location.href = "/profile")}
+                  className="px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-white/10 text-left"
+                >
+                  Profile
+                </button>
 
                 <button
                   onClick={() => {
@@ -239,7 +248,13 @@ export default function Navbar() {
                 {user && (
                   <div className="mb-4">
                     <p className="text-lg font-semibold text-[var(--primary-color)] dark:text-white">
-                      Hi, {user.name?.split(" ")[0] || user.email.split("@")[0]}
+                      <img
+                        src={user.logo}
+                        alt={user.companyName}
+                        className="w-24"
+                      />
+                      {user.companyName?.split(" ")[0] ||
+                        user.email.split("@")[0]}
                     </p>
                     {user.memberId && (
                       <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
@@ -256,7 +271,7 @@ export default function Navbar() {
                   "Newsfeed",
                   "Blogs",
                   "Contact",
-                  ...(user ? ["Directory", "AGM"] : []), // Conditionally add AGM
+                  ...(user ? ["Directory", "AGM", "Profile"] : []), // Conditionally add AGM
                 ].map((item) => (
                   <a
                     key={item}
