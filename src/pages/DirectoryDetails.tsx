@@ -99,6 +99,12 @@ const DirectoryDetails = () => {
             <p>
               <strong>Email:</strong> {member.email}
             </p>
+
+            <p>
+              <strong>Name:</strong> {member.contactName}
+              {member.designation && ` (${member.designation})`}
+            </p>
+
             {member.website && (
               <p>
                 <strong>Website:</strong>{" "}
