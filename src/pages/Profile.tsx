@@ -10,6 +10,7 @@ import {
   Layers,
   Globe,
   Building,
+  User,
 } from "lucide-react";
 import { FaLocationDot } from "react-icons/fa6";
 
@@ -44,6 +45,7 @@ interface Member {
   businessVerticals: string;
   companyProfile?: string;
   keyMembers?: KeyMember[]; // ← Add this
+  designation?: string;
 }
 
 function Profile() {
@@ -113,7 +115,7 @@ function Profile() {
 
       <div className="w-11/12 md:w-4/5 mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold mb-8 text-center md:text-left">
-          My Company Profile
+          Company Profile
         </h1>
 
         {loading ? (
@@ -175,6 +177,13 @@ function Profile() {
                 <p className="flex items-center gap-2">
                   <Phone size={18} className="text-green-600" />
                   <span>{member.telephone}</span>
+                </p>
+                <p className="flex items-center gap-2">
+                  <User size={18} className="text-purple-600" />
+                  <span>
+                    {member.contactName}
+                    {member.designation && ` (${member.designation})`}
+                  </span>
                 </p>
 
                 <p className="flex items-center gap-2">
