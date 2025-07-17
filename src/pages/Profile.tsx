@@ -13,6 +13,7 @@ import {
   User,
 } from "lucide-react";
 import { FaLocationDot } from "react-icons/fa6";
+import { Disclosure } from "@headlessui/react";
 
 const baseURL = import.meta.env.VITE_API_BASE_URL;
 
@@ -222,7 +223,6 @@ function Profile() {
                 </p>
               </div>
             </div>
-
             {/* Company Profile */}
             {member.companyProfile && (
               <div>
@@ -246,7 +246,6 @@ function Profile() {
                 </p>
               </div>
             )}
-
             {/* Business Verticals */}
             <div>
               <div className="flex items-center justify-between mb-2">
@@ -284,9 +283,9 @@ function Profile() {
                 })()}
               </div>
             </div>
-
+            // ...inside your component
             {member.keyMembers && member.keyMembers.length > 0 && (
-              <div>
+              <div className="mb-12">
                 <h3 className="text-xl font-semibold mb-4 flex justify-between items-center">
                   Key Members
                   <button
@@ -296,7 +295,51 @@ function Profile() {
                     ✏️
                   </button>
                 </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+
+                {/* Mobile view - collapsible */}
+                <div className="md:hidden space-y-4">
+                  {member.keyMembers.map((km, index) => (
+                    <Disclosure key={index}>
+                      {({ open }: { open: boolean }) => (
+                        <div className="border dark:border-white/10 rounded-lg overflow-hidden">
+                          <Disclosure.Button className="w-full text-left px-4 py-3 bg-white dark:bg-[var(--bg-color1)] font-medium flex justify-between items-center">
+                            <span>{km.name}</span>
+                            <span>{open ? "▲" : "▼"}</span>
+                          </Disclosure.Button>
+                          <Disclosure.Panel className="px-4 pb-4 pt-2 text-sm bg-white dark:bg-[var(--bg-color1)]">
+                            <div className="flex flex-col items-center text-center">
+                              <div className="w-24 h-24 rounded-full overflow-hidden mb-3 border">
+                                {km.image ? (
+                                  <img
+                                    src={km.image}
+                                    alt={km.name}
+                                    className="w-full h-full object-cover"
+                                  />
+                                ) : (
+                                  <span className="text-sm text-gray-400">
+                                    No Image
+                                  </span>
+                                )}
+                              </div>
+                              <p className="text-sm text-gray-500 dark:text-gray-300">
+                                {km.role}
+                              </p>
+                              <p className="text-xs text-gray-600 dark:text-gray-400">
+                                {km.email}
+                              </p>
+                              <p className="text-xs text-gray-600 dark:text-gray-400">
+                                {km.phone}
+                              </p>
+                            </div>
+                          </Disclosure.Panel>
+                        </div>
+                      )}
+                    </Disclosure>
+                  ))}
+                </div>
+
+                {/* Desktop view - grid */}
+                <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                   {member.keyMembers.map((km, index) => (
                     <div
                       key={index}
@@ -638,7 +681,7 @@ function Profile() {
                   className="border rounded-lg p-4 space-y-2 bg-gray-50 dark:bg-white/5"
                 >
                   {/* Name & Role */}
-                  <div className="flex gap-4">
+                  <div className="flex flex-col md:flex-row  gap-4">
                     <input
                       type="text"
                       value={km.name}
@@ -664,7 +707,7 @@ function Profile() {
                   </div>
 
                   {/* Email & Phone */}
-                  <div className="flex gap-4">
+                  <div className="flex flex-col md:flex-row gap-4">
                     <input
                       type="email"
                       value={km.email}
@@ -703,7 +746,7 @@ function Profile() {
                   />
 
                   {/* Image Upload */}
-                  <div className="flex items-center justify-between gap-4">
+                  <div className="flex flex-col md:flex-row md:justify-between  gap-4">
                     <input
                       type="file"
                       accept="image/*"

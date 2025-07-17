@@ -101,7 +101,7 @@ const Insights = () => {
         <Slider {...settings}>
           {blogs.map((item, i) => (
             <div key={item._id || i}>
-              <div className="border border-gray-300 dark:border-gray-600 flex flex-col lg:flex-row w-full h-[400px] overflow-hidden bg-white dark:bg-black">
+              <div className="border border-gray-300 dark:border-gray-600 flex flex-col lg:flex-row w-full h-[450px] md:h-[350px] overflow-hidden bg-white dark:bg-black">
                 <img
                   src={item.coverImage}
                   alt={item.title}
@@ -109,7 +109,9 @@ const Insights = () => {
                   draggable={false}
                 />
                 <div className="p-8 flex flex-col justify-center w-full h-full bg-[var(--bg-color2)] dark:bg-[var(--bg-color1)] overflow-hidden">
-                  <h3 className="text-2xl font-thin">{item.title}</h3>
+                  <h3 className="text-2xl font-thin line-clamp-2">
+                    {item.title}
+                  </h3>
                   <p className="mt-4 text-gray-700 dark:text-gray-300">
                     {new Date(item.datePublished).toLocaleDateString()}
                   </p>

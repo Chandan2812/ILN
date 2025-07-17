@@ -155,7 +155,72 @@ const DirectoryDetails = () => {
         {member.keyMembers && member.keyMembers.length > 0 && (
           <div className="mb-12">
             <h2 className="text-2xl font-semibold mb-4">Key Members</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+
+            {/* Mobile View: Accordion Style */}
+            <div className="md:hidden">
+              {member.keyMembers.map((km, index) => (
+                <div
+                  key={index}
+                  className="mb-4 border rounded-lg overflow-hidden"
+                >
+                  <button
+                    onClick={() =>
+                      setSelectedMember((prev) =>
+                        prev?.email === km.email ? null : km
+                      )
+                    }
+                    className="w-full flex items-center justify-between px-4 py-2 bg-white dark:bg-[var(--bg-color1)] text-left text-base font-medium text-gray-700 dark:text-white focus:outline-none"
+                  >
+                    <span>{km.name}</span>
+                    <svg
+                      className={`w-5 h-5 transform transition-transform duration-200 ${
+                        selectedMember?.email === km.email ? "rotate-180" : ""
+                      }`}
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </button>
+                  {selectedMember?.email === km.email && (
+                    <div className="p-4 bg-gray-50 dark:bg-[var(--bg-color2)] text-sm">
+                      <div className="w-20 h-20 rounded-full overflow-hidden mb-3 mx-auto border">
+                        {km.image ? (
+                          <img
+                            src={km.image}
+                            alt={km.name}
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <span className="text-sm text-gray-400">
+                            No Image
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-sm font-semibold text-center">
+                        {km.role}
+                      </p>
+                      <p className="text-xs text-center text-gray-600 dark:text-gray-300">
+                        {km.email}
+                      </p>
+                      <p className="text-xs text-center text-gray-600 dark:text-gray-300">
+                        {km.phone}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            {/* Desktop View: Grid */}
+            <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
               {member.keyMembers.map((km, index) => (
                 <div
                   key={index}

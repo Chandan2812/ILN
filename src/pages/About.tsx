@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import img1 from "../assets/ILN_logo-01.png";
-import img2 from "../assets/Untitled design (13).png";
+// import img2 from "../assets/Untitled design (13).png";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import JoinFormPopup from "../components/JoinForm";
@@ -180,7 +180,7 @@ const AboutPage: React.FC = () => {
           </div>
 
           {/* Section 2: Founder */}
-          <div className=" p-10 rounded-xl shadow-xl">
+          {/* <div className=" p-10 rounded-xl shadow-xl">
             <div className="grid md:grid-cols-2 gap-10 items-start">
               <div>
                 <img
@@ -219,7 +219,7 @@ const AboutPage: React.FC = () => {
                 </p>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </section>
 
