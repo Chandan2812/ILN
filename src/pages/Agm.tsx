@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import hero from "../assets/agm.jpeg";
 
 const baseURL = import.meta.env.VITE_API_BASE_URL;
 
@@ -60,6 +61,10 @@ const Agm: React.FC = () => {
   return (
     <div className="bg-white dark:bg-black">
       <Navbar />
+      {/* Hero */}
+      <div className="relative  object-contain w-full overflow-hidden">
+        <img src={hero} alt="Hero" className="w-full h-full object-cover" />
+      </div>
       <div className="w-11/12 md:w-5/6 mx-auto px-4 py-10">
         <h1 className="text-center text-3xl font-bold text-[var(--primary-color)] mb-2">
           {agm.title}
