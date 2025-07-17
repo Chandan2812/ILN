@@ -15,6 +15,7 @@ import logo from "../assets/ILN Logo v2.png";
 import { useLocation } from "react-router-dom";
 import JoinFormPopup from "./JoinForm";
 import { SiX } from "react-icons/si";
+import LanguageSelector from "./LanguageSelector";
 
 declare global {
   interface Window {
@@ -92,8 +93,36 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 w-full font-['PT_Serif'] transition-colors bg-white text-[var(--secondary-color)] dark:bg-[var(--secondary-color)] dark:text-white">
+      {/* Mini Navbar */}
+
+      <div className=" bg-gray-100 dark:bg-gray-900 text-sm text-gray-600 dark:text-gray-300 py-2 px-4 ">
+        <div className="w-11/12 mx-auto flex justify-end items-center gap-6">
+          <div className="notranslate">
+            <LanguageSelector />
+          </div>
+
+          <a
+            href="https://instagram.com/yourprofile"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-pink-500 transition-colors text-xl"
+          >
+            <FaInstagram />
+          </a>
+
+          <a
+            href="https://linkedin.com/in/yourprofile"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-blue-600 transition-colors text-xl"
+          >
+            <FaLinkedin />
+          </a>
+        </div>
+      </div>
+
       {/* Main Navbar */}
-      <div className="w-11/12 mx-auto flex justify-between items-center md:px-5 py-2">
+      <div className="w-11/12 mx-auto flex justify-between items-center md:px-5">
         {/* Logo */}
         <div className="flex items-center gap-2">
           <a href="/">
@@ -400,10 +429,8 @@ export default function Navbar() {
         </div>
       )}
 
-      {/* <div
-        id="google_translate_element"
-        className="fixed  right-[95px] top-11 translate-x-0 md:right-[220px] md:top-[45px] md:-translate-x-1/2"
-      /> */}
+      <div id="google_translate_element" className="hidden" />
+
       <JoinFormPopup isOpen={showForm} onClose={() => setShowForm(false)} />
     </header>
   );
