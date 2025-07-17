@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import hero from "../assets/verticals/logistics-team.jpg";
+import hero from "../assets/Company Directory Banner.png";
 import axios from "axios";
 import Select from "react-select";
 import { Country, State } from "country-state-city";
@@ -15,9 +15,10 @@ interface Member {
   country: string;
   state: string;
   logoUrl: string;
+  memberId: string;
 }
 
-const ITEMS_PER_PAGE = 6;
+const ITEMS_PER_PAGE = 12;
 
 const Directory = () => {
   const [members, setMembers] = useState<Member[]>([]);
@@ -104,7 +105,7 @@ const Directory = () => {
       <Navbar />
 
       {/* Hero */}
-      <div className="relative h-full md:h-[90vh] object-contain w-full overflow-hidden">
+      <div className="relative  object-contain w-full overflow-hidden">
         <img src={hero} alt="Hero" className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
           <h1 className="text-4xl md:text-6xl font-light text-white drop-shadow-lg">
@@ -231,9 +232,12 @@ const Directory = () => {
                     No Logo
                   </div>
                 )}
-                <h2 className="text-lg font-semibold text-gray-800 dark:text-white">
-                  {member.companyName}
-                </h2>
+                <div>
+                  <h2 className="text-lg font-semibold text-gray-800 dark:text-white">
+                    {member.companyName}
+                  </h2>
+                  <p>Member Id: {member.memberId}</p>
+                </div>
               </div>
 
               <div className="p-4 flex flex-col justify-between h-full flex-1">

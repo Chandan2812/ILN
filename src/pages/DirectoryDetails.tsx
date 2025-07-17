@@ -22,6 +22,7 @@ interface Member {
   legalStructure: string;
   establishmentDate: string;
   building: string;
+  memberId: string;
   street: string;
   area: string;
   landmark: string;
@@ -80,6 +81,9 @@ const DirectoryDetails = () => {
           {/* Info */}
           <div className="md:col-span-2 space-y-3 text-sm">
             <h1 className="text-3xl font-bold">{member.companyName}</h1>
+            <p>
+              <strong>Member Id:</strong> {member.memberId}
+            </p>
 
             <div>
               <strong>Address:</strong>
@@ -98,11 +102,6 @@ const DirectoryDetails = () => {
             </p>
             <p>
               <strong>Email:</strong> {member.email}
-            </p>
-
-            <p>
-              <strong>Name:</strong> {member.contactName}
-              {member.designation && ` (${member.designation})`}
             </p>
 
             {member.website && (

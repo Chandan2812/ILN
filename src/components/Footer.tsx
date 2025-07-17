@@ -3,13 +3,12 @@ import footerBg from "../assets/truck.jpg";
 import logo from "../assets/ILN-logo_c089e4b10fad01a7ab60f4da7afc45c2.png";
 import {
   FaInstagram,
-  FaFacebook,
   FaLinkedin,
   FaEnvelope,
   FaLocationDot,
 } from "react-icons/fa6";
 import { HiPaperAirplane } from "react-icons/hi";
-import { SiX } from "react-icons/si";
+
 import axios from "axios";
 const baseURL = import.meta.env.VITE_API_BASE_URL;
 
@@ -147,51 +146,48 @@ const Footer: React.FC = () => {
           {/* Logo & Info */}
           <div className="col-span-2 md:col-span-1">
             <div className="mb-4">
-              <img src={logo} alt="Logo" className="w-36" />
-            </div>
-            <div className="space-y-2 text-white">
-              <a
-                href="mailto:info@integratedlognet.com"
-                className="flex items-center hover:text-[var(--primary-color)] transition-colors"
-              >
-                <FaEnvelope className="mr-2 text-lg text-[var(--primary-color)]" />
-                info@integratedlognet.com
-              </a>
-              <div className="flex items-start">
-                <FaLocationDot className="mr-2 text-lg text-[var(--primary-color)]" />
-                <p>
-                  Unit 1112, 11/F, Wing On Plaza 62, Mody Road,
-                  <br />
-                  Tsim Sha Tsui East, Kowloon, Hong Kong
-                </p>
-              </div>
+              <img src={logo} alt="Logo" className="w-60" />
             </div>
           </div>
 
           {/* Footer Links */}
+
           <div>
-            <h3 className="font-bold text-xl mb-3">Contact Us</h3>
+            <h3 className="font-bold text-xl mb-3">Quick Links</h3>
             <ul className="space-y-2 text-gray-200">
-              <li>Get In Touch</li>
-              <li>FAQ Page</li>
-              <li>Global Network</li>
+              <li>
+                <a href="/contact">Get In Touch</a>
+              </li>
+              <li>Privacy Policy</li>
+              <li>Terms & Conditions</li>
             </ul>
           </div>
           <div>
             <h3 className="font-bold text-xl mb-3">Services</h3>
             <ul className="space-y-2 text-gray-200">
-              <li>Our Services</li>
-              <li>What We Do</li>
               <li>Track & Trace</li>
-              <li>Brokerage Terms</li>
+              <li>Incoterms</li>
+              <li>
+                <a href="/membership">Membership Verticals</a>
+              </li>
             </ul>
           </div>
-          <div>
-            <h3 className="font-bold text-xl mb-3">Quick Links</h3>
-            <ul className="space-y-2 text-gray-200">
-              <li>Privacy Policy</li>
-              <li>Terms & Conditions</li>
-            </ul>
+          <div className="space-y-2 text-white">
+            <a
+              href="mailto:info@integratedlognet.com"
+              className="flex items-center hover:text-[var(--primary-color)] transition-colors"
+            >
+              <FaEnvelope className="mr-2 text-lg text-[var(--primary-color)]" />
+              info@integratedlognet.com
+            </a>
+            <div className="flex items-start">
+              <FaLocationDot className="mr-2 text-lg text-[var(--primary-color)]" />
+              <p>
+                Unit 1112, 11/F, Wing On Plaza 62, Mody Road,
+                <br />
+                Tsim Sha Tsui East, Kowloon, Hong Kong
+              </p>
+            </div>
           </div>
         </div>
 
@@ -201,7 +197,7 @@ const Footer: React.FC = () => {
             © 2025 Integrated Logistics Network All rights reserved
           </p>
           <div className="flex gap-4 mb-8">
-            {[FaFacebook, SiX, FaLinkedin, FaInstagram].map((Icon, idx) => (
+            {[FaLinkedin, FaInstagram].map((Icon, idx) => (
               <Icon
                 key={idx}
                 className="dark:text-white text-[var(--primary-color)] text-3xl cursor-pointer dark:hover:text-[var(--primary-color)]"

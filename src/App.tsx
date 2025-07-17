@@ -19,6 +19,7 @@ import { Phone } from "lucide-react";
 import JoinFormPopup from "./components/JoinForm";
 import { useState } from "react";
 import { FaUserPlus } from "react-icons/fa";
+import CookieConsent from "react-cookie-consent";
 
 // 👇 Add this import
 // import ProtectedAdminRoute from "./components/ProtectedAdminRoute";
@@ -78,6 +79,38 @@ function App() {
       <JoinFormPopup isOpen={showForm} onClose={() => setShowForm(false)} />
       <OfferPopup />
       <ScrollToTopButton />
+      {/* Cookie Consent Banner */}
+      <CookieConsent
+        location="bottom"
+        buttonText="Accept"
+        declineButtonText="Deny"
+        enableDeclineButton
+        cookieName="mySiteCookieConsent"
+        style={{ background: "#2B373B" }}
+        buttonStyle={{
+          background: "#4CAF50",
+          color: "#fff",
+          padding: "8px 16px",
+        }}
+        declineButtonStyle={{
+          background: "#f44336",
+          color: "#fff",
+          padding: "8px 16px",
+        }}
+        expires={150}
+        onAccept={() => {
+          console.log("User accepted cookies");
+        }}
+        onDecline={() => {
+          console.log("User declined cookies");
+        }}
+      >
+        We use cookies to enhance your browsing experience. Read our{" "}
+        <a href="#" style={{ color: "#61dafb" }}>
+          Privacy Policy
+        </a>
+        .
+      </CookieConsent>
     </Router>
   );
 }

@@ -32,6 +32,7 @@ interface Member {
   companyName: string;
   contactName: string;
   email: string;
+  memberId: string;
   website?: string;
   establishmentDate?: string;
   telephone: string;
@@ -169,6 +170,10 @@ function Profile() {
                     ✏️
                   </button>
                 </div>
+                <p className="flex items-center gap-2">
+                  <User size={18} className="text-purple-600" />
+                  <span>Member Id: {member.memberId}</span>
+                </p>
 
                 <p className="flex items-center gap-2">
                   <Mail size={18} className="text-red-500" />
@@ -177,13 +182,6 @@ function Profile() {
                 <p className="flex items-center gap-2">
                   <Phone size={18} className="text-green-600" />
                   <span>{member.telephone}</span>
-                </p>
-                <p className="flex items-center gap-2">
-                  <User size={18} className="text-purple-600" />
-                  <span>
-                    {member.contactName}
-                    {member.designation && ` (${member.designation})`}
-                  </span>
                 </p>
 
                 <p className="flex items-center gap-2">
@@ -755,27 +753,29 @@ function Profile() {
             </div>
 
             {/* Add new member */}
-            <button
-              className="mt-4 text-sm text-green-600 underline"
-              onClick={() => {
-                const tempId = `temp-${Date.now()}`;
-                setKeyMembersData([
-                  ...keyMembersData,
-                  {
-                    _id: tempId,
-                    name: "",
-                    email: "",
-                    phone: "",
-                    role: "",
-                    description: "",
-                    image: "",
-                  },
-                ]);
-                setMemberImages([...memberImages, null]);
-              }}
-            >
-              ➕ Add Member
-            </button>
+            {keyMembersData.length < 6 && (
+              <button
+                className="mt-4 text-sm text-green-600 underline"
+                onClick={() => {
+                  const tempId = `temp-${Date.now()}`;
+                  setKeyMembersData([
+                    ...keyMembersData,
+                    {
+                      _id: tempId,
+                      name: "",
+                      email: "",
+                      phone: "",
+                      role: "",
+                      description: "",
+                      image: "",
+                    },
+                  ]);
+                  setMemberImages([...memberImages, null]);
+                }}
+              >
+                ➕ Add Member
+              </button>
+            )}
 
             {/* Save */}
             <div className="flex justify-end gap-4 mt-6">
