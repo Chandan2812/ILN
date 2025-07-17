@@ -46,7 +46,7 @@ export default function Navbar() {
     if (storedUser) {
       try {
         setUser(JSON.parse(storedUser));
-        console.log(user);
+        // console.log(user);
       } catch (err) {
         console.error("Failed to parse user:", err);
       }
@@ -95,29 +95,40 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 w-full font-['PT_Serif'] transition-colors bg-white text-[var(--secondary-color)] dark:bg-[var(--secondary-color)] dark:text-white">
       {/* Mini Navbar */}
 
-      <div className=" bg-gray-100 dark:bg-gray-900 text-sm text-gray-600 dark:text-gray-300 py-2 px-4 ">
-        <div className="w-11/12 mx-auto flex justify-end items-center gap-6">
-          <div className="notranslate">
-            <LanguageSelector />
+      <div className=" bg-gray-100 dark:bg-gray-900 text-sm text-gray-600 dark:text-gray-300 py-2 ">
+        <div className="w-11/12 mx-auto flex justify-end md:justify-between items-center gap-6 md:px-5">
+          <div className="hidden md:flex items-center gap-2">
+            <FaEnvelope className="text-lg" />
+            <a
+              href="mailto:info@integratedlognet.com"
+              className="hover:underline"
+            >
+              info@integratedlognet.com
+            </a>
           </div>
+          <div className="flex gap-5">
+            <div className="notranslate">
+              <LanguageSelector />
+            </div>
 
-          <a
-            href="https://instagram.com/yourprofile"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-pink-500 transition-colors text-xl"
-          >
-            <FaInstagram />
-          </a>
+            <a
+              href="https://instagram.com/yourprofile"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-pink-500 transition-colors text-xl"
+            >
+              <FaInstagram />
+            </a>
 
-          <a
-            href="https://linkedin.com/in/yourprofile"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-blue-600 transition-colors text-xl"
-          >
-            <FaLinkedin />
-          </a>
+            <a
+              href="https://linkedin.com/in/yourprofile"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-blue-600 transition-colors text-xl"
+            >
+              <FaLinkedin />
+            </a>
+          </div>
         </div>
       </div>
 
