@@ -283,7 +283,6 @@ function Profile() {
                 })()}
               </div>
             </div>
-            // ...inside your component
             {member.keyMembers && member.keyMembers.length > 0 && (
               <div className="mb-12">
                 <h3 className="text-xl font-semibold mb-4 flex justify-between items-center">
