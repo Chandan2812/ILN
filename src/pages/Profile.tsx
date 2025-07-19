@@ -283,95 +283,109 @@ function Profile() {
                 })()}
               </div>
             </div>
-            {member.keyMembers && member.keyMembers.length > 0 && (
-              <div className="mb-12">
-                <h3 className="text-xl font-semibold mb-4 flex justify-between items-center">
-                  Key Members
+            <div className="mb-12">
+              <h3 className="text-xl font-semibold mb-4 flex justify-between items-center">
+                Key Members
+                <div className="flex gap-2">
                   <button
                     className="text-sm text-blue-600"
                     onClick={() => setShowEditMembers(true)}
                   >
-                    ✏️
+                    ✏️ Edit
                   </button>
-                </h3>
+                  <button
+                    className="text-sm text-green-600"
+                    onClick={() => setShowEditMembers(true)}
+                  >
+                    ➕ Add
+                  </button>
+                </div>
+              </h3>
 
-                {/* Mobile view - collapsible */}
-                <div className="md:hidden space-y-4">
-                  {member.keyMembers.map((km, index) => (
-                    <Disclosure key={index}>
-                      {({ open }: { open: boolean }) => (
-                        <div className="border dark:border-white/10 rounded-lg overflow-hidden">
-                          <Disclosure.Button className="w-full text-left px-4 py-3 bg-white dark:bg-[var(--bg-color1)] font-medium flex justify-between items-center">
-                            <span>{km.name}</span>
-                            <span>{open ? "▲" : "▼"}</span>
-                          </Disclosure.Button>
-                          <Disclosure.Panel className="px-4 pb-4 pt-2 text-sm bg-white dark:bg-[var(--bg-color1)]">
-                            <div className="flex flex-col items-center text-center">
-                              <div className="w-24 h-24 rounded-full overflow-hidden mb-3 border">
-                                {km.image ? (
-                                  <img
-                                    src={km.image}
-                                    alt={km.name}
-                                    className="w-full h-full object-cover"
-                                  />
-                                ) : (
-                                  <span className="text-sm text-gray-400">
-                                    No Image
-                                  </span>
-                                )}
+              {!member.keyMembers || member.keyMembers.length === 0 ? (
+                <p className="text-gray-500 dark:text-gray-400 text-sm italic">
+                  No members added yet.
+                </p>
+              ) : (
+                <>
+                  {/* Mobile view - collapsible */}
+                  <div className="md:hidden space-y-4">
+                    {member.keyMembers.map((km, index) => (
+                      <Disclosure key={index}>
+                        {({ open }: { open: boolean }) => (
+                          <div className="border dark:border-white/10 rounded-lg overflow-hidden">
+                            <Disclosure.Button className="w-full text-left px-4 py-3 bg-white dark:bg-[var(--bg-color1)] font-medium flex justify-between items-center">
+                              <span>{km.name}</span>
+                              <span>{open ? "▲" : "▼"}</span>
+                            </Disclosure.Button>
+                            <Disclosure.Panel className="px-4 pb-4 pt-2 text-sm bg-white dark:bg-[var(--bg-color1)]">
+                              <div className="flex flex-col items-center text-center">
+                                <div className="w-24 h-24 rounded-full overflow-hidden mb-3 border">
+                                  {km.image ? (
+                                    <img
+                                      src={km.image}
+                                      alt={km.name}
+                                      className="w-full h-full object-cover"
+                                    />
+                                  ) : (
+                                    <span className="text-sm text-gray-400">
+                                      No Image
+                                    </span>
+                                  )}
+                                </div>
+                                <p className="text-sm text-gray-500 dark:text-gray-300">
+                                  {km.role}
+                                </p>
+                                <p className="text-xs text-gray-600 dark:text-gray-400">
+                                  {km.email}
+                                </p>
+                                <p className="text-xs text-gray-600 dark:text-gray-400">
+                                  {km.phone}
+                                </p>
                               </div>
-                              <p className="text-sm text-gray-500 dark:text-gray-300">
-                                {km.role}
-                              </p>
-                              <p className="text-xs text-gray-600 dark:text-gray-400">
-                                {km.email}
-                              </p>
-                              <p className="text-xs text-gray-600 dark:text-gray-400">
-                                {km.phone}
-                              </p>
-                            </div>
-                          </Disclosure.Panel>
-                        </div>
-                      )}
-                    </Disclosure>
-                  ))}
-                </div>
-
-                {/* Desktop view - grid */}
-                <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                  {member.keyMembers.map((km, index) => (
-                    <div
-                      key={index}
-                      className="bg-white dark:bg-[var(--bg-color1)] border dark:border-white/10 rounded-xl shadow p-4 flex flex-col items-center text-center"
-                    >
-                      <div className="w-24 h-24 rounded-full overflow-hidden mb-3 border">
-                        {km.image ? (
-                          <img
-                            src={km.image}
-                            alt={km.name}
-                            className="w-full h-full object-cover"
-                          />
-                        ) : (
-                          <span className="text-sm text-gray-400">
-                            No Image
-                          </span>
+                            </Disclosure.Panel>
+                          </div>
                         )}
+                      </Disclosure>
+                    ))}
+                  </div>
+
+                  {/* Desktop view - grid */}
+                  <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                    {member.keyMembers.map((km, index) => (
+                      <div
+                        key={index}
+                        className="bg-white dark:bg-[var(--bg-color1)] border dark:border-white/10 rounded-xl shadow p-4 flex flex-col items-center text-center"
+                      >
+                        <div className="w-24 h-24 rounded-full overflow-hidden mb-3 border">
+                          {km.image ? (
+                            <img
+                              src={km.image}
+                              alt={km.name}
+                              className="w-full h-full object-cover"
+                            />
+                          ) : (
+                            <span className="text-sm text-gray-400">
+                              No Image
+                            </span>
+                          )}
+                        </div>
+                        <h4 className="text-lg font-semibold">{km.name}</h4>
+                        <p className="text-sm text-gray-500 dark:text-gray-300">
+                          {km.role}
+                        </p>
+                        <p className="text-xs text-gray-600 dark:text-gray-400">
+                          {km.email}
+                        </p>
+                        <p className="text-xs text-gray-600 dark:text-gray-400">
+                          {km.phone}
+                        </p>
                       </div>
-                      <h4 className="text-lg font-semibold">{km.name}</h4>
-                      <p className="text-sm text-gray-500 dark:text-gray-300">
-                        {km.role}
-                      </p>
-                      <p className="text-xs text-gray-600 dark:text-gray-400">
-                        {km.email}
-                      </p>
-                      <p className="text-xs text-gray-600 dark:text-gray-400">
-                        {km.phone}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
           </div>
         ) : (
           <p>No profile data found.</p>
