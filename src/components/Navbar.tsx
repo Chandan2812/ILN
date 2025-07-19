@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import {
   FaMapMarkerAlt,
-  FaFacebook,
   FaLinkedin,
   FaInstagram,
   FaEnvelope,
@@ -14,7 +13,7 @@ import { IoClose } from "react-icons/io5";
 import logo from "../assets/ILN Logo v2.png";
 import { useLocation } from "react-router-dom";
 import JoinFormPopup from "./JoinForm";
-import { SiX } from "react-icons/si";
+// import { SiX } from "react-icons/si";
 import LanguageSelector from "./LanguageSelector";
 
 declare global {
@@ -388,14 +387,12 @@ export default function Navbar() {
                     We Are Social:
                   </h3>
                   <div className="flex gap-4 mb-8">
-                    {[FaFacebook, SiX, FaLinkedin, FaInstagram].map(
-                      (Icon, idx) => (
-                        <Icon
-                          key={idx}
-                          className="dark:text-white text-[var(--primary-color)] text-3xl cursor-pointer dark:hover:text-[var(--primary-color)]"
-                        />
-                      )
-                    )}
+                    {[FaLinkedin, FaInstagram].map((Icon, idx) => (
+                      <Icon
+                        key={idx}
+                        className="dark:text-white text-[var(--primary-color)] text-3xl cursor-pointer dark:hover:text-[var(--primary-color)]"
+                      />
+                    ))}
                   </div>
                 </div>
 

@@ -183,9 +183,9 @@ const Footer: React.FC = () => {
             <div className="flex items-start">
               <FaLocationDot className="mr-2 text-lg text-[var(--primary-color)]" />
               <p>
-                Unit 1112, 11/F, Wing On Plaza 62, Mody Road,
+                Unit 1112, 11/F, Wing On Plaza <br /> 62, Mody Road,
                 <br />
-                Tsim Sha Tsui East, Kowloon, Hong Kong
+                Tsim Sha Tsui East, Kowloon <br /> Hong Kong
               </p>
             </div>
           </div>

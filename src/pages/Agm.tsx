@@ -73,7 +73,7 @@ const Agm: React.FC = () => {
           {agm.subtitle}
         </p>
 
-        {agm.image && (
+        {/* {agm.image && (
           <div className="flex justify-center mb-6">
             <img
               src={agm.image}
@@ -81,9 +81,9 @@ const Agm: React.FC = () => {
               className="max-h-[400px] w-auto rounded-lg shadow-lg"
             />
           </div>
-        )}
+        )} */}
 
-        <div className="prose prose-lg max-w-none dark:prose-invert prose-headings:my-2 prose-p:my-2 prose-li:my-1">
+        <div className="prose prose-lg max-w-none dark:prose-invert prose-headings:my-2 prose-p:my-2 prose-li:my-1 mt-6">
           <div dangerouslySetInnerHTML={{ __html: agm.content }} />
         </div>
       </div>

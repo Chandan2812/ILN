@@ -15,7 +15,7 @@ import OfferPopup from "./components/OfferPopup";
 import Agm from "./pages/Agm";
 import ForgotPassword from "./components/ForgotPassword";
 import AdminLogin from "./pages/AdminLogin";
-import { Phone } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 import JoinFormPopup from "./components/JoinForm";
 import { useState } from "react";
 import { FaUserPlus } from "react-icons/fa";
@@ -61,12 +61,13 @@ function App() {
       {/* Mobile Floating Buttons */}
       <div className="fixed bottom-0 left-0 w-full z-50 flex md:hidden">
         <a
-          href="tel:+91123456789"
+          href="mailto:info@integratedlognet.com"
           className="w-1/2 bg-[var(--primary-color)] text-white text-center py-4 font-semibold flex items-center justify-center gap-2"
         >
-          <Phone size={20} />
-          Call Me
+          <Mail size={20} />
+          Email Us
         </a>
+
         <button
           onClick={() => setShowForm(true)}
           className="w-1/2 bg-[var(--secondary-color)] text-white text-center py-4 font-semibold flex items-center justify-center gap-2"
