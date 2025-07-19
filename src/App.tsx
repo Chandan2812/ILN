@@ -15,7 +15,7 @@ import OfferPopup from "./components/OfferPopup";
 import Agm from "./pages/Agm";
 import ForgotPassword from "./components/ForgotPassword";
 import AdminLogin from "./pages/AdminLogin";
-import { Mail, Phone } from "lucide-react";
+import { Mail } from "lucide-react";
 import JoinFormPopup from "./components/JoinForm";
 import { useState } from "react";
 import { FaUserPlus } from "react-icons/fa";
