@@ -291,13 +291,7 @@ function Profile() {
                     className="text-sm text-blue-600"
                     onClick={() => setShowEditMembers(true)}
                   >
-                    ✏️ Edit
-                  </button>
-                  <button
-                    className="text-sm text-green-600"
-                    onClick={() => setShowEditMembers(true)}
-                  >
-                    ➕ Add
+                    ✏️
                   </button>
                 </div>
               </h3>

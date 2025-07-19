@@ -153,8 +153,20 @@ const Footer: React.FC = () => {
           {/* Footer Links */}
 
           <div>
+            {/* <h3 className="font-bold text-xl mb-3">Services</h3>
+            <ul className="space-y-2 text-gray-200">
+              <li>Track & Trace</li>
+              <li>Incoterms</li>
+              
+            </ul> */}
+          </div>
+
+          <div>
             <h3 className="font-bold text-xl mb-3">Quick Links</h3>
             <ul className="space-y-2 text-gray-200">
+              <li>
+                <a href="/membership">Membership Verticals</a>
+              </li>
               <li>
                 <a href="/contact">Get In Touch</a>
               </li>
@@ -162,16 +174,7 @@ const Footer: React.FC = () => {
               <li>Terms & Conditions</li>
             </ul>
           </div>
-          <div>
-            <h3 className="font-bold text-xl mb-3">Services</h3>
-            <ul className="space-y-2 text-gray-200">
-              <li>Track & Trace</li>
-              <li>Incoterms</li>
-              <li>
-                <a href="/membership">Membership Verticals</a>
-              </li>
-            </ul>
-          </div>
+
           <div className="space-y-2 text-white">
             <a
               href="mailto:info@integratedlognet.com"
