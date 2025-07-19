@@ -142,7 +142,7 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Footer Main Grid */}
-        <div className="grid md:grid-cols-4 grid-cols-2 gap-10 text-sm">
+        <div className="grid md:grid-cols-4 grid-cols-2 gap-10 text-sm items-center">
           {/* Logo & Info */}
           <div className="col-span-2 md:col-span-1">
             <div className="mb-4">
