@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import footerBg from "../assets/truck.jpg";
-import logo from "../assets/ILN_logo-01.png";
+import logo from "../assets/iln logo (1).png";
 import {
   FaInstagram,
   FaLinkedin,
@@ -146,7 +146,7 @@ const Footer: React.FC = () => {
           {/* Logo & Info */}
           <div className="col-span-2 md:col-span-1">
             <div className="mb-4">
-              <img src={logo} alt="Logo" className="w-60 invert" />
+              <img src={logo} alt="Logo" className="w-60 " />
             </div>
           </div>
 
