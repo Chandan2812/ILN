@@ -15,6 +15,7 @@ import { useLocation } from "react-router-dom";
 import JoinFormPopup from "./JoinForm";
 // import { SiX } from "react-icons/si";
 import LanguageSelector from "./LanguageSelector";
+import { BadgeCheck, LogOut, User } from "lucide-react";
 
 declare global {
   interface Window {
@@ -192,7 +193,8 @@ export default function Navbar() {
                 <p className="px-4 py-2 text-sm border-b border-gray-200 dark:border-white/20">
                   {user.companyName || user.email.split("@")[0]}
                   {user.memberId && (
-                    <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                    <div className="mt-1 text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1">
+                      <BadgeCheck className="w-4 h-4" />
                       Member ID: {user.memberId}
                     </div>
                   )}
@@ -201,18 +203,21 @@ export default function Navbar() {
                 {/* Profile */}
                 <button
                   onClick={() => (window.location.href = "/profile")}
-                  className="px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-white/10 text-left"
+                  className="px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-white/10 text-left border-b border-gray-200 dark:border-white/20 flex items-center gap-2"
                 >
+                  <User className="w-4 h-4" />
                   Profile
                 </button>
 
+                {/* Logout */}
                 <button
                   onClick={() => {
                     localStorage.removeItem("user");
                     window.location.href = "/";
                   }}
-                  className="px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-white/10 flex items-center justify-between"
+                  className="px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-white/10 flex items-center gap-2"
                 >
+                  <LogOut className="w-4 h-4" />
                   Logout
                 </button>
               </div>
