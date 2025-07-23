@@ -53,7 +53,8 @@ const LanguageSelector = () => {
       <option value="fr">French</option>
       <option value="de">German</option>
       <option value="hi">Hindi</option>
-      <option value="zh-CN">Chinese</option>
+      <option value="zh-CN">Chinese (Simplified)</option>
+      <option value="zh-TW">Chinese (Traditional)</option>
       <option value="ja">Japanese</option>
       <option value="es">Spanish</option>
       <option value="it">Italian</option>
@@ -68,6 +69,25 @@ const LanguageSelector = () => {
       <option value="gu">Gujarati</option>
       <option value="pa">Punjabi</option>
       <option value="nl">Dutch</option>
+      <option value="pl">Polish</option>
+      <option value="uk">Ukrainian</option>
+      <option value="fa">Persian (Farsi)</option>
+      <option value="vi">Vietnamese</option>
+      <option value="th">Thai</option>
+      <option value="sw">Swahili</option>
+      <option value="ro">Romanian</option>
+      <option value="cs">Czech</option>
+      <option value="sv">Swedish</option>
+      <option value="no">Norwegian</option>
+      <option value="fi">Finnish</option>
+      <option value="el">Greek</option>
+      <option value="he">Hebrew</option>
+      <option value="id">Indonesian</option>
+      <option value="ms">Malay</option>
+      <option value="ur">Urdu</option>
+      <option value="am">Amharic</option>
+      <option value="ha">Hausa</option>
+      <option value="my">Burmese</option>
     </select>
   );
 };

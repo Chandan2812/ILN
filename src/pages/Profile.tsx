@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { FaLocationDot } from "react-icons/fa6";
 import { Disclosure } from "@headlessui/react";
+import defaultImage from "../assets/default user.png";
 
 const baseURL = import.meta.env.VITE_API_BASE_URL;
 
@@ -250,7 +251,7 @@ function Profile() {
             <div>
               <div className="flex items-center justify-between mb-2">
                 <h3 className="text-xl font-semibold flex items-center gap-2">
-                  <Layers size={20} /> Business Verticals
+                  <Layers size={20} /> Specialized Verticals
                 </h3>
                 <button
                   className="text-sm text-blue-600 "
@@ -349,21 +350,29 @@ function Profile() {
                     {member.keyMembers.map((km, index) => (
                       <div
                         key={index}
-                        className="bg-white dark:bg-[var(--bg-color1)] border dark:border-white/10 rounded-xl shadow p-4 flex flex-col items-center text-center"
+                        className="relative bg-white dark:bg-[var(--bg-color1)] border dark:border-white/10 rounded-xl shadow p-4 flex flex-col items-center text-center"
                       >
-                        <div className="w-24 h-24 rounded-full overflow-hidden mb-3 border">
-                          {km.image ? (
-                            <img
-                              src={km.image}
-                              alt={km.name}
-                              className="w-full h-full object-cover"
-                            />
-                          ) : (
-                            <span className="text-sm text-gray-400">
-                              No Image
-                            </span>
-                          )}
+                        {/* Flag for primary member */}
+                        {index === 0 && (
+                          <div
+                            className="absolute top-2 right-2 text-red-500 text-lg"
+                            title="Primary Member"
+                          >
+                            🚩
+                          </div>
+                        )}
+                        {/* Image on the left */}
+                        <div className="w-24 h-24 rounded-full overflow-hidden border shrink-0">
+                          <img
+                            src={km.image || defaultImage}
+                            alt={km.name}
+                            className="w-full h-full object-cover"
+                            onError={(e) =>
+                              (e.currentTarget.src = defaultImage)
+                            }
+                          />
                         </div>
+
                         <h4 className="text-lg font-semibold">{km.name}</h4>
                         <p className="text-sm text-gray-500 dark:text-gray-300">
                           {km.role}

@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import axios from "axios";
+import defaultImage from "../assets/default user.png";
 
 const baseURL = import.meta.env.VITE_API_BASE_URL;
 
@@ -125,135 +126,91 @@ const DirectoryDetails = () => {
           </div>
         </div>
 
-        {/* Verticals */}
-        <div className="mb-10">
-          <h2 className="text-2xl font-semibold mb-3">Specialized Verticals</h2>
-          <div className="flex flex-wrap gap-2 text-sm">
-            {JSON.parse(member.businessVerticals).map(
-              (v: string, i: number) => (
-                <span
-                  key={i}
-                  className="bg-blue-100 dark:bg-[var(--bg-color1)] text-blue-800 dark:text-blue-100 px-3 py-1 rounded-full"
-                >
-                  {v}
-                </span>
-              )
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
+          {/* LEFT SIDE */}
+          <div className="md:col-span-2 space-y-10">
+            {/* Verticals */}
+            <div>
+              <h2 className="text-2xl font-semibold mb-3">
+                Specialized Verticals
+              </h2>
+              <div className="flex flex-wrap gap-2 text-sm">
+                {JSON.parse(member.businessVerticals).map(
+                  (v: string, i: number) => (
+                    <span
+                      key={i}
+                      className="bg-blue-100 dark:bg-[var(--bg-color1)] text-blue-800 dark:text-blue-100 px-3 py-1 rounded-full"
+                    >
+                      {v}
+                    </span>
+                  )
+                )}
+              </div>
+            </div>
+
+            {/* Profile */}
+            {member.companyProfile && (
+              <div>
+                <h2 className="text-2xl font-semibold mb-3">Company Profile</h2>
+                <p className="text-sm text-gray-800 dark:text-gray-200 whitespace-pre-line">
+                  {member.companyProfile}
+                </p>
+              </div>
             )}
           </div>
-        </div>
 
-        {/* Profile */}
-        {member.companyProfile && (
-          <div className="mb-10">
-            <h2 className="text-2xl font-semibold mb-3">Company Profile</h2>
-            <p className="text-sm text-gray-800 dark:text-gray-200 whitespace-pre-line">
-              {member.companyProfile}
-            </p>
-          </div>
-        )}
-
-        {member.keyMembers && member.keyMembers.length > 0 && (
-          <div className="mb-12">
-            <h2 className="text-2xl font-semibold mb-4">Key Members</h2>
-
-            {/* Mobile View: Accordion Style */}
-            <div className="md:hidden">
-              {member.keyMembers.map((km, index) => (
-                <div
-                  key={index}
-                  className="mb-4 border rounded-lg overflow-hidden"
-                >
-                  <button
-                    onClick={() =>
-                      setSelectedMember((prev) =>
-                        prev?.email === km.email ? null : km
-                      )
-                    }
-                    className="w-full flex items-center justify-between px-4 py-2 bg-white dark:bg-[var(--bg-color1)] text-left text-base font-medium text-gray-700 dark:text-white focus:outline-none"
+          {/* RIGHT SIDE */}
+          {member.keyMembers && member.keyMembers.length > 0 && (
+            <div>
+              <h2 className="text-2xl font-semibold mb-4">Key Members</h2>
+              <div className="grid grid-cols-1 gap-4">
+                {member.keyMembers.map((km, index) => (
+                  <div
+                    key={index}
+                    onClick={() => setSelectedMember(km)}
+                    className="relative bg-white dark:bg-[var(--bg-color1)] rounded-xl shadow p-4 flex items-center cursor-pointer gap-4"
                   >
-                    <span>{km.name}</span>
-                    <svg
-                      className={`w-5 h-5 transform transition-transform duration-200 ${
-                        selectedMember?.email === km.email ? "rotate-180" : ""
-                      }`}
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M19 9l-7 7-7-7"
-                      />
-                    </svg>
-                  </button>
-                  {selectedMember?.email === km.email && (
-                    <div className="p-4 bg-gray-50 dark:bg-[var(--bg-color2)] text-sm">
-                      <div className="w-20 h-20 rounded-full overflow-hidden mb-3 mx-auto border">
-                        {km.image ? (
-                          <img
-                            src={km.image}
-                            alt={km.name}
-                            className="w-full h-full object-cover"
-                          />
-                        ) : (
-                          <span className="text-sm text-gray-400">
-                            No Image
-                          </span>
-                        )}
+                    {/* Flag for primary member */}
+                    {index === 0 && (
+                      <div
+                        className="absolute top-2 right-2 text-red-500 text-lg"
+                        title="Primary Member"
+                      >
+                        🚩
                       </div>
-                      <p className="text-sm font-semibold text-center">
-                        {km.role}
-                      </p>
-                      <p className="text-xs text-center text-gray-600 dark:text-gray-300">
-                        {km.email}
-                      </p>
-                      <p className="text-xs text-center text-gray-600 dark:text-gray-300">
-                        {km.phone}
-                      </p>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
+                    )}
 
-            {/* Desktop View: Grid */}
-            <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-              {member.keyMembers.map((km, index) => (
-                <div
-                  key={index}
-                  onClick={() => setSelectedMember(km)}
-                  className="bg-white dark:bg-[var(--bg-color1)] rounded-xl shadow p-4 flex flex-col items-center text-center cursor-pointer"
-                >
-                  <div className="w-24 h-24 rounded-full overflow-hidden mb-3 border">
-                    {km.image ? (
+                    {/* Image on the left */}
+                    <div className="w-24 h-24 rounded-full overflow-hidden border shrink-0">
                       <img
-                        src={km.image}
+                        src={km.image || defaultImage}
                         alt={km.name}
                         className="w-full h-full object-cover"
+                        onError={(e) => (e.currentTarget.src = defaultImage)}
                       />
-                    ) : (
-                      <span className="text-sm text-gray-400">No Image</span>
-                    )}
+                    </div>
+
+                    {/* Info on the right */}
+                    <div className="flex-1">
+                      <h3 className="text-lg font-semibold">{km.name}</h3>
+                      <p className="text-sm text-gray-500 dark:text-gray-300 mb-1">
+                        {km.role}
+                      </p>
+                      <p className="text-xs text-gray-600 dark:text-gray-400">
+                        📧 {km.email}
+                      </p>
+                      <p className="text-xs text-gray-600 dark:text-gray-400">
+                        📞 {km.phone}
+                      </p>
+                    </div>
                   </div>
-                  <h3 className="text-lg font-semibold">{km.name}</h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-300 mb-1">
-                    {km.role}
-                  </p>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">
-                    {km.email}
-                  </p>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">
-                    {km.phone}
-                  </p>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
+
       {selectedMember && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center px-4">
           <div className="bg-white dark:bg-[var(--bg-color1)] text-black dark:text-white p-6 rounded-lg w-full max-w-md relative">
@@ -276,7 +233,14 @@ const DirectoryDetails = () => {
                   <span className="text-sm text-gray-400">No Image</span>
                 )}
               </div>
-              <h3 className="text-xl font-semibold">{selectedMember.name}</h3>
+              <h3 className="text-xl font-semibold flex items-center gap-1">
+                {selectedMember.name}
+                {member.keyMembers?.[0]?.email === selectedMember.email && (
+                  <span title="Primary Member" className="text-yellow-500">
+                    ⭐
+                  </span>
+                )}
+              </h3>
               <p className="text-sm text-gray-500 dark:text-gray-300">
                 {selectedMember.role}
               </p>

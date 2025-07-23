@@ -29,6 +29,7 @@ import Emailer from "./pages/Emailer";
 import Directory from "./pages/Directory";
 import Profile from "./pages/Profile";
 import DirectoryDetails from "./pages/DirectoryDetails";
+import JoinFormPage from "./components/JoinFormPage";
 
 function App() {
   const [showForm, setShowForm] = useState(false);
@@ -38,6 +39,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/membership" element={<MembershipVerticals />} />
+        <Route path="/become-a-member" element={<JoinFormPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/About" element={<AboutPage />} />
         <Route path="/Signup" element={<Signup />} />

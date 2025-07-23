@@ -142,11 +142,54 @@ export default function Navbar() {
         </div>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex gap-6 text-md">
+        <nav className="hidden md:flex gap-6 text-md items-center relative">
+          {/* Links before Membership */}
           {[
             { label: "Home", path: "/" },
             { label: "About", path: "/About" },
-            { label: "Membership", path: "/membership" },
+          ].map((link) => (
+            <a
+              key={link.label}
+              href={link.path}
+              className={`${
+                location.pathname === link.path
+                  ? "text-[var(--primary-color)]"
+                  : "text-inherit"
+              }`}
+            >
+              {link.label}
+            </a>
+          ))}
+
+          {/* Membership Dropdown */}
+          <div className="relative group">
+            <span
+              className={`cursor-pointer ${
+                location.pathname.startsWith("/membership")
+                  ? "text-[var(--primary-color)]"
+                  : "text-inherit"
+              }`}
+            >
+              Membership ▾
+            </span>
+            <div className="absolute hidden group-hover:flex flex-col bg-white text-black shadow-lg rounded w-44 z-10">
+              <a
+                href="/membership"
+                className="px-4 py-2 hover:bg-gray-100 border-b border-gray-200"
+              >
+                Membership
+              </a>
+              <a
+                href="/become-a-member"
+                className="px-4 py-2 hover:bg-gray-100"
+              >
+                Expression of Interest
+              </a>
+            </div>
+          </div>
+
+          {/* Remaining Links */}
+          {[
             { label: "Newsfeed", path: "/newsfeed" },
             { label: "Blogs", path: "/blogs" },
             { label: "Contact", path: "/contact" },

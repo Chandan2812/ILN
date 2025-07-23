@@ -1,6 +1,6 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import bannerImg from "../assets/verticals/supply-chain.webp";
+import bannerImg from "../assets/Membership Banner.png";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {

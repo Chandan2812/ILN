@@ -7,7 +7,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import JoinFormPopup from "../components/JoinForm";
 import { FaSearch, FaLock, FaCalendarAlt, FaBookOpen } from "react-icons/fa";
-import hero from "../assets/verticals/about.jpg";
+import hero from "../assets/About Us Banner.png";
 
 const keyFeatures = [
   {

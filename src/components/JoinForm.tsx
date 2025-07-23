@@ -99,6 +99,8 @@ const JoinFormPopup: React.FC<JoinFormPopupProps> = ({ isOpen, onClose }) => {
     companyProfile: "",
     contactName: "",
     designation: "",
+    primaryContactEmail: "",
+    primaryContactPhone: "",
     website: "",
   });
   const [loading, setLoading] = useState(false);
@@ -119,9 +121,10 @@ const JoinFormPopup: React.FC<JoinFormPopupProps> = ({ isOpen, onClose }) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    // Prevent alphabets in telephone field
-    if (name === "telephone") {
-      const filteredValue = value.replace(/[A-Za-z]/g, ""); // remove letters
+    // Allow only numbers in phone fields
+    const phoneFields = ["telephone", "primaryContactPhone"];
+    if (phoneFields.includes(name)) {
+      const filteredValue = value.replace(/[^\d]/g, ""); // remove anything that's not a digit
       setFormData((prev) => ({ ...prev, [name]: filteredValue }));
     } else {
       setFormData((prev) => ({ ...prev, [name]: value }));
@@ -178,6 +181,8 @@ const JoinFormPopup: React.FC<JoinFormPopupProps> = ({ isOpen, onClose }) => {
           email: "",
           companyProfile: "",
           contactName: "",
+          primaryContactEmail: "",
+          primaryContactPhone: "",
           designation: "",
           website: "",
         });
@@ -286,6 +291,23 @@ const JoinFormPopup: React.FC<JoinFormPopupProps> = ({ isOpen, onClose }) => {
                 onChange={handleChange}
               />
             </section>
+            <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <InputField
+                label="Telephone *"
+                name="telephone"
+                value={formData.telephone}
+                onChange={handleChange}
+                required
+              />
+              <InputField
+                label="Email *"
+                name="email"
+                type="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </section>
 
             <fieldset className="border border-gray-300 dark:border-gray-700 rounded-xl p-6">
               <legend className="px-2 text-lg font-semibold text-gray-800 dark:text-gray-200">
@@ -341,26 +363,8 @@ const JoinFormPopup: React.FC<JoinFormPopupProps> = ({ isOpen, onClose }) => {
               </div>
             </fieldset>
 
-            <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <InputField
-                label="Telephone *"
-                name="telephone"
-                value={formData.telephone}
-                onChange={handleChange}
-                required
-              />
-              <InputField
-                label="Email *"
-                name="email"
-                type="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-            </section>
-
             <MultiSelectField
-              label="Business Verticals * (Note: Select only those that apply)"
+              label="Specialized Verticals * (Note: Select only those that apply)"
               options={businessOptions}
               selected={verticals}
               setSelected={setVerticals}
@@ -375,22 +379,42 @@ const JoinFormPopup: React.FC<JoinFormPopupProps> = ({ isOpen, onClose }) => {
               required
             />
 
-            <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <InputField
-                label="Name *"
-                name="contactName"
-                value={formData.contactName}
-                onChange={handleChange}
-                required
-              />
-              <InputField
-                label="Designation *"
-                name="designation"
-                value={formData.designation}
-                onChange={handleChange}
-                required
-              />
-            </section>
+            <fieldset className="border border-gray-300 dark:border-gray-700 rounded-xl p-6">
+              <legend className="px-2 text-lg font-semibold text-gray-800 dark:text-gray-200">
+                Primary Member
+              </legend>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+                <InputField
+                  label="Name *"
+                  name="contactName"
+                  value={formData.contactName}
+                  onChange={handleChange}
+                  required
+                />
+
+                <InputField
+                  label="Phone No *"
+                  name="primaryContactPhone"
+                  value={formData.primaryContactPhone}
+                  onChange={handleChange}
+                  required
+                />
+
+                <InputField
+                  label="Email"
+                  name="primaryContactEmail"
+                  value={formData.primaryContactEmail}
+                  onChange={handleChange}
+                />
+                <InputField
+                  label="Designation *"
+                  name="designation"
+                  value={formData.designation}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </fieldset>
 
             <div className="flex flex-col gap-1">
               <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
