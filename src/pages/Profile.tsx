@@ -11,6 +11,7 @@ import {
   Globe,
   Building,
   User,
+  Crown,
 } from "lucide-react";
 import { FaLocationDot } from "react-icons/fa6";
 import { Disclosure } from "@headlessui/react";
@@ -355,10 +356,10 @@ function Profile() {
                         {/* Flag for primary member */}
                         {index === 0 && (
                           <div
-                            className="absolute top-2 right-2 text-red-500 text-lg"
+                            className="absolute top-2 right-2 bg-yellow-100 dark:bg-yellow-800 text-yellow-600 dark:text-white text-xs font-semibold px-2 py-1 rounded-full shadow-sm flex items-center gap-1"
                             title="Primary Member"
                           >
-                            🚩
+                            <Crown className="w-6 h-6" />
                           </div>
                         )}
                         {/* Image on the left */}

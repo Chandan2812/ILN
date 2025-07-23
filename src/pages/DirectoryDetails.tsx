@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import axios from "axios";
 import defaultImage from "../assets/default user.png";
+import { Crown } from "lucide-react";
 
 const baseURL = import.meta.env.VITE_API_BASE_URL;
 
@@ -173,10 +174,10 @@ const DirectoryDetails = () => {
                     {/* Flag for primary member */}
                     {index === 0 && (
                       <div
-                        className="absolute top-2 right-2 text-red-500 text-lg"
+                        className="absolute top-2 right-2 bg-yellow-100 dark:bg-yellow-800 text-yellow-600 dark:text-white text-xs font-semibold px-2 py-1 rounded-full shadow-sm flex items-center gap-1"
                         title="Primary Member"
                       >
-                        🚩
+                        <Crown className="w-6 h-6" />
                       </div>
                     )}
 
@@ -196,12 +197,17 @@ const DirectoryDetails = () => {
                       <p className="text-sm text-gray-500 dark:text-gray-300 mb-1">
                         {km.role}
                       </p>
-                      <p className="text-xs text-gray-600 dark:text-gray-400">
-                        📧 {km.email}
-                      </p>
-                      <p className="text-xs text-gray-600 dark:text-gray-400">
-                        📞 {km.phone}
-                      </p>
+                      {km.email && (
+                        <p className="text-xs text-gray-600 dark:text-gray-400">
+                          📧 {km.email}
+                        </p>
+                      )}
+
+                      {km.phone && (
+                        <p className="text-xs text-gray-600 dark:text-gray-400">
+                          📞 {km.phone}
+                        </p>
+                      )}
                     </div>
                   </div>
                 ))}
@@ -222,24 +228,16 @@ const DirectoryDetails = () => {
             </button>
 
             <div className="flex flex-col items-center text-center space-y-3">
-              <div className="w-24 h-24 rounded-full overflow-hidden border">
-                {selectedMember.image ? (
-                  <img
-                    src={selectedMember.image}
-                    alt={selectedMember.name}
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <span className="text-sm text-gray-400">No Image</span>
-                )}
+              <div className="w-24 h-24 rounded-full overflow-hidden border shrink-0">
+                <img
+                  src={selectedMember.image || defaultImage}
+                  alt={selectedMember.name}
+                  className="w-full h-full object-cover"
+                  onError={(e) => (e.currentTarget.src = defaultImage)}
+                />
               </div>
               <h3 className="text-xl font-semibold flex items-center gap-1">
                 {selectedMember.name}
-                {member.keyMembers?.[0]?.email === selectedMember.email && (
-                  <span title="Primary Member" className="text-yellow-500">
-                    ⭐
-                  </span>
-                )}
               </h3>
               <p className="text-sm text-gray-500 dark:text-gray-300">
                 {selectedMember.role}
