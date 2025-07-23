@@ -457,7 +457,7 @@ const MembershipVerticals = () => {
                 onClick={() => setShowForm(true)}
                 className="bg-[var(--primary-color)] text-white px-8 py-3 rounded-tl-2xl rounded-br-2xl font-semibold transition hover:opacity-90"
               >
-                Join the Network
+                Join the ILN Community
               </button>
             </div>
           )}
@@ -721,7 +721,7 @@ const MembershipVerticals = () => {
                 onClick={() => setShowForm(true)}
                 className="bg-[var(--primary-color)] text-white px-8 py-3 rounded-tl-2xl rounded-br-2xl font-semibold transition hover:opacity-90"
               >
-                Join the Network
+                Join the ILN Community
               </button>
             </div>
           )}
