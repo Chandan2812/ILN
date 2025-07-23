@@ -88,6 +88,11 @@ const LanguageSelector = () => {
       <option value="am">Amharic</option>
       <option value="ha">Hausa</option>
       <option value="my">Burmese</option>
+      <option value="ig">Igbo</option>
+      <option value="om">Oromo</option>
+      <option value="so">Somali</option>
+      <option value="yo">Yoruba</option>
+      <option value="ff">Fulani</option>
     </select>
   );
 };
