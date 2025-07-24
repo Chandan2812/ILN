@@ -55,7 +55,7 @@ const AboutPage: React.FC = () => {
       <Navbar />
       <section className="text-[#111] dark:text-white font-raleway bg-[--bg-color2] dark:bg-[--bg-color1]">
         {/* Hero Section */}
-        <div className="relative h-full md:h-[400px] object-cover w-full overflow-hidden">
+        <div className="relative h-full w-full overflow-hidden">
           <img src={hero} alt="About Hero" className="w-full h-full " />
           <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
             <h1 className="text-4xl md:text-6xl font-light text-white drop-shadow-lg">

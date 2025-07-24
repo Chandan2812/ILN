@@ -252,7 +252,7 @@ const MembershipVerticals = () => {
     <div className="bg-white dark:bg-[var(--secondary-color)] text-[var(--secondary-color)] dark:text-white transition-colors duration-300">
       <Navbar />
 
-      <div className="relative h-full md:h-[400px] object-cover w-full overflow-hidden">
+      <div className="relative h-full w-full overflow-hidden">
         <img src={bannerImg} alt="About Hero" className="w-full h-full " />
         <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
           <h1 className="text-4xl md:text-6xl font-light text-white drop-shadow-lg">
