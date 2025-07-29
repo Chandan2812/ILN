@@ -199,6 +199,16 @@ const Footer: React.FC = () => {
           <p className="text-gray-300 mb-4 sm:mb-0">
             © 2025 Integrated Logistics Network All rights reserved
           </p>
+
+          <a
+            href="https://www.bigwigdigital.in/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className=" text-[var(--primary-color)] px-4 uppercase text-sm tracking-widest text-center transition-colors  "
+          >
+            Design & Marketed with ❤️ by Bigwig Digital
+          </a>
+
           <div className="flex gap-4 mb-8">
             {[FaLinkedin, FaInstagram].map((Icon, idx) => (
               <Icon
