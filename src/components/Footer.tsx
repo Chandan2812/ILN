@@ -170,8 +170,12 @@ const Footer: React.FC = () => {
               <li>
                 <a href="/contact">Get In Touch</a>
               </li>
-              <li>Privacy Policy</li>
-              <li>Terms & Conditions</li>
+              <li>
+                <a href="/privacy-policy">Privacy Policy</a>
+              </li>
+              <li>
+                <a href="/terms-conditions">Terms & Conditions</a>
+              </li>
             </ul>
           </div>
 

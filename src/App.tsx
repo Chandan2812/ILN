@@ -30,6 +30,8 @@ import Directory from "./pages/Directory";
 import Profile from "./pages/Profile";
 import DirectoryDetails from "./pages/DirectoryDetails";
 import JoinFormPage from "./components/JoinFormPage";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsConditions from "./pages/TermsConditions";
 
 function App() {
   const [showForm, setShowForm] = useState(false);
@@ -55,7 +57,8 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/newsletter" element={<NewsletterForm />} />
         <Route path="/emailer" element={<Emailer />} />
-
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms-conditions" element={<TermsConditions />} />
         {/* 🔒 Protected Route for Admin Page */}
         <Route path="/adminPage" element={<AdminPage />} />
       </Routes>
