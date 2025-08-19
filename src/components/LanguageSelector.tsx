@@ -46,7 +46,7 @@ const LanguageSelector = () => {
       defaultValue=""
     >
       <option value="" disabled>
-        Language
+        Select Language
       </option>
       <option value="en">English</option>
       <option value="ar">Arabic</option>
