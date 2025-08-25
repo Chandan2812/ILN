@@ -210,7 +210,7 @@ const Footer: React.FC = () => {
             rel="noopener noreferrer"
             className=" text-[var(--primary-color)] px-4 uppercase text-sm tracking-widest text-center transition-colors  "
           >
-            Made & Marketed with ❤️ by Bigwig Digital
+            Made & Marketed by Bigwig Digital
           </a>
 
           <div className="flex gap-4 mb-8">
